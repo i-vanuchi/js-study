@@ -1,8 +1,8 @@
-let country = 'Brazil';
-let continent = 'South America';
+const country = 'Brazil';
+const continent = 'South America';
 let population = 212.4;
-let isIsland = false;
-let language;
+const isIsland = false;
+const language = 'Portuguese';
 
 console.log(country);
 console.log(continent);
