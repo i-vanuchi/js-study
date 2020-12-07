@@ -9,3 +9,17 @@ console.log(continent);
 console.log(population);
 console.log(isIsland);
 console.log(language);
+
+let half = population / 2;
+console.log(half);
+
+population++;
+console.log(population);
+population--;
+
+console.log(population > 6);
+console.log(population > 33);
+
+const description = country + ' is in ' + continent + ', and its ' + population + ' million people speak ' + language;
+
+console.log(description);
