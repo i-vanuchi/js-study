@@ -25,3 +25,9 @@ console.log(population > 33);
 const description = `${country} is in ${continent} and its ${population} million people speaks ${language}.`;
 
 console.log(description);
+
+if (population > 33) {
+    console.log(`${country}'s population is above average.`);
+} else {
+    console.log(`${country}'s population is ${33 - population} below average.`)
+}
