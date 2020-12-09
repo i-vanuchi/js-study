@@ -1,3 +1,9 @@
+
+// Use o código do Challenge #1
+
+// Mostre um output no console, dizendo quem tem o maior IMC. Use o Template Literal para incluir os valores dos IMCs no output.
+
+
 // mass / height ** 2;
 // mass / (height * height);
 

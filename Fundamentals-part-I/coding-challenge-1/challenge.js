@@ -1,5 +1,16 @@
-// mass / height ** 2;
-// mass / (height * height);
+/* 
+
+    Mark e John estão tentando comparar seus índices de massa corporal (IMC, ou BMI - Body Mass Index), do qual é calculado usando a seguinte formula:
+
+    mass / height ** 2;
+    ou
+    mass / (height * height);
+
+    1. Armazene o peso e altura de Mark e de John em variáveis.
+    2. Calcule seus IMCs usando a fórmula.
+    3. Crie uma variável booleana "markHigherBMI" contendo a informação sobre se Mark tem um IMC maior do que o de John.
+
+*/
 
 let heightMark, massMark;
 let heightJohn, massJohn;
