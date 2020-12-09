@@ -4,12 +4,6 @@
 // const isIsland = false;
 // const language = 'Portuguese';
 
-// console.log(country);
-// console.log(continent);
-// console.log(population);
-// console.log(isIsland);
-// console.log(language);
-
 // let half = population / 2;
 // console.log(half);
 
@@ -44,12 +38,25 @@
 
 // Lecture: Equality Operators - Assignment 8
 
-const numNeighbours = Number(prompt("How many neughbour countries does your country have?"));
+// const numNeighbours = Number(prompt("How many neughbour countries does your country have?"));
 
-if (numNeighbours === 1) {
-    console.log("Only one border!");
-} else if (numNeighbours > 1) {
-    console.log("More than 1 border!");
+// if (numNeighbours === 1) {
+//     console.log("Only one border!");
+// } else if (numNeighbours > 1) {
+//     console.log("More than 1 border!");
+// } else {
+//     console.log("No borders!");
+// }
+
+// Lecture: Logical Operators - Assignment 9
+
+const country = 'Brazil';
+let population = 38;
+const isIsland = false;
+const language = 'English';
+
+if (language === 'English' && population < 50 && !isIsland) {
+    console.log("You should live in Brazil! :)");
 } else {
-    console.log("No borders!");
+    console.log("Brazil doesn't meet your criteria. :(");
 }
