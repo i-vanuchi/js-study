@@ -120,26 +120,38 @@
 
 // ---------- Lecture: The Switch statement - Assignment 10.2 ----------
 
-const language = 'portuguese';
-console.log(language);
+// const language = 'portuguese';
+// console.log(language);
 
-switch (language) {
-    case 'chinese':
-    case 'mandarin':
-        console.log('MOST number of native speakers!');
-        break;
-    case 'spanish':
-        console.log('2nd place in number of native speakers!');
-        break;
-    case 'english':
-        console.log('3rd place!');
-        break;
-    case 'hindi':
-        console.log('4th place!');
-        break;
-    case 'arabic':
-        console.log('5th place!');
-        break;
-    default:
-        console.log('Great language too!')
-}
+// switch (language) {
+//     case 'chinese':
+//     case 'mandarin':
+//         console.log('MOST number of native speakers!');
+//         break;
+//     case 'spanish':
+//         console.log('2nd place in number of native speakers!');
+//         break;
+//     case 'english':
+//         console.log('3rd place!');
+//         break;
+//     case 'hindi':
+//         console.log('4th place!');
+//         break;
+//     case 'arabic':
+//         console.log('5th place!');
+//         break;
+//     default:
+//         console.log('Great language too!')
+// }
+
+// ---------- Lecture: The Conditional (Ternary) Operator - Assignment 11 ----------
+
+const country = 'Brazil';
+let population = 22;
+
+console.log(`${country}'s population is ${population > 33 ? 'above' : 'below'} average.`);
+
+// or
+
+const age = 26;
+console.log(`I like to drink ${age >= 18 ? 'wine 🍷' : 'juice 🧃'}.`);
