@@ -1,8 +1,18 @@
+// ---------- Lectures: Values and Variables / Data Types / Let, Const and Var ----------
+
 // const country = 'Brazil';
 // const continent = 'South America';
 // let population = 212.4;
 // const isIsland = false;
 // const language = 'Portuguese';
+
+// console.log(country);
+// console.log(continent);
+// console.log(population);
+// console.log(isIsland);
+// console.log(language);
+
+// ---------- Lecture: Basic Operators ----------
 
 // let half = population / 2;
 // console.log(half);
@@ -16,9 +26,13 @@
 
 // // const description = country + ' is in ' + continent + ', and its ' + population + ' million people speak ' + language;
 
+// ---------- Lecture: Strings and Template Literals ----------
+
 // const description = `${country} is in ${continent} and its ${population} million people speaks ${language}.`;
 
 // console.log(description);
+
+// ---------- Lecture: Taking Decisions: if - else statements ----------
 
 // if (population > 33) {
 //     console.log(`${country}'s population is above average.`);
@@ -26,7 +40,7 @@
 //     console.log(`${country}'s population is ${33 - population} below average.`)
 // }
 
-// // Lecture: Type Conversions and Coercion
+// ---------- Lecture: Type Conversions and Coercion ----------
 
 // console.log('9' - '5'); // 4
 // console.log('19' - '13' + '17'); // 617
@@ -36,7 +50,7 @@
 // console.log('7' + 4 - '2') // 72
 // console.log(2 * '2' + 5) // 9
 
-// Lecture: Equality Operators - Assignment 8
+// ---------- Lecture: Equality Operators - Assignment 8 ----------
 
 // const numNeighbours = Number(prompt("How many neughbour countries does your country have?"));
 
@@ -48,15 +62,15 @@
 //     console.log("No borders!");
 // }
 
-// Lecture: Logical Operators - Assignment 9
+// ---------- Lecture: Logical Operators - Assignment 9 ----------
 
-const country = 'Brazil';
-let population = 38;
-const isIsland = false;
-const language = 'English';
+// const country = 'Brazil';
+// let population = 38;
+// const isIsland = false;
+// const language = 'English';
 
-if (language === 'English' && population < 50 && !isIsland) {
-    console.log("You should live in Brazil! :)");
-} else {
-    console.log("Brazil doesn't meet your criteria. :(");
-}
+// if (language === 'English' && population < 50 && !isIsland) {
+//     console.log("You should live in Brazil! :)");
+// } else {
+//     console.log("Brazil doesn't meet your criteria. :(");
+// }
