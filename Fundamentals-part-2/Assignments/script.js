@@ -49,12 +49,27 @@
 
 // ---------- Lecture: Arrow Functions ----------
 
-const percentageOfWorld3 = population => (population / 7800) * 100;
+// const percentageOfWorld3 = population => (population / 7800) * 100;
 
-const brazil3 = percentageOfWorld3(212.4);
-const japan3 = percentageOfWorld3(126.5);
-const southKorea3 = percentageOfWorld3(51.6);
+// const brazil3 = percentageOfWorld3(212.4);
+// const japan3 = percentageOfWorld3(126.5);
+// const southKorea3 = percentageOfWorld3(51.6);
 
-console.log(brazil3);
-console.log(japan3);
-console.log(southKorea3);
+// console.log(brazil3);
+// console.log(japan3);
+// console.log(southKorea3);
+
+// ---------- Lecture: Functions calling other Functions ----------
+
+function fruitSlicer(fruit) {
+    return fruit * 4;
+}
+
+function juiceMachine(apple, orange) {
+    const applePieces = fruitSlicer(apple);
+    const orangePieces = fruitSlicer(orange);
+
+    return `The juice was made with ${applePieces} apple piece(s) and ${orangePieces} orange piece(s).`;
+}
+
+console.log(juiceMachine(3, 2));
