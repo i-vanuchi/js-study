@@ -61,15 +61,74 @@
 
 // ---------- Lecture: Functions calling other Functions ----------
 
-function fruitSlicer(fruit) {
-    return fruit * 4;
+// function fruitSlicer(fruit) {
+//     return fruit * 4;
+// }
+
+// function juiceMachine(apple, orange) {
+//     const applePieces = fruitSlicer(apple);
+//     const orangePieces = fruitSlicer(orange);
+
+//     return `The juice was made with ${applePieces} apple piece(s) and ${orangePieces} orange piece(s).`;
+// }
+
+// console.log(juiceMachine(3, 2));
+
+// ---------- Lecture: Introduction to Arrays ----------
+// const nickName = 'Isra';
+// const friends = ['Michael', 'Peter', 'Bruce', 'Clark', 'Matthew'];
+
+// friends[3] = 'Liza';
+
+// const years = new Array(1994, 2002, 2006, 2014, 2018);
+
+// console.log(years[2]);
+
+// console.log(friends[friends.length - 1]);
+
+// const myself = [nickName, 'Programmer', friends, 2020 - 1994, years];
+// console.log(myself);
+
+// ---------------------------------------------------
+
+// const calcAge = function (birthYear) {
+//     return 2020 - birthYear;
+// }
+
+// const years = new Array(1994, 2002, 2006, 2014, 2018);
+
+// const ages = [calcAge(years[0]), calcAge(years[2]), calcAge(years[years.length - 1])];
+
+// console.log(ages);
+
+// ---------- Lecture: Basic Array Operations (Methods) ----------
+
+const friends = ['Michael', 'Peter', 'Bruce', 'Clark', 'Matthew'];
+console.log(friends);
+
+// Add
+
+friends.push('Steve');
+console.log(friends);
+
+friends.unshift('Miles');
+console.log(friends);
+
+//Remove
+
+friends.pop();
+console.log(friends);
+
+friends.shift();
+console.log(friends);
+
+// IndexOf and Includes
+
+console.log(friends.indexOf('Bruce'));
+
+console.log(friends.includes('Clark')); // true
+console.log(friends.includes(456)); //false
+
+if (friends.includes('Clark')) {
+    console.log('You have a friend called Clark!');
 }
-
-function juiceMachine(apple, orange) {
-    const applePieces = fruitSlicer(apple);
-    const orangePieces = fruitSlicer(orange);
-
-    return `The juice was made with ${applePieces} apple piece(s) and ${orangePieces} orange piece(s).`;
-}
-
-console.log(juiceMachine(3, 2));
