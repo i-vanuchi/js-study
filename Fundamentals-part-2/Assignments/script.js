@@ -103,32 +103,104 @@
 
 // ---------- Lecture: Basic Array Operations (Methods) ----------
 
-const friends = ['Michael', 'Peter', 'Bruce', 'Clark', 'Matthew'];
-console.log(friends);
+// const friends = ['Michael', 'Peter', 'Bruce', 'Clark', 'Matthew'];
+// console.log(friends);
 
 // Add
 
-friends.push('Steve');
-console.log(friends);
+// friends.push('Steve');
+// console.log(friends);
 
-friends.unshift('Miles');
-console.log(friends);
+// friends.unshift('Miles');
+// console.log(friends);
 
 //Remove
 
-friends.pop();
-console.log(friends);
+// friends.pop();
+// console.log(friends);
 
-friends.shift();
-console.log(friends);
+// friends.shift();
+// console.log(friends);
 
 // IndexOf and Includes
 
-console.log(friends.indexOf('Bruce'));
+// console.log(friends.indexOf('Bruce'));
 
-console.log(friends.includes('Clark')); // true
-console.log(friends.includes(456)); //false
+// console.log(friends.includes('Clark')); // true
+// console.log(friends.includes(456)); //false
 
-if (friends.includes('Clark')) {
-    console.log('You have a friend called Clark!');
+// if (friends.includes('Clark')) {
+//     console.log('You have a friend called Clark!');
+// }
+
+// ---------- Lecture: Introduction to Objects ----------
+
+// const keanuArray = [
+//     'Keanu',
+//     'Reeves',
+//     2077 - 2010,
+//     'web developer',
+//     ['Michael', 'John', 'Tom']
+// ]
+
+// const keanu = {
+//     firstName: 'Keanu',
+//     lastName: 'Reeves',
+//     age: 2077 - 2010,
+//     job: 'web developer',
+//     friends: ['Michael', 'John', 'Tom']
+// }
+
+// ---------- Lecture: Dot vs. Bracket Notation ----------
+
+// const keanu = {
+//     firstName: 'Keanu',
+//     lastName: 'Reeves',
+//     age: 2077 - 2010,
+//     job: 'web developer',
+//     friends: ['Michael', 'John', 'Tom']
+// }
+
+// console.log(keanu.firstName);
+// console.log(keanu['firstName']);
+
+// const interestedIn = prompt('What do you want to know about Jonas? Choose between firstName, lastName, age, job and friends.');
+
+// if (keanu[interestedIn]) {
+//     console.log(keanu[interestedIn]);
+// } else {
+//     console.log('Wrong request! Choose between firstName, lastName, age, job and friends.');
+// }
+
+// keanu.location = 'Novigrad';
+// keanu['twitter'] = "There isn't";
+// console.log(keanu);
+
+// Challenge
+// Keanu has 3 friends and his best friend is called Michael.
+
+// console.log(`${keanu.firstName} has ${keanu.friends.length} friends and his best friend is called ${keanu.friends[0]}.`);
+
+// ---------- Lecture: Dot vs. Object Methods ----------
+
+const keanu = {
+    firstName: 'Keanu',
+    lastName: 'Reeves',
+    birthYear: 1967,
+    job: 'Web Developer',
+    friends: ['Michael', 'John', 'Tom'],
+
+    calcAge: function () {
+        this.age = 2020 - this.birthYear;
+        return this.age;
+    },
+    hasDriversLicense: function () {
+        return this.age >= 18 ? true : false;
+    },
+
+    getSummary: function () {
+        return `${this.firstName} is a ${this.calcAge()}-year old ${this.job}, and he has ${this.hasDriversLicense() ? 'a' : 'no'} driver's license.`;
+    }
 }
+
+console.log(keanu.getSummary());
