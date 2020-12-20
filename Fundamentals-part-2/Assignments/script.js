@@ -267,25 +267,36 @@
 
 // ---------- Lecture: Looping Backwards and Loops in Loops ----------
 
-const keanuArray = [
-    'Keanu',
-    'Reeves',
-    2077 - 2010,
-    'web developer',
-    ['Michael', 'John', 'Tom'],
-    true
-];
+// const keanuArray = [
+//     'Keanu',
+//     'Reeves',
+//     2077 - 2010,
+//     'web developer',
+//     ['Michael', 'John', 'Tom'],
+//     true
+// ];
 
-for (let i = keanuArray.length - 1; i >= 0; i--) {
-    console.log(keanuArray[i]);
-};
+// for (let i = keanuArray.length - 1; i >= 0; i--) {
+//     console.log(keanuArray[i]);
+// };
 
 // Loops in Loops
 
-for (let exercise = 1; exercise < 4; exercise++) {
-    console.log(`Exercise number #${exercise}`);
+// for (let exercise = 1; exercise < 4; exercise++) {
+//     console.log(`Exercise number #${exercise}`);
 
-    for (let rep = 1; rep < 6; rep++) {
-        console.log(`Repitition ${rep} 🏋️‍♂️`);
-    }
+//     for (let rep = 1; rep < 6; rep++) {
+//         console.log(`Repitition ${rep} 🏋️‍♂️`);
+//     }
+// };
+
+// ---------- Lecture: The While Loop ----------
+
+let dice = Math.trunc(Math.random() * 6 + 1);
+
+while (dice !== 6) {
+    console.log(`You rolled a ${dice}`);
+    dice = Math.trunc(Math.random() * 6 + 1);
+
+    if (dice === 6) console.log(`You rolled a ${dice}, finally!`);
 }
