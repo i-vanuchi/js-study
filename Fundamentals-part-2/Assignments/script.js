@@ -181,26 +181,111 @@
 
 // console.log(`${keanu.firstName} has ${keanu.friends.length} friends and his best friend is called ${keanu.friends[0]}.`);
 
-// ---------- Lecture: Dot vs. Object Methods ----------
+// ---------- Lecture: Object Methods ----------
 
-const keanu = {
-    firstName: 'Keanu',
-    lastName: 'Reeves',
-    birthYear: 1967,
-    job: 'Web Developer',
-    friends: ['Michael', 'John', 'Tom'],
+// const keanu = {
+//     firstName: 'Keanu',
+//     lastName: 'Reeves',
+//     birthYear: 1967,
+//     job: 'Web Developer',
+//     friends: ['Michael', 'John', 'Tom'],
 
-    calcAge: function () {
-        this.age = 2020 - this.birthYear;
-        return this.age;
-    },
-    hasDriversLicense: function () {
-        return this.age >= 18 ? true : false;
-    },
+//     calcAge: function () {
+//         this.age = 2020 - this.birthYear;
+//         return this.age;
+//     },
+//     hasDriversLicense: function () {
+//         return this.age >= 18 ? true : false;
+//     },
 
-    getSummary: function () {
-        return `${this.firstName} is a ${this.calcAge()}-year old ${this.job}, and he has ${this.hasDriversLicense() ? 'a' : 'no'} driver's license.`;
+//     getSummary: function () {
+//         return `${this.firstName} is a ${this.calcAge()}-year old ${this.job}, and he has ${this.hasDriversLicense() ? 'a' : 'no'} driver's license.`;
+//     }
+// }
+
+// console.log(keanu.getSummary());
+
+// ---------- Lecture: Iteration: The for Loop ----------
+
+// for (let rep = 1; rep <= 10; rep++) {
+//     console.log(`Repitition number ${rep}.`);
+// }
+
+// ---------- Lecture: Looping Arrays, Breaking and Continuing ----------
+
+// Example one
+// const keanuArray = [
+//     'Keanu',
+//     'Reeves',
+//     2077 - 2010,
+//     'web developer',
+//     ['Michael', 'John', 'Tom'],
+//     true
+// ];
+// const types = [];
+
+
+// for (let i = 0; i < keanuArray.length; i++) {
+//     console.log(keanuArray[i], typeof keanuArray[i]); // showing the types at the console
+
+//     types.push(typeof keanuArray[i]); // filling the new array with this types
+// };
+
+// Continue and Breaking the loop
+
+// console.log(`
+// ----- THE CONTINUE KEYWORD -----
+// `);
+
+// for (let i = 0; i < keanuArray.length; i++) {
+//     if (types[i] !== 'string') continue;
+
+//     console.log(keanuArray[i], typeof keanuArray[i]);
+// };
+
+// console.log(`
+// ----- THE BREAK KEYWORD -----
+// `);
+
+// for (let i = 0; i < keanuArray.length; i++) {
+//     if (types[i] === 'number') break;
+
+//     console.log(keanuArray[i], typeof keanuArray[i]);
+// };
+
+//Example two
+
+// Filling the Ages array with the actual ages calculated, based on the Years array
+
+// const years = [1991, 2007, 1969, 2020];
+// const ages = [];
+
+// for (let i = 0; i < years.length; i++) {
+//     ages.push(2037 - years[i]);
+//     console.log(ages);
+// }
+
+// ---------- Lecture: Looping Backwards and Loops in Loops ----------
+
+const keanuArray = [
+    'Keanu',
+    'Reeves',
+    2077 - 2010,
+    'web developer',
+    ['Michael', 'John', 'Tom'],
+    true
+];
+
+for (let i = keanuArray.length - 1; i >= 0; i--) {
+    console.log(keanuArray[i]);
+};
+
+// Loops in Loops
+
+for (let exercise = 1; exercise < 4; exercise++) {
+    console.log(`Exercise number #${exercise}`);
+
+    for (let rep = 1; rep < 6; rep++) {
+        console.log(`Repitition ${rep} 🏋️‍♂️`);
     }
 }
-
-console.log(keanu.getSummary());
