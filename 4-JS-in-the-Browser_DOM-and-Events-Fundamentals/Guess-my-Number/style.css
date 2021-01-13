@@ -108,6 +108,10 @@ h1 {
 .btn:hover {
   background-color: #ccc;
 }
+.btn:disabled {
+  background-color: #888;
+  cursor: not-allowed;
+}
 
 .message {
   margin-bottom: 8rem;
@@ -116,4 +120,8 @@ h1 {
 
 .label-score {
   margin-bottom: 2rem;
+}
+
+.label-highscore {
+  margin-bottom: 8rem;
 }
