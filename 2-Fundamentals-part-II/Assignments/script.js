@@ -59,6 +59,12 @@
 // console.log(japan3);
 // console.log(southKorea3);
 
+// const yearUntilRetirement = birthYear => {
+//     const age = 2021 - birthYear;
+//     const retirement = 65 - age;
+//     return retirement;
+// }
+
 // ---------- Lecture: Functions calling other Functions ----------
 
 // function fruitSlicer(fruit) {
