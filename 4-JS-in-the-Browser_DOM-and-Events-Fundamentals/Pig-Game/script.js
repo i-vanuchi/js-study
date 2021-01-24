@@ -12,6 +12,9 @@ const btnNew = document.querySelector('.btn--new');
 const btnRoll = document.querySelector('.btn--roll');
 const btnHold = document.querySelector('.btn--hold');
 
+// Control variables
+let scores, activePlayer, currentScore, playing;
+
 // FUNCTIONS
 const switchPlayer = function() {
     currentScore = 0;
@@ -20,23 +23,29 @@ const switchPlayer = function() {
     elmPlayer0.classList.toggle('player--active');
     elmPlayer1.classList.toggle('player--active');
 }
-
 // Starting conditions
-elmScore0.textContent = 0;
-elmScore1.textContent = 0;
-elmDice.classList.add('hidden');
+const init = function() {
+    scores = [0, 0];
+    activePlayer = 0;
+    currentScore = 0;
+    elmScore0.textContent = 0;
+    elmScore1.textContent = 0;
+    elmCurrent0.textContent = 0;
+    elmCurrent1.textContent = 0;
+    playing = true;
+    elmDice.classList.add('hidden');
+    elmPlayer0.classList.remove('player--winner');
+    elmPlayer1.classList.remove('player--winner');
+    elmPlayer0.classList.add('player--active');
+}
 
-const scores = [0, 0];
-let activePlayer = 0;
-let currentScore = 0;
-let playing = true;
+init();
 
 // Rolling the dice
 btnRoll.addEventListener('click', function() {
     if (playing) {
         // Generate the dice roll
         const dice = Math.trunc(Math.random() * 6) + 1;
-        console.log(dice);
 
         // Display the dice img according to the dice number
         elmDice.src = `dice-${dice}.png`;
@@ -61,7 +70,7 @@ btnHold.addEventListener('click', function() {
         document.getElementById(`score--${activePlayer}`).textContent = scores[activePlayer];
     
         // 2 Check if player's score is >= 100
-        if (scores[activePlayer] >= 30) {
+        if (scores[activePlayer] >= 100) {
             // Finish the game
             playing = false;
             elmDice.classList.add('hidden');
@@ -72,5 +81,6 @@ btnHold.addEventListener('click', function() {
             switchPlayer();
         }
     }
-    
 });
+
+btnNew.addEventListener('click', init);
