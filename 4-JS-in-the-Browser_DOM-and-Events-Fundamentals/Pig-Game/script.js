@@ -62,7 +62,7 @@ btnRoll.addEventListener('click', function() {
         }
     }
 });
-
+// Holding the score
 btnHold.addEventListener('click', function() {
     if (playing) {
         // 1 Add current score to active player's score
@@ -82,5 +82,5 @@ btnHold.addEventListener('click', function() {
         }
     }
 });
-
+// New Game
 btnNew.addEventListener('click', init);
