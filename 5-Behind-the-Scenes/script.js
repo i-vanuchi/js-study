@@ -97,3 +97,44 @@
   3 - Declarar as variáveis no topo do escopo (melhor a legibilidade);
   4 - Escrever as funções primeiro e utiliza-las depois da declaração;
 */
+
+// ---------- Lecture: The this Keyword in practice ----------
+
+// console.log(this); // Simplesmente imprimir no console a variável this, mostra no console o objeto global window
+
+// // -----
+
+// const calcAge = function (birthYear) {
+//   console.log(2037 - birthYear);
+//   console.log(this); // de uma chamada de função simples, será retornado undefined (No strict mode, do contrário será o objeto window tbm)
+// };
+// calcAge(1994);
+
+// // -----
+
+// const calcAgeArrow = birthYear => {
+//   console.log(2037 - birthYear);
+//   console.log(this); // mostrará o objeto global window, visto que arrow functions não tem sua própria this e usa a da função circundante. Nesse caso o próprio escopo global (lexical this keyword)
+// };
+// calcAgeArrow(1994);
+
+// -----
+
+const israel = {
+  year: 1994,
+  calcAge: function () {
+    console.log(this); // a palavra this dentro de um método apontará para o próprio objeto que está chamando o método
+    console.log(2037 - this.year);
+  },
+};
+israel.calcAge();
+
+const matilda = {
+  year: 2017,
+};
+
+matilda.calcAge = israel.calcAge; // "emprestado" o método do objeto israel para o obj matilda
+matilda.calcAge(); // quando chamamos o método, o valor da palavra this será o obj que CHAMOU a função. Nesse caso, matilda
+
+const f = israel.calcAge;
+f(); // será retornado undefined devido a "f" ser apenas uma chamada simples de função. f não está anexado a nenhum objeto
