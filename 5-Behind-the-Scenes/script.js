@@ -120,21 +120,73 @@
 
 // -----
 
-const israel = {
-  year: 1994,
-  calcAge: function () {
-    console.log(this); // a palavra this dentro de um método apontará para o próprio objeto que está chamando o método
-    console.log(2037 - this.year);
-  },
-};
-israel.calcAge();
+// const israel = {
+//   year: 1994,
+//   calcAge: function () {
+//     console.log(this); // a palavra this dentro de um método apontará para o próprio objeto que está chamando o método
+//     console.log(2037 - this.year);
+//   },
+// };
+// israel.calcAge();
 
-const matilda = {
-  year: 2017,
-};
+// const matilda = {
+//   year: 2017,
+// };
 
-matilda.calcAge = israel.calcAge; // "emprestado" o método do objeto israel para o obj matilda
-matilda.calcAge(); // quando chamamos o método, o valor da palavra this será o obj que CHAMOU a função. Nesse caso, matilda
+// matilda.calcAge = israel.calcAge; // "emprestado" o método do objeto israel para o obj matilda
+// matilda.calcAge(); // quando chamamos o método, o valor da palavra this será o obj que CHAMOU a função. Nesse caso, matilda
 
-const f = israel.calcAge;
-f(); // será retornado undefined devido a "f" ser apenas uma chamada simples de função. f não está anexado a nenhum objeto
+// const f = israel.calcAge;
+// f(); // será retornado undefined devido a "f" ser apenas uma chamada simples de função. f não está anexado a nenhum objeto
+
+// ---------- Lecture: Regular Functions vs Arrow Functions ----------
+
+// var firstName = 'Matilda'; // var cria propriedade no objeto window. Então assim o método greet referenciará Matilda
+
+// const israel = {
+//   firstName: 'Israel',
+//   year: 1994,
+//   calcAge: function () {
+// console.log(this);
+// console.log(2037 - this.year);
+
+// Solução 1
+// const self = this; // self or that
+// const isMillenial = function () {
+// console.log(this); // sendo uma regular function, a keyword this é setada para undefined e não referencia o objeto.
+// console.log(this.year >= 1981 && this.year <= 1996);
+// console.log(self);
+// console.log(self.year >= 1981 && self.year <= 1996);
+// };
+
+// Solução 2
+// const isMillenial = () => {
+//   console.log(this); // usando uma arrow function, a this keyword referencia o objeto
+// console.log(this.year >= 1981 && this.year <= 1996);
+// };
+
+//   isMillenial();
+// },
+
+// greet: () => console.log(`Hey ${this.firstName}`), // arrow functions nao tem sua propria this keyword, entao referenciará a função circundante, nesse caso o objeto global window (declaração de objeto não gera um escopo). Window.firstName não existe, entao o resultado é 'Hey undefined';
+// };
+// israel.greet();
+// israel.calcAge();
+
+// arguments keyword
+
+// const addExpression = function (a, b) {
+//   console.log(arguments);
+//   return a + b;
+// };
+// addExpression(2, 3);
+// addExpression(2, 5, 5, 8, 10, 45); // argumentos a mais serão adicionados no objeto arguments e podemm ser utilizados, apesar de não terem um nome (ex: através de um loop)
+
+// -----
+
+// const addArrow = (a, b) => {
+//   console.log(arguments);
+//   return a + b;
+// };
+// addArrow(2, 3);
+// addArrow(2, 5, 5, 8, 10, 45); // ReferenceError: arguments is not defined. Arrow Functions não possuem um objeto arguments, somente regular functions (declaration ou expression)
