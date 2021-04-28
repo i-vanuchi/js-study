@@ -190,3 +190,43 @@
 // };
 // addArrow(2, 3);
 // addArrow(2, 5, 5, 8, 10, 45); // ReferenceError: arguments is not defined. Arrow Functions não possuem um objeto arguments, somente regular functions (declaration ou expression)
+
+// ---------- Lecture: Primitives vs Objects in Practice ----------
+
+// ----- Primitivo
+
+let lastName = 'Williams';
+let oldLastName = lastName; // criando novo identificador que aponta para o mesmo endereço
+lastName = 'Davis'; // alterando o valor de lastName, estamos criando um novo endereço para este identificador, com o valor atualizado. Enquanto oldLastName segue apontando para o endereço anterior.
+console.log(lastName, oldLastName); // vemos que de fato são valores diferentes agora
+
+// ----- Referência
+
+const jessica = {
+  firstName: 'Jessica',
+  lastName: 'Williams',
+  age: 27,
+};
+
+const marriedJessica = jessica; // apenas copiando a referência que aponta para o mesmo objeto no Heap.
+marriedJessica.lastName = 'Davis'; // aparentemente alterando a propiedade lastName do obj marriedJessica, mas na vdd está sendo alterado para ambos, pois se trata do MESMO objeto
+console.log('Before marriage: ', jessica);
+console.log('After marriage: ', marriedJessica);
+
+// ----- Copiando objetos
+
+const jessica2 = {
+  firstName: 'Jessica',
+  lastName: 'Williams',
+  age: 27,
+  family: ['Alice', 'Bob'],
+};
+
+const jessicaCopy = Object.assign({}, jessica2); // esse método cria uma cópia apenas do que está no primeiro nível, uma cópia superficial. Se houver outro obj dentro deste obj, eles ainda serão na prática o msm obj
+jessicaCopy.lastname = 'Davis';
+
+jessicaCopy.family.push('Mary');
+jessicaCopy.family.push('John');
+
+console.log('Before marriage: ', jessica2);
+console.log('After marriage: ', jessicaCopy);
