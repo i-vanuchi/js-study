@@ -43,9 +43,18 @@ const restaurant = {
     let str = '';
 
     for (let i = 0; i < otherIngredients.length; i++) {
-      i === otherIngredients.length - 1
-        ? (str += `and ${otherIngredients[i]}`)
-        : (str += `${otherIngredients[i]}, `);
+      // i === otherIngredients.length - 1
+      //   ? (str += `and ${otherIngredients[i]}`)
+      //   : (str += `${otherIngredients[i]}, `);
+      if (i === otherIngredients.length - 1) {
+        otherIngredients.length === 1
+          ? (str += `${otherIngredients[i]}`)
+          : (str += `and ${otherIngredients[i]}`);
+      } else if (i === otherIngredients.length - 2) {
+        str += `${otherIngredients[i]} `;
+      } else {
+        str += `${otherIngredients[i]}, `;
+      }
     }
 
     console.log(
@@ -64,8 +73,8 @@ const restaurant = {
 // });
 
 // // mesmo nome
-const { rName, openingHours, categories } = restaurant;
-console.log(rName, openingHours, categories);
+// const { rName, openingHours, categories } = restaurant;
+// console.log(rName, openingHours, categories);
 
 // // atribuindo as propriedades a variáveis de nomes diferentes
 // const {
@@ -258,3 +267,36 @@ console.log(rName, openingHours, categories);
 
 // // Exemplo mais prático do uso do Rest
 // restaurant.orderPizza('cheese', 'pepperoni', 'olives', 'onion', 'mushrooms');
+
+// ----- Lecture: Short Circuiting (&& and ||) -----
+
+console.log('===== OR =====');
+console.log(3 || 'Jonas'); // 3
+console.log('' || 'Jonas'); // Jonas
+console.log(true || 0); // true
+console.log(undefined || null); // null
+
+console.log(undefined || 0 || '' || 'Hello' || 23 || null); // Hello
+
+restaurant.numGuests = 23;
+
+const guests1 = restaurant.numGuests ? restaurant.numGuests : 10;
+console.log(guests1);
+
+const guests2 = restaurant.numGuests || 10;
+console.log(guests2);
+
+// Essas duas soluções não funcionam se o numGuests for 0, porque 0 é um falsy value
+
+console.log('===== AND =====');
+
+console.log(0 && 'Israel');
+console.log(7 && 'Israel');
+
+console.log('Hello' && 23 && null && 'Israel');
+
+// Exemplo prático
+
+if (restaurant.orderPizza) {
+  restaurant.orderPizza('cheese', 'pepperoni');
+}
