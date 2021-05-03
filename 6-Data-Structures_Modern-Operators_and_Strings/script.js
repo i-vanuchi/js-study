@@ -38,6 +38,20 @@ const restaurant = {
       `Here is your delicious pasta with ${ing1}, ${ing2} and ${ing3}`
     );
   },
+
+  orderPizza: function (mainIngredient, ...otherIngredients) {
+    let str = '';
+
+    for (let i = 0; i < otherIngredients.length; i++) {
+      i === otherIngredients.length - 1
+        ? (str += `and ${otherIngredients[i]}`)
+        : (str += `${otherIngredients[i]}, `);
+    }
+
+    console.log(
+      `Order Received! Your ${mainIngredient} pizza with ${str} will be delivered in 30 minutes.`
+    );
+  },
 };
 
 // ----- Lecture: Destructuring objects -----
@@ -50,8 +64,8 @@ const restaurant = {
 // });
 
 // // mesmo nome
-// const { rName, openingHours, categories } = restaurant;
-// console.log(rName, openingHours, categories);
+const { rName, openingHours, categories } = restaurant;
+console.log(rName, openingHours, categories);
 
 // // atribuindo as propriedades a variáveis de nomes diferentes
 // const {
@@ -121,10 +135,10 @@ const restaurant = {
 
 // ----- Lecture: The Spread Operator (...) -----
 
-const arr = [7, 8, 9];
+// const arr = [7, 8, 9];
 
 // adicionando 1 e 2 no início do array - Forma 1
-const badNewArr = [1, 2, arr[0], arr[1], arr[2]];
+// const badNewArr = [1, 2, arr[0], arr[1], arr[2]];
 
 // adicionando 1 e 2 no início do array - For Loop
 // let badNewArr2 = [1, 2];
@@ -201,3 +215,46 @@ const badNewArr = [1, 2, arr[0], arr[1], arr[2]];
 // restaurantCopy.rName = 'Ristorante Roma';
 // console.log(restaurant.rName);
 // console.log(restaurantCopy.rName);
+
+// ----- Lecture: REST Pattern and Parameters -----
+
+// // 1 - Destructuring
+// // SPREAD, porque está no lado DIREITO do =
+// const arr = [1, 2, 3, ...[4, 5]];
+
+// // REST, porque está no lado ESQUERDO do =
+// const [a, b, ...outros] = [1, 2, 3, 4, 5];
+// console.log(a, b, outros);
+
+// // desestruturando mainFood e starterFood usando REST
+// const [pizza, , risotto, ...otherFoods] = [
+//   ...restaurant.mainMenu,
+//   ...restaurant.starterMenu,
+// ];
+// console.log(pizza, risotto, otherFoods);
+
+// // Objetos
+
+// const { sat, ...weekdays } = restaurant.openingHours;
+// console.log(weekdays);
+
+// // 2 - Functions - Rest Arguments
+
+// const add = function (...numbers) {
+//   console.log(numbers);
+//   let sum = 0;
+//   for (let i = 0; i < numbers.length; i++) {
+//     sum += numbers[i];
+//   }
+//   console.log(sum);
+// };
+
+// add(1, 2, 3);
+// add(5, 5, 10, 2);
+// add(9, 11, 10, 5, 2, 3);
+// // passando um array como argumento, espalhando os elementos com o spread e reagrupando com o rest argument.
+// const x = [3, 5, 2];
+// add(...x);
+
+// // Exemplo mais prático do uso do Rest
+// restaurant.orderPizza('cheese', 'pepperoni', 'olives', 'onion', 'mushrooms');
