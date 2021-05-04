@@ -270,33 +270,45 @@ const restaurant = {
 
 // ----- Lecture: Short Circuiting (&& and ||) -----
 
-console.log('===== OR =====');
-console.log(3 || 'Jonas'); // 3
-console.log('' || 'Jonas'); // Jonas
-console.log(true || 0); // true
-console.log(undefined || null); // null
+// console.log('===== OR =====');
+// console.log(3 || 'Jonas'); // 3
+// console.log('' || 'Jonas'); // Jonas
+// console.log(true || 0); // true
+// console.log(undefined || null); // null
 
-console.log(undefined || 0 || '' || 'Hello' || 23 || null); // Hello
+// console.log(undefined || 0 || '' || 'Hello' || 23 || null); // Hello
 
-restaurant.numGuests = 23;
+// restaurant.numGuests = 23;
 
-const guests1 = restaurant.numGuests ? restaurant.numGuests : 10;
-console.log(guests1);
+// const guests1 = restaurant.numGuests ? restaurant.numGuests : 10;
+// console.log(guests1);
 
-const guests2 = restaurant.numGuests || 10;
+// const guests2 = restaurant.numGuests || 10;
+// console.log(guests2);
+
+// // Essas duas soluções não funcionam se o numGuests for 0, porque 0 é um falsy value
+
+// console.log('===== AND =====');
+
+// console.log(0 && 'Israel');
+// console.log(7 && 'Israel');
+
+// console.log('Hello' && 23 && null && 'Israel');
+
+// // Exemplo prático
+
+// if (restaurant.orderPizza) {
+//   restaurant.orderPizza('cheese', 'pepperoni');
+// }
+
+// ----- Lecture: The Nullish Coalescing Operator (??) -----
+
+restaurant.numGuests = 0;
+
+// Aqui, o short circuit não functiona porque o 0 é falsy.
+const guests = restaurant.numGuests || 10;
+console.log(guests);
+
+// Nullish: reconhece como falsy apenas null e undefined, portanto o short circuit funciona
+const guests2 = restaurant.numGuests ?? 10;
 console.log(guests2);
-
-// Essas duas soluções não funcionam se o numGuests for 0, porque 0 é um falsy value
-
-console.log('===== AND =====');
-
-console.log(0 && 'Israel');
-console.log(7 && 'Israel');
-
-console.log('Hello' && 23 && null && 'Israel');
-
-// Exemplo prático
-
-if (restaurant.orderPizza) {
-  restaurant.orderPizza('cheese', 'pepperoni');
-}
