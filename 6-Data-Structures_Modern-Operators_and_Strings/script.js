@@ -337,3 +337,39 @@ const restaurant = {
 // for (const [i, el] of menu.entries()) {
 //   console.log(`${i + 1}: ${el}`);
 // }
+
+// ----- Lecture: Enhanced Object Literals -----
+
+const hours = {
+  thu: {
+    open: 12,
+    close: 22,
+  },
+  fri: {
+    open: 11,
+    close: 23,
+  },
+  // 3 - Calcular nomes de propriedades
+  [`day ${4 + 2}`]: {
+    open: 0,
+    close: 24,
+  },
+};
+
+const anotherRestaurant = {
+  rName: 'Classico Italiano',
+  location: 'Via Angelo Tavanti 23, Firenze, Italy',
+  categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
+  starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
+  mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+  // 1 - Criar propriedade a partir de objeto existente
+  hours,
+
+  // 2 - Escrever métodos com sintaxe mais simples e compacta
+  orderPasta(ing1, ing2, ing3) {
+    console.log(
+      `Here is your delicious pasta with ${ing1}, ${ing2} and ${ing3}`
+    );
+  },
+};
+console.log(anotherRestaurant);
