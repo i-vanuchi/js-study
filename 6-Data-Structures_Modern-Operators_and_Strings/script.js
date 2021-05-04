@@ -303,12 +303,37 @@ const restaurant = {
 
 // ----- Lecture: The Nullish Coalescing Operator (??) -----
 
-restaurant.numGuests = 0;
+// restaurant.numGuests = 0;
 
-// Aqui, o short circuit não functiona porque o 0 é falsy.
-const guests = restaurant.numGuests || 10;
-console.log(guests);
+// // Aqui, o short circuit não functiona porque o 0 é falsy.
+// const guests = restaurant.numGuests || 10;
+// console.log(guests);
 
-// Nullish: reconhece como falsy apenas null e undefined, portanto o short circuit funciona
-const guests2 = restaurant.numGuests ?? 10;
-console.log(guests2);
+// // Nullish: reconhece como falsy apenas null e undefined, portanto o short circuit funciona
+// const guests2 = restaurant.numGuests ?? 10;
+// console.log(guests2);
+
+// ----- Lecture: Looping Arrays - THe for-of Loop -----
+
+// const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+// console.log(menu);
+
+// // For comum
+// for (let i = 0; i < menu.length; i++) console.log(menu[i]);
+
+// // For of
+// for (const item of menu) console.log(item);
+
+// // Obtendo o Index do item do menu
+// // o método entries retorna um novo array contendo o index + o elemento
+// for (const item of menu.entries()) console.log(item);
+
+// // Imprimindo em template string
+// for (const item of menu.entries()) {
+//   console.log(`${item[0] + 1}: ${item[1]}`);
+// }
+
+// // Melhorando o template string através da desestruturação
+// for (const [i, el] of menu.entries()) {
+//   console.log(`${i + 1}: ${el}`);
+// }
