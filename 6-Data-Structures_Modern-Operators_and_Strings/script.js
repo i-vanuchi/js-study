@@ -408,3 +408,27 @@ const restaurant = {
 // console.log(users[0]?.name ?? 'User does not exist');
 // console.log(users[1]?.email ?? 'User does not exist');
 // console.log(users[2]?.name ?? 'User does not exist');
+
+// ----- Lecture: Object keys, values and entries -----
+
+// NOMES das propriedades
+const properties = Object.keys(restaurant.openingHours);
+console.log(properties);
+
+let openStr = `We're open on ${properties.length} days: `;
+for (const day of properties) {
+  openStr += `${day}, `;
+}
+console.log(openStr);
+
+// VALORES das propriedades
+const values = Object.values(restaurant.openingHours);
+console.log(values);
+
+// Objeto inteiro
+const entries = Object.entries(restaurant.openingHours);
+console.log(entries);
+
+for (const [day, { open, close }] of entries) {
+  console.log(`On ${day} we open at ${open} and close at ${close}.`);
+}
