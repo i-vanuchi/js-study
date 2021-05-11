@@ -116,10 +116,10 @@ const restaurant = {
 // console.log(main, secondary);
 
 // // Alternando valores de variáveis entre si
-// // let temp = main;
-// // main = secondary;
-// // secondary = temp;
-// // console.log(main, secondary);
+// let temp = main;
+// main = secondary;
+// secondary = temp;
+// console.log(main, secondary);
 
 // [main, secondary] = [secondary, main];
 // console.log(main, secondary);
@@ -151,7 +151,6 @@ const restaurant = {
 
 // adicionando 1 e 2 no início do array - For Loop
 // let badNewArr2 = [1, 2];
-// console.log(badNewArr2);
 
 // for (let i = 0; i < arr.length; i++) {
 //   badNewArr2.push(arr[i]);
@@ -159,17 +158,17 @@ const restaurant = {
 // console.log(badNewArr2);
 
 // adicionando 1 e 2 no início do array - For Loop 2
-// let badNewArr2 = [];
+// let badNewArr3 = [];
 
 // for (let i = arr.length; i >= 0; i--) {
-//   badNewArr2.unshift(arr[i]);
+//   badNewArr3.unshift(arr[i]);
 
 //   if (i === 0) {
-//     badNewArr2.unshift(2);
-//     badNewArr2.unshift(1);
+//     badNewArr3.unshift(2);
+//     badNewArr3.unshift(1);
 //   }
 // }
-// console.log(badNewArr2);
+// console.log(badNewArr3);
 
 // Utilizando o Spread
 

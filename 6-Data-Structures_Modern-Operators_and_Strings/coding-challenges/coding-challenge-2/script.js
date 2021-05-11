@@ -1,15 +1,5 @@
 /*
-  Estamos construindo um aplicativo de apostas em futebol!
-  Suponha que recebamos dados de um web service sobre um determinado jogo (variável 'game'). Neste desafio vamos trabalhar com esses dados.
-
-  Suas tarefas:
-  1. Crie um array de jogadores para cada equipe (variáveis ​​'players1' e 'players2');
-  2. O primeiro jogador em qualquer array de jogadores é o goleiro e os outros são jogadores de campo. Para o Bayern de Munique (equipe 1), crie uma variável ('gk') com o nome do goleiro e um array ('fieldPlayers') com todos os 10 jogadores restantes;
-  3. Crie um array 'allPlayers' contendo todos os jogadores de ambas as equipes (22 jogadores);
-  4. Durante o jogo, o Bayern de Munique (equipe 1) usou 3 jogadores substitutos. Portanto, crie um novo array ('players1Final') contendo todos os jogadores originais do team1 mais 'Thiago', 'Coutinho' e 'Perisic';
-  5. Com base no objeto game.odds, crie uma variável para cada chance (chamada 'team1', 'draw' e 'team2');
-  6. Escreva uma função ('printGoals') que recebe um número arbitrário de nomes de jogadores (NÃO usar array) e imprime cada um deles no console, junto com o número de gols que foram marcados no total (número de nomes de jogadores passados);
-  7. A equipe com menor 'odd' tem maior probabilidade de vencer. Imprima no console qual equipe tem mais probabilidade de vencer, SEM usar uma declaração if / else ou o operador ternário.
+  
 */
 
 const game = {
@@ -47,54 +37,49 @@ const game = {
   scored: ['Lewandowski', 'Gnabry', 'Lewandowski', 'Hummels'],
   date: 'Nov 9th, 2037',
   odds: {
-    team1: 3.25,
-    x: 1.33,
+    team1: 1.33,
+    x: 3.25,
     team2: 6.5,
   },
 };
 
 // 1
-const [players1, players2] = game.players;
-console.log(players1, players2);
+console.log('----- Task 1 -----');
+for (const [i, player] of game.scored.entries()) {
+  console.log(`Goal ${i + 1}: ${player}`);
+}
 
 // 2
-const [gk, ...fieldPlayers] = players1;
-console.log(gk, fieldPlayers);
+console.log('----- Task 2 -----');
+
+// (Solução A)
+function calcOddAverage(obj) {
+  let totalOdd = 0;
+  const odds = Object.values(obj);
+  for (const odd of odds) totalOdd += odd;
+  return totalOdd / odds.length;
+}
+console.log(calcOddAverage(game.odds));
 
 // 3
-const allPlayers = [...players1, ...players2];
-console.log(allPlayers);
+console.log('----- Task 3 -----');
 
-// 4
-const players1Final = [...players1, 'Thiago', 'Coutinho', 'Perisic'];
-console.log(players1Final);
+const oddEntries = Object.entries(game.odds);
 
-// 5
-const {
-  odds: { team1, x: draw, team2 },
-} = game;
-console.log(team1, draw, team2);
+for (const [team, odd] of oddEntries) {
+  // game[team] && console.log(`Odd of victory ${game[team]}: ${odd}`);
+  // game[team] || console.log(`Odd of draw: ${odd}`);
+  const teamStr = team === 'x' ? 'draw:' : `victory ${game[team]}:`;
+  console.log(`Odd of ${teamStr} ${odd}`);
+}
 
-// 6
-const printGoals = function (...scorers) {
-  console.log('Scorers:', ...scorers);
-  console.log(`Number of Goals: ${scorers.length}`);
-};
+// Bonus
+console.log('----- Task 4 (Bonus) -----');
 
-printGoals('Lewandowski', 'Muller', 'Sancho', 'Gotze');
-printGoals(...game.scored);
-
-// 7
-console.log('Team 1:', team1);
-console.log('Draw:', draw);
-console.log('Team 2:', team2);
-
-team2 > team1 &&
-  draw > team1 &&
-  console.log('Bayern Munich is more likely to win');
-
-team1 > draw && team2 > draw && console.log('Draw is more likely to happen.');
-
-team1 > team2 &&
-  draw > team2 &&
-  console.log('Borussia Dortmund is more likely to win');
+const scorers = {};
+for (const player of game.scored) {
+  // scorers[player] && (scorers[player] += 1);
+  // scorers[player] || (scorers[player] = 1);
+  scorers[player] ? scorers[player]++ : (scorers[player] = 1);
+}
+console.log(scorers);
