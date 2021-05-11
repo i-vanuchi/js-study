@@ -408,26 +408,83 @@ const restaurant = {
 // console.log(users[1]?.email ?? 'User does not exist');
 // console.log(users[2]?.name ?? 'User does not exist');
 
-// ----- Lecture: Object keys, values and entries -----
+// ----- Lecture: Looping Objects: Object Keys, Values, and Entries -----
 
-// NOMES das propriedades
-const properties = Object.keys(restaurant.openingHours);
-console.log(properties);
+// // NOMES das propriedades
+// const properties = Object.keys(restaurant.openingHours);
+// console.log(properties);
 
-let openStr = `We're open on ${properties.length} days: `;
-for (const day of properties) {
-  openStr += `${day}, `;
-}
-console.log(openStr);
+// let openStr = `We're open on ${properties.length} days: `;
+// for (const day of properties) {
+//   openStr += `${day}, `;
+// }
+// console.log(openStr);
 
-// VALORES das propriedades
-const values = Object.values(restaurant.openingHours);
-console.log(values);
+// // VALORES das propriedades
+// const values = Object.values(restaurant.openingHours);
+// console.log(values);
 
-// Objeto inteiro
-const entries = Object.entries(restaurant.openingHours);
-console.log(entries);
+// // Objeto inteiro
+// const entries = Object.entries(restaurant.openingHours);
+// console.log(entries);
 
-for (const [day, { open, close }] of entries) {
-  console.log(`On ${day} we open at ${open} and close at ${close}.`);
-}
+// for (const [day, { open, close }] of entries) {
+//   console.log(`On ${day} we open at ${open} and close at ${close}.`);
+// }
+
+// ----- Lecture: Sets -----
+
+// Criando um Set
+const ordersSet = new Set([
+  'Pasta',
+  'Pizza',
+  'Pizza',
+  'Risotto',
+  'Pasta',
+  'Pizza',
+]);
+console.log(ordersSet);
+
+// Set formado pode uma string
+console.log(new Set('Israel'));
+
+// Obtendo o tamanho do Set. Usa-se Size em vez de Length (como em arrays)
+console.log(ordersSet.size);
+
+// Checando se o Set contém determinado elemento (boolean). Semelhante ao método "includes" usado em arrays
+console.log(ordersSet.has('Pizza'));
+console.log(ordersSet.has('Bread'));
+
+// Adicionando elementos ao Set
+ordersSet.add('Garlic Bread');
+ordersSet.add('Garlic Bread'); // adicionado o mesmo elemento duas vezes. O segundo é ignorado por conta do Set armazenar apenas valores únicos.
+
+// Deletando elementos do Set
+ordersSet.delete('Risotto');
+
+// Não há maneira de se obter valores de um set
+
+// Deletando TODOS os elementos de um set
+// ordersSet.clear();
+
+// Visto que Sets são iteráveis, podemos aplica-los um loop
+console.log('----- LOOPING -----');
+for (const order of ordersSet) console.log(order);
+
+// Exemplo de aplicação de um Set
+console.log('----- REAL LIFE EXAMPLE -----');
+
+const staff = ['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter'];
+const staffUnique = [...new Set(staff)];
+console.log(staffUnique);
+
+// Caso seja necessário apenas saber a quantidade de valores únicos
+// 1
+console.log(
+  new Set(['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter']).size
+);
+// 2
+console.log(new Set(staff).size);
+
+// Quantidade de letras não repetidas em uma string
+console.log(new Set('israelvanuchi').size);
