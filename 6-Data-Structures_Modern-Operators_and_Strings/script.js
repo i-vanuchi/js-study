@@ -434,57 +434,112 @@ const restaurant = {
 
 // ----- Lecture: Sets -----
 
-// Criando um Set
-const ordersSet = new Set([
-  'Pasta',
-  'Pizza',
-  'Pizza',
-  'Risotto',
-  'Pasta',
-  'Pizza',
-]);
-console.log(ordersSet);
+// // Criando um Set
+// const ordersSet = new Set([
+//   'Pasta',
+//   'Pizza',
+//   'Pizza',
+//   'Risotto',
+//   'Pasta',
+//   'Pizza',
+// ]);
+// console.log(ordersSet);
 
-// Set formado pode uma string
-console.log(new Set('Israel'));
+// // Set formado pode uma string
+// console.log(new Set('Israel'));
 
-// Obtendo o tamanho do Set. Usa-se Size em vez de Length (como em arrays)
-console.log(ordersSet.size);
+// // Obtendo o tamanho do Set. Usa-se Size em vez de Length (como em arrays)
+// console.log(ordersSet.size);
 
-// Checando se o Set contém determinado elemento (boolean). Semelhante ao método "includes" usado em arrays
-console.log(ordersSet.has('Pizza'));
-console.log(ordersSet.has('Bread'));
+// // Checando se o Set contém determinado elemento (boolean). Semelhante ao método "includes" usado em arrays
+// console.log(ordersSet.has('Pizza'));
+// console.log(ordersSet.has('Bread'));
 
-// Adicionando elementos ao Set
-ordersSet.add('Garlic Bread');
-ordersSet.add('Garlic Bread'); // adicionado o mesmo elemento duas vezes. O segundo é ignorado por conta do Set armazenar apenas valores únicos.
+// // Adicionando elementos ao Set
+// ordersSet.add('Garlic Bread');
+// ordersSet.add('Garlic Bread'); // adicionado o mesmo elemento duas vezes. O segundo é ignorado por conta do Set armazenar apenas valores únicos.
 
-// Deletando elementos do Set
-ordersSet.delete('Risotto');
+// // Deletando elementos do Set
+// ordersSet.delete('Risotto');
 
-// Não há maneira de se obter valores de um set
+// // Não há maneira de se obter valores de um set
 
-// Deletando TODOS os elementos de um set
-// ordersSet.clear();
+// // Deletando TODOS os elementos de um set
+// // ordersSet.clear();
 
-// Visto que Sets são iteráveis, podemos aplica-los um loop
-console.log('----- LOOPING -----');
-for (const order of ordersSet) console.log(order);
+// // Visto que Sets são iteráveis, podemos aplica-los um loop
+// console.log('----- LOOPING -----');
+// for (const order of ordersSet) console.log(order);
 
-// Exemplo de aplicação de um Set
-console.log('----- REAL LIFE EXAMPLE -----');
+// // Exemplo de aplicação de um Set
+// console.log('----- REAL LIFE EXAMPLE -----');
 
-const staff = ['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter'];
-const staffUnique = [...new Set(staff)];
-console.log(staffUnique);
+// const staff = ['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter'];
+// const staffUnique = [...new Set(staff)];
+// console.log(staffUnique);
 
-// Caso seja necessário apenas saber a quantidade de valores únicos
-// 1
-console.log(
-  new Set(['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter']).size
-);
-// 2
-console.log(new Set(staff).size);
+// // Caso seja necessário apenas saber a quantidade de valores únicos
+// // 1
+// console.log(
+//   new Set(['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter']).size
+// );
+// // 2
+// console.log(new Set(staff).size);
 
-// Quantidade de letras não repetidas em uma string
-console.log(new Set('israelvanuchi').size);
+// // Quantidade de letras não repetidas em uma string
+// console.log(new Set('israelvanuchi').size);
+
+// ----- Lecture: Maps - Fundamentals -----
+
+// Criar um Map
+const rest = new Map();
+
+// Adicionar um elemento usando o método set
+rest.set('name', 'Classico Italiano');
+rest.set(1, 'Firenze, Italy');
+
+// O método set retorna o Map atualizado
+console.log(rest.set(2, 'Lisbon, Portugal'));
+
+// Como o método set retorna o Map atualizado, é possível encadear seu uso
+rest
+  .set('categories', ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'])
+  .set('open', 11)
+  .set('close', 23)
+  .set(true, 'We are open :D')
+  .set(false, 'We are closed :(');
+
+// Ler um valor do Map usando o método Get
+console.log(rest.get('name'));
+console.log(rest.get(true));
+
+// Exemplo do uso de boolean como nome da key
+const time = 21;
+console.log(rest.get(time >= rest.get('open') && time < rest.get('close')));
+
+// Checar se o Map contém determinado elemento
+console.log(rest.has('categories'));
+
+// Deletar elemento do Map
+rest.delete(2);
+console.log(rest);
+
+// Obter o tamanho do Map
+console.log(rest.size);
+
+// Deletar TODO o conteúdo do Map
+// rest.clear();
+// console.log(rest);
+
+// Usar array como nome da key
+
+// rest.set([1, 2], 'Teste');
+// console.log(rest.get([1, 2])); // não funciona porque esse array não é o mesmo passado no método set. Apesar de serem iguais, eles apontam para objetos diferentes no Heap.
+
+const arr = [1, 2];
+rest.set(arr, 'Teste'); // Agora sim é o mesmo array!
+console.log(rest.get(arr));
+
+// Adicionar elementos do DOM ao Map
+rest.set(document.querySelector('h1'), 'Heading');
+console.log(rest);
