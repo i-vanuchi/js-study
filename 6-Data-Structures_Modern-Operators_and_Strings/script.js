@@ -491,55 +491,101 @@ const restaurant = {
 
 // ----- Lecture: Maps - Fundamentals -----
 
-// Criar um Map
-const rest = new Map();
+// // Criar um Map
+// const rest = new Map();
 
-// Adicionar um elemento usando o método set
-rest.set('name', 'Classico Italiano');
-rest.set(1, 'Firenze, Italy');
+// // Adicionar um elemento usando o método set
+// rest.set('name', 'Classico Italiano');
+// rest.set(1, 'Firenze, Italy');
 
-// O método set retorna o Map atualizado
-console.log(rest.set(2, 'Lisbon, Portugal'));
+// // O método set retorna o Map atualizado
+// console.log(rest.set(2, 'Lisbon, Portugal'));
 
-// Como o método set retorna o Map atualizado, é possível encadear seu uso
-rest
-  .set('categories', ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'])
-  .set('open', 11)
-  .set('close', 23)
-  .set(true, 'We are open :D')
-  .set(false, 'We are closed :(');
+// // Como o método set retorna o Map atualizado, é possível encadear seu uso
+// rest
+//   .set('categories', ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'])
+//   .set('open', 11)
+//   .set('close', 23)
+//   .set(true, 'We are open :D')
+//   .set(false, 'We are closed :(');
 
-// Ler um valor do Map usando o método Get
-console.log(rest.get('name'));
-console.log(rest.get(true));
+// // Ler um valor do Map usando o método Get
+// console.log(rest.get('name'));
+// console.log(rest.get(true));
 
-// Exemplo do uso de boolean como nome da key
-const time = 21;
-console.log(rest.get(time >= rest.get('open') && time < rest.get('close')));
+// // Exemplo do uso de boolean como nome da key
+// const time = 21;
+// console.log(rest.get(time >= rest.get('open') && time < rest.get('close')));
 
-// Checar se o Map contém determinado elemento
-console.log(rest.has('categories'));
+// // Checar se o Map contém determinado elemento
+// console.log(rest.has('categories'));
 
-// Deletar elemento do Map
-rest.delete(2);
-console.log(rest);
-
-// Obter o tamanho do Map
-console.log(rest.size);
-
-// Deletar TODO o conteúdo do Map
-// rest.clear();
+// // Deletar elemento do Map
+// rest.delete(2);
 // console.log(rest);
 
-// Usar array como nome da key
+// // Obter o tamanho do Map
+// console.log(rest.size);
 
-// rest.set([1, 2], 'Teste');
-// console.log(rest.get([1, 2])); // não funciona porque esse array não é o mesmo passado no método set. Apesar de serem iguais, eles apontam para objetos diferentes no Heap.
+// // Deletar TODO o conteúdo do Map
+// // rest.clear();
+// // console.log(rest);
 
-const arr = [1, 2];
-rest.set(arr, 'Teste'); // Agora sim é o mesmo array!
-console.log(rest.get(arr));
+// // Usar array como nome da key
 
-// Adicionar elementos do DOM ao Map
-rest.set(document.querySelector('h1'), 'Heading');
-console.log(rest);
+// // rest.set([1, 2], 'Teste');
+// // console.log(rest.get([1, 2])); // não funciona porque esse array não é o mesmo passado no método set. Apesar de serem iguais, eles apontam para objetos diferentes no Heap.
+
+// const arr = [1, 2];
+// rest.set(arr, 'Teste'); // Agora sim é o mesmo array!
+// console.log(rest.get(arr));
+
+// // Adicionar elementos do DOM ao Map
+// rest.set(document.querySelector('h1'), 'Heading');
+// console.log(rest);
+
+// ----- Lecture: Maps - Iteration -----
+
+// Outra forma de criar um Map, passando com argumento um array de arrays, onde o primeiro valor do array é a key e o segundo o valor.
+const question = new Map([
+  ['question', 'What is the best programming language in the world?'],
+  [1, 'C'],
+  [2, 'Java'],
+  [3, 'JavaScript'],
+  ['correct', 1],
+  [true, 'Correct! 🎉'],
+  [false, 'Try Again!'],
+]);
+
+console.log(question);
+
+// Converter objeto em map
+const opHours = restaurant.openingHours;
+console.log(Object.entries(opHours)); // Object.entries transforma o objeto em um array de arrays, o mesmo formato em que maps armazenam os dados
+
+const hoursMap = new Map(Object.entries(opHours)); // Basta passar o objeto com o método entries como argumento do map. Ele será guardado no formato correto.
+console.log(hoursMap);
+
+// Iterações - Quiz app
+
+console.log(question.get('question'));
+for (const [key, value] of question) {
+  if (typeof key === 'number') console.log(`Answer ${key}: ${value}`);
+}
+
+// const answer = Number(prompt('Your answer'));
+const answer = 3;
+console.log(answer);
+
+// usando as keys boolean para definir se a resposta foi correta ou não
+// console.log(question.get(question.get(answer) === 'JavaScript')); // Minha resposta
+console.log(question.get(question.get('correct') === answer));
+
+// Convertendo Map para Array
+
+const questionArr = [...question];
+console.log(questionArr);
+// Métodos usados em arrays e também em Maps
+// console.log(...question.entries()); (?)
+console.log(...question.keys());
+console.log(...question.values());
