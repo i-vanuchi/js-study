@@ -50,96 +50,154 @@ const plane = 'A320';
 
 // ----- Lecture: Working with Strings - Part 2 -----
 
-console.log(airline.toLowerCase());
-console.log(airline.toUpperCase());
-console.log('israel'.toUpperCase());
+// console.log(airline.toLowerCase());
+// console.log(airline.toUpperCase());
+// console.log('israel'.toUpperCase());
 
-// Consertar a capitalização de nomes
+// // Consertar a capitalização de nomes
 
-const passenger = 'iSraEl'; // Israel
-const passengerLower = passenger.toLowerCase();
-const passengerCorrect =
-  passengerLower[0].toUpperCase() + passengerLower.slice(1);
-console.log(passengerCorrect);
+// const passenger = 'iSraEl'; // Israel
+// const passengerLower = passenger.toLowerCase();
+// const passengerCorrect =
+//   passengerLower[0].toUpperCase() + passengerLower.slice(1);
+// console.log(passengerCorrect);
 
-// Função que conserta a capitalização de nomes
+// // Função que conserta a capitalização de nomes
 
-const nameFixer = function (passengerName) {
-  return (
-    passengerName.toLowerCase()[0].toUpperCase() +
-    passengerName.toLowerCase().slice(1)
-  );
-};
+// const nameFixer = function (passengerName) {
+//   return (
+//     passengerName.toLowerCase()[0].toUpperCase() +
+//     passengerName.toLowerCase().slice(1)
+//   );
+// };
 
-console.log(nameFixer('naTaSHa'));
-console.log(nameFixer('SAMantHa'));
-console.log(nameFixer('saITaMA'));
+// console.log(nameFixer('naTaSHa'));
+// console.log(nameFixer('SAMantHa'));
+// console.log(nameFixer('saITaMA'));
 
-// Comparar emails
+// // Comparar emails
 
-const email = 'hello@domain.com';
-const loginEmail = '  Hello@domain.Com \n';
+// const email = 'hello@domain.com';
+// const loginEmail = '  Hello@domain.Com \n';
 
-// const lowerEmail = loginEmail.toLowerCase();
-// const trimmedEmail = lowerEmail.trim();
+// // const lowerEmail = loginEmail.toLowerCase();
+// // const trimmedEmail = lowerEmail.trim();
 
-const normalizedEmail = loginEmail.toLowerCase().trim();
-console.log(normalizedEmail);
+// const normalizedEmail = loginEmail.toLowerCase().trim();
+// console.log(normalizedEmail);
 
-// Função que compara emails
+// // Função que compara emails
 
-const emailComparator = function (correctEmail, enteredEmail) {
-  const emailFixed = enteredEmail.toLowerCase().trim();
-  console.log(`Correct email: ${correctEmail}
-  Entered email: ${enteredEmail}`);
+// const emailComparator = function (correctEmail, enteredEmail) {
+//   const emailFixed = enteredEmail.toLowerCase().trim();
+//   console.log(`Correct email: ${correctEmail}
+//   Entered email: ${enteredEmail}`);
 
-  const comparison =
-    correctEmail === emailFixed ? `Email is correct` : `Email is wrong`;
-  console.log(comparison);
-  return emailFixed;
-};
-emailComparator('teste@email.com', '  TestE@Email.Com \n');
-emailComparator('teste@email.com', '  TestEe@Email.Com \n');
-emailComparator('teste@email.com', '  TestE@Email.Co m \n');
+//   const comparison =
+//     correctEmail === emailFixed ? `Email is correct` : `Email is wrong`;
+//   console.log(comparison);
+//   return emailFixed;
+// };
+// emailComparator('teste@email.com', '  TestE@Email.Com \n');
+// emailComparator('teste@email.com', '  TestEe@Email.Com \n');
+// emailComparator('teste@email.com', '  TestE@Email.Co m \n');
 
-// Substituir strings (replace)
+// // Substituir strings (replace)
 
-const priceUS = 'U$288.97';
-const priceBR = priceUS.replace('U', 'R').replace('.', ',');
-console.log(priceUS, priceBR);
+// const priceUS = 'U$288.97';
+// const priceBR = priceUS.replace('U', 'R').replace('.', ',');
+// console.log(priceUS, priceBR);
 
-const announcement =
-  'All passengers come to boarding door 23. Boarding door 23!';
+// const announcement =
+//   'All passengers come to boarding door 23. Boarding door 23!';
 
-console.log(announcement.replace('door', 'gate'));
-console.log(announcement.replaceAll('door', 'gate'));
+// console.log(announcement.replace('door', 'gate'));
+// console.log(announcement.replaceAll('door', 'gate'));
 
-//solução sem replaceAll, usando regular expression (regexp) com a flag 'g', que significa global.
+// //solução sem replaceAll, usando regular expression (regexp) com a flag 'g', que significa global.
 
-console.log(announcement.replace(/door/g, 'gate'));
+// console.log(announcement.replace(/door/g, 'gate'));
 
-// Booleans
-const plane2 = 'Airbus A320neo';
-console.log(plane2.includes('A320')); // true
-console.log(plane2.includes('Boeing')); // false
-console.log(plane2.startsWith('Air')); // true
+// // Booleans
+// const plane2 = 'Airbus A320neo';
+// console.log(plane2.includes('A320')); // true
+// console.log(plane2.includes('Boeing')); // false
+// console.log(plane2.startsWith('Air')); // true
 
-if (plane2.startsWith('Air') && plane2.endsWith('neo')) {
-  console.log('Part of the NEW family!');
-}
+// if (plane2.startsWith('Air') && plane2.endsWith('neo')) {
+//   console.log('Part of the NEW family!');
+// }
 
-// Exercícios de prática
-// Função que checa se a bagagem está permitida para o embarque
+// // Exercícios de prática
+// // Função que checa se a bagagem está permitida para o embarque
 
-const checkBaggage = function (items) {
-  const fixedStr = items.toLowerCase();
-  if (fixedStr.includes('knife') || fixedStr.includes('gun')) {
-    console.log('You are NOT allowed on board!');
-  } else {
-    console.log('Welcome aboard! :)');
+// const checkBaggage = function (items) {
+//   const fixedStr = items.toLowerCase();
+//   if (fixedStr.includes('knife') || fixedStr.includes('gun')) {
+//     console.log('You are NOT allowed on board!');
+//   } else {
+//     console.log('Welcome aboard! :)');
+//   }
+// };
+
+// checkBaggage('I have a laptop, some Food and a pocket Knife');
+// checkBaggage('Socks and camera');
+// checkBaggage('Got some snacks and a Gun for protection');
+
+// ----- Lecture: Working with Strings - Part 3 -----
+
+// Split
+
+console.log('a+very+nice+string'.split('+'));
+console.log('Israel Vanuchi'.split(' '));
+
+// Split + Join
+const [firstName, lastName] = 'Israel Vanuchi'.split(' ');
+
+const newName = ['Mr.', firstName, lastName.toUpperCase()].join(' ');
+console.log(newName);
+
+const capitalizeName = function (name) {
+  const separateName = name.split(' ');
+  const namesUpper = [];
+
+  for (const n of separateName) {
+    // namesUpper.push(n[0].toUpperCase() + n.slice(1)); // Solução 1
+    namesUpper.push(n.replace(n[0], n[0].toUpperCase())); // Solução 2
   }
+  console.log(namesUpper.join(' '));
 };
 
-checkBaggage('I have a laptop, some Food and a pocket Knife');
-checkBaggage('Socks and camera');
-checkBaggage('Got some snacks and a Gun for protection');
+capitalizeName('valdeci santos silva');
+capitalizeName('joao soares neto');
+
+// Padding (adicionar caracteres na string até que ela tenha o tamanhoi desejado)
+
+const message = 'Go to gate 23!';
+console.log(message.padStart(20, '+').padEnd(30, '+'));
+console.log('Israel'.padStart(20, '+').padEnd(30, '+'));
+
+// Exemplo real de padding
+
+const maskCreditCard = function (number) {
+  const strNumber = number + '';
+  const maskedNumber = strNumber.slice(-4).padStart(strNumber.length, '*');
+  return maskedNumber;
+};
+
+console.log(maskCreditCard(45892531514));
+console.log(maskCreditCard('1254785'));
+console.log(maskCreditCard(1541785412365225));
+
+// Repeat
+
+const weatherMsg = 'Bad weather... All departures delayed... ';
+console.log(weatherMsg.repeat(5));
+
+const planesInLine = function (n) {
+  console.log(`There are ${n} planes in line ${'✈'.repeat(n)}`);
+};
+
+planesInLine(5);
+planesInLine(3);
+planesInLine(9);
