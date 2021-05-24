@@ -312,7 +312,7 @@ const restaurant = {
 // const guests2 = restaurant.numGuests ?? 10;
 // console.log(guests2);
 
-// ----- Lecture: Looping Arrays - THe for-of Loop -----
+// ----- Lecture: Looping Arrays - The for-of Loop -----
 
 // const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
 // console.log(menu);
@@ -333,8 +333,8 @@ const restaurant = {
 // }
 
 // // Melhorando o template string através da desestruturação
-// for (const [i, el] of menu.entries()) {
-//   console.log(`${i + 1}: ${el}`);
+// for (const [i, value] of menu.entries()) {
+//   console.log(`${i + 1}: ${value}`);
 // }
 
 // ----- Lecture: Enhanced Object Literals -----
@@ -445,7 +445,7 @@ const restaurant = {
 // ]);
 // console.log(ordersSet);
 
-// // Set formado pode uma string
+// // Set formado por uma string
 // console.log(new Set('Israel'));
 
 // // Obtendo o tamanho do Set. Usa-se Size em vez de Length (como em arrays)
@@ -537,8 +537,8 @@ const restaurant = {
 // // console.log(rest.get([1, 2])); // não funciona porque esse array não é o mesmo passado no método set. Apesar de serem iguais, eles apontam para objetos diferentes no Heap.
 
 // const arr = [1, 2];
-// rest.set(arr, 'Teste'); // Agora sim é o mesmo array!
-// console.log(rest.get(arr));
+// rest.set(arr, 'Teste');
+// console.log(rest.get(arr)); // Agora sim é o mesmo array!
 
 // // Adicionar elementos do DOM ao Map
 // rest.set(document.querySelector('h1'), 'Heading');
@@ -546,46 +546,47 @@ const restaurant = {
 
 // ----- Lecture: Maps - Iteration -----
 
-// // Outra forma de criar um Map, passando com argumento um array de arrays, onde o primeiro valor do array é a key e o segundo o valor.
-// const question = new Map([
-//   ['question', 'What is the best programming language in the world?'],
-//   [1, 'C'],
-//   [2, 'Java'],
-//   [3, 'JavaScript'],
-//   ['correct', 1],
-//   [true, 'Correct! 🎉'],
-//   [false, 'Try Again!'],
-// ]);
+// Outra forma de criar um Map, passando como argumento um array de arrays, onde o primeiro valor do array é a key e o segundo é o valor dessa key.
+const question = new Map([
+  ['question', 'What is the best food in the world?'],
+  [1, 'Strogonoff'],
+  [2, 'Pizza'],
+  [3, 'Lanche'],
+  [4, 'Todas'],
+  ['correct', 4],
+  [true, 'Correct! 🎉'],
+  [false, 'Try Again!'],
+]);
 
-// console.log(question);
+console.log(question);
 
-// // Converter objeto em map
-// const opHours = restaurant.openingHours;
-// console.log(Object.entries(opHours)); // Object.entries transforma o objeto em um array de arrays, o mesmo formato em que maps armazenam os dados
+// Converter objeto em map
+const opHours = restaurant.openingHours;
+console.log(Object.entries(opHours)); // Object.entries transforma o objeto em um array de arrays, o mesmo formato em que maps armazenam os dados
 
-// const hoursMap = new Map(Object.entries(opHours)); // Basta passar o objeto com o método entries como argumento do map. Ele será guardado no formato correto.
-// console.log(hoursMap);
+const hoursMap = new Map(Object.entries(opHours)); // Basta passar o objeto com o método entries como argumento do map. Ele será guardado no formato correto.
+console.log(hoursMap);
 
-// // Iterações - Quiz app
+// Iterações - Quiz app
 
-// console.log(question.get('question'));
-// for (const [key, value] of question) {
-//   if (typeof key === 'number') console.log(`Answer ${key}: ${value}`);
-// }
+console.log(question.get('question'));
+for (const [key, value] of question) {
+  if (typeof key === 'number') console.log(`Answer ${key}: ${value}`);
+}
 
-// // const answer = Number(prompt('Your answer'));
-// const answer = 3;
-// console.log(answer);
+// const answer = Number(prompt('Your answer'));
+const answer = 4;
+console.log(answer);
 
-// // usando as keys boolean para definir se a resposta foi correta ou não
-// // console.log(question.get(question.get(answer) === 'JavaScript')); // Minha resposta
-// console.log(question.get(question.get('correct') === answer));
+// usando as keys boolean para definir se a resposta foi correta ou não
+// console.log(question.get(question.get(answer) === 'JavaScript')); // Minha resposta
+console.log(question.get(question.get('correct') === answer));
 
-// // Convertendo Map para Array
+// Convertendo Map para Array
 
-// const questionArr = [...question];
-// console.log(questionArr);
-// // Métodos usados em arrays e também em Maps
-// // console.log(...question.entries()); (?)
-// console.log(...question.keys());
-// console.log(...question.values());
+const questionArr = [...question];
+console.log(questionArr);
+// Métodos usados em arrays e também em Maps
+console.log(...question.entries());
+console.log(...question.keys());
+console.log(...question.values());

@@ -171,7 +171,7 @@ const capitalizeName = function (name) {
 capitalizeName('valdeci santos silva');
 capitalizeName('joao soares neto');
 
-// Padding (adicionar caracteres na string até que ela tenha o tamanhoi desejado)
+// Padding (adicionar caracteres na string até que ela tenha o tamanho desejado)
 
 const message = 'Go to gate 23!';
 console.log(message.padStart(20, '+').padEnd(30, '+'));
