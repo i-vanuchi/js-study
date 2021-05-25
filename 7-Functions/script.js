@@ -94,34 +94,55 @@
 
 // ['Peter', 'May', 'Harry'].forEach(high5);
 
-// Meu próprio oexemplo (Trocar a cor do h1 para uma cor aleatória a cada click no body)
+// // Meu próprio oexemplo (Trocar a cor do h1 para uma cor aleatória a cada click no body)
 
-const changeColorH1 = function () {
-  const chars = [
-    '0',
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    'a',
-    'b',
-    'c',
-    'd',
-    'e',
-    'f',
-  ];
+// const changeColorH1 = function () {
+//   const chars = [
+//     '0',
+//     '1',
+//     '2',
+//     '3',
+//     '4',
+//     '5',
+//     '6',
+//     '7',
+//     '8',
+//     '9',
+//     'a',
+//     'b',
+//     'c',
+//     'd',
+//     'e',
+//     'f',
+//   ];
 
-  let color = '';
-  for (let i = 0; i < 6; i++) {
-    color += chars[Math.trunc(Math.random() * 16)];
-  }
+//   let color = '';
+//   for (let i = 0; i < 6; i++) {
+//     color += chars[Math.trunc(Math.random() * 16)];
+//   }
 
-  document.querySelector('h1').style.color = `#${color}`;
+//   document.querySelector('h1').style.color = `#${color}`;
+// };
+
+// document.body.addEventListener('click', changeColorH1);
+
+// -------- Lecture: Functions Returning Functions --------
+
+const greet = function (greeting) {
+  return function (name) {
+    console.log(`${greeting} ${name}!`);
+  };
 };
 
-document.body.addEventListener('click', changeColorH1);
+const greeterHey = greet('Hey'); // greet('Hey') resulta basicamente na função retornada da função greet, portanto é um valor e pode ser armazenada em outra variável;
+greeterHey('Steven');
+greeterHey('Bob');
+
+greet('Hello')('Peter'); // como greet é basicamente a função retornada, é possível encadear a chamada da função;
+
+// Funções retornando outras funções é algo importante e comum no JS, especialmente quando é o usado o paradigma Functional Programming;
+
+// A mesma função feita com arrow functions
+const arrowGreet = greeting => name => console.log(`${greeting} ${name}`);
+
+arrowGreet('E ae')('parça');
