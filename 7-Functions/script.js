@@ -60,3 +60,68 @@
 
 // newPassport(israel);
 // checkIn(flight, israel);
+
+// -------- Lecture: Functions Accepting Callback Functions --------
+
+// const oneWord = function (str) {
+//   return str.replace(/ /g, '').toLowerCase();
+// };
+
+// const upperFirstWord = function (str) {
+//   const [first, ...others] = str.split(' ');
+//   return [first.toUpperCase(), ...others].join(' ');
+// };
+
+// const transformer = function (str, fn) {
+//   console.log(`Original string: ${str}`);
+//   console.log(`Transformed string: ${fn(str)}`);
+//   console.log(`Transformed by: ${fn.name}`);
+// };
+
+// transformer('Somewhere somehow', upperFirstWord);
+// console.log('---------------------');
+// transformer('Somewhere somehow', oneWord);
+
+// // Exemplo usando elementos do DOM
+
+// const high5 = function () {
+//   console.log('🖐');
+// };
+
+// document.body.addEventListener('click', high5);
+
+// // Exemplo com forEach (será abordado mais adiante)
+
+// ['Peter', 'May', 'Harry'].forEach(high5);
+
+// Meu próprio oexemplo (Trocar a cor do h1 para uma cor aleatória a cada click no body)
+
+const changeColorH1 = function () {
+  const chars = [
+    '0',
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    'a',
+    'b',
+    'c',
+    'd',
+    'e',
+    'f',
+  ];
+
+  let color = '';
+  for (let i = 0; i < 6; i++) {
+    color += chars[Math.trunc(Math.random() * 16)];
+  }
+
+  document.querySelector('h1').style.color = `#${color}`;
+};
+
+document.body.addEventListener('click', changeColorH1);
