@@ -94,7 +94,7 @@
 
 // ['Peter', 'May', 'Harry'].forEach(high5);
 
-// // Meu próprio oexemplo (Trocar a cor do h1 para uma cor aleatória a cada click no body)
+// // Meu próprio exemplo (Trocar a cor do h1 para uma cor aleatória a cada click no body)
 
 // const changeColorH1 = function () {
 //   const chars = [
@@ -128,21 +128,78 @@
 
 // -------- Lecture: Functions Returning Functions --------
 
-const greet = function (greeting) {
-  return function (name) {
-    console.log(`${greeting} ${name}!`);
-  };
+// const greet = function (greeting) {
+//   return function (name) {
+//     console.log(`${greeting} ${name}!`);
+//   };
+// };
+
+// const greeterHey = greet('Hey'); // greet('Hey') resulta basicamente na função retornada da função greet, portanto é um valor e pode ser armazenada em outra variável;
+// greeterHey('Steven');
+// greeterHey('Bob');
+
+// greet('Hello')('Peter'); // como greet é basicamente a função retornada, é possível encadear a chamada da função;
+
+// // Funções retornando outras funções é algo importante e comum no JS, especialmente quando é o usado o paradigma Functional Programming;
+
+// // A mesma função feita com arrow functions
+// const arrowGreet = greeting => name => console.log(`${greeting} ${name}`);
+
+// arrowGreet('E ae')('parça');
+
+// -------- Lecture: The Call and Apply Methods --------
+
+const lufthansa = {
+  airline: 'Lufthansa',
+  iataCode: 'LH',
+  bookings: [],
+
+  // book: function() { }
+  book(flightNum, name) {
+    console.log(
+      `${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`
+    );
+
+    this.bookings.push({ flight: `${this.iataCode}${flightNum}`, name });
+  },
 };
 
-const greeterHey = greet('Hey'); // greet('Hey') resulta basicamente na função retornada da função greet, portanto é um valor e pode ser armazenada em outra variável;
-greeterHey('Steven');
-greeterHey('Bob');
+lufthansa.book(239, 'Geralt de Rivia');
+lufthansa.book(635, 'Maxine Caulfild');
 
-greet('Hello')('Peter'); // como greet é basicamente a função retornada, é possível encadear a chamada da função;
+const eurowings = {
+  airline: 'Eurowings',
+  iataCode: 'EW',
+  bookings: [],
+};
 
-// Funções retornando outras funções é algo importante e comum no JS, especialmente quando é o usado o paradigma Functional Programming;
+const book = lufthansa.book; // copiada a função para fora porque copiar todo o código para dentro do outro objeto seria uma má prática.
 
-// A mesma função feita com arrow functions
-const arrowGreet = greeting => name => console.log(`${greeting} ${name}`);
+// book(23, 'Sara Williams'); // somente uma chamada de função regular. Então 'this' aponta para undefined (strict mode), por isso NÃO FUNCIONA
 
-arrowGreet('E ae')('parça');
+// Agora precisaremos de uma maneira de dizer ao JS manualmente qual será o valor de 'this'
+// Podemos fazer isso com os métodos Call, Apply e Bind
+
+// Método Call
+book.call(eurowings, 23, 'Sara Williams'); // O método call chama a função, setando 'this' para eurowings (primeiro argumento). Os demais argumentos são os exigidos pela função original
+console.log(eurowings);
+
+book.call(lufthansa, 239, 'Mary Cooper');
+console.log(lufthansa);
+
+const swiss = {
+  airline: 'Swiss Air Lines',
+  iataCode: 'LX',
+  bookings: [],
+};
+
+book.call(swiss, 78, 'Mark Grayson');
+console.log(swiss);
+
+// Método Apply
+const flightData = [583, 'Helena Pera'];
+book.apply(swiss, flightData);
+
+// Better way of doing apply method
+const flightData2 = [411, 'Barry Allen'];
+book.call(swiss, ...flightData2);
