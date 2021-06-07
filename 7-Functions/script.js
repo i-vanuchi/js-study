@@ -203,3 +203,60 @@ book.apply(swiss, flightData);
 // Better way of doing apply method
 const flightData2 = [411, 'Barry Allen'];
 book.call(swiss, ...flightData2);
+
+// -------- Lecture: The Bind method --------
+
+// book.call(swiss, 78, 'Mark Grayson');
+
+const bookEW = book.bind(eurowings); // retorna uma nova função com a keyword this valendo 'eurowings'
+const bookLH = book.bind(lufthansa);
+const bookLX = book.bind(swiss);
+
+bookEW(23, 'Steven Williams');
+
+// podem ser definidos mais argumentos  usando o bind (partial application)
+// no exemplo abaixo é criada uma nova função com a this keyword + o número do voo setados
+
+const bookEW23 = book.bind(eurowings, 23);
+bookEW23('Peter Parker');
+bookEW23('Uma Pessoa');
+
+// Com Event Listeners
+
+lufthansa.planes = 300;
+lufthansa.buyPlane = function () {
+  console.log(this);
+
+  this.planes++;
+  console.log(this.planes);
+};
+// da forma que está abaixo, a keyword this será o elemento do qual o event listener está anexado
+
+// document.querySelector('.buy').addEventListener('click', lufthansa.buyPlane);
+
+// para que a keyword this seja definida como o objeto proprietário do método (lufthansa, nesse caso) pode ser usado o método bind, como abaixo.
+
+document
+  .querySelector('.buy')
+  .addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
+
+// outro exemplo de partial application
+
+const addTax = (rate, value) => value + value * rate;
+console.log(addTax(0.1, 200));
+
+const addVAT = addTax.bind(null, 0.23); // aqui definimos a keyword this como null, pq ela não importa. Poderia ser qualquer valor, mas o Null é um padrão utilizado nessa situação.
+
+// Obs: a ordem dos parâmetros na função importam. Nesse caso foi definido como padrão a taxa pq ela é o primeiro parâmetro da função.
+
+// Challenge: fazer a função addVAT mas utilizando a técnica de funções retornando funções.
+
+const addTaxRate = function (rate) {
+  return function (value) {
+    return value + value * rate;
+  };
+};
+
+const addVAT2 = addTaxRate(0.23);
+console.log(addVAT2(500));
+console.log(addVAT2(200));
