@@ -149,114 +149,140 @@
 
 // -------- Lecture: The Call and Apply Methods --------
 
-const lufthansa = {
-  airline: 'Lufthansa',
-  iataCode: 'LH',
-  bookings: [],
+// const lufthansa = {
+//   airline: 'Lufthansa',
+//   iataCode: 'LH',
+//   bookings: [],
 
-  // book: function() { }
-  book(flightNum, name) {
-    console.log(
-      `${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`
-    );
+//   // book: function() { }
+//   book(flightNum, name) {
+//     console.log(
+//       `${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`
+//     );
 
-    this.bookings.push({ flight: `${this.iataCode}${flightNum}`, name });
-  },
-};
+//     this.bookings.push({ flight: `${this.iataCode}${flightNum}`, name });
+//   },
+// };
 
-lufthansa.book(239, 'Geralt de Rivia');
-lufthansa.book(635, 'Maxine Caulfild');
+// lufthansa.book(239, 'Geralt de Rivia');
+// lufthansa.book(635, 'Maxine Caulfild');
 
-const eurowings = {
-  airline: 'Eurowings',
-  iataCode: 'EW',
-  bookings: [],
-};
+// const eurowings = {
+//   airline: 'Eurowings',
+//   iataCode: 'EW',
+//   bookings: [],
+// };
 
-const book = lufthansa.book; // copiada a função para fora porque copiar todo o código para dentro do outro objeto seria uma má prática.
+// const book = lufthansa.book; // copiada a função para fora porque copiar todo o código para dentro do outro objeto seria uma má prática.
 
-// book(23, 'Sara Williams'); // somente uma chamada de função regular. Então 'this' aponta para undefined (strict mode), por isso NÃO FUNCIONA
+// // book(23, 'Sara Williams'); // somente uma chamada de função regular. Então 'this' aponta para undefined (strict mode), por isso NÃO FUNCIONA
 
-// Agora precisaremos de uma maneira de dizer ao JS manualmente qual será o valor de 'this'
-// Podemos fazer isso com os métodos Call, Apply e Bind
+// // Agora precisaremos de uma maneira de dizer ao JS manualmente qual será o valor de 'this'
+// // Podemos fazer isso com os métodos Call, Apply e Bind
 
-// Método Call
-book.call(eurowings, 23, 'Sara Williams'); // O método call chama a função, setando 'this' para eurowings (primeiro argumento). Os demais argumentos são os exigidos pela função original
-console.log(eurowings);
+// // Método Call
+// book.call(eurowings, 23, 'Sara Williams'); // O método call chama a função, setando 'this' para eurowings (primeiro argumento). Os demais argumentos são os exigidos pela função original
+// console.log(eurowings);
 
-book.call(lufthansa, 239, 'Mary Cooper');
-console.log(lufthansa);
+// book.call(lufthansa, 239, 'Mary Cooper');
+// console.log(lufthansa);
 
-const swiss = {
-  airline: 'Swiss Air Lines',
-  iataCode: 'LX',
-  bookings: [],
-};
-
-book.call(swiss, 78, 'Mark Grayson');
-console.log(swiss);
-
-// Método Apply
-const flightData = [583, 'Helena Pera'];
-book.apply(swiss, flightData);
-
-// Better way of doing apply method
-const flightData2 = [411, 'Barry Allen'];
-book.call(swiss, ...flightData2);
-
-// -------- Lecture: The Bind method --------
+// const swiss = {
+//   airline: 'Swiss Air Lines',
+//   iataCode: 'LX',
+//   bookings: [],
+// };
 
 // book.call(swiss, 78, 'Mark Grayson');
+// console.log(swiss);
 
-const bookEW = book.bind(eurowings); // retorna uma nova função com a keyword this valendo 'eurowings'
-const bookLH = book.bind(lufthansa);
-const bookLX = book.bind(swiss);
+// // Método Apply
+// const flightData = [583, 'Helena Pera'];
+// book.apply(swiss, flightData);
 
-bookEW(23, 'Steven Williams');
+// // Better way of doing apply method
+// const flightData2 = [411, 'Barry Allen'];
+// book.call(swiss, ...flightData2);
 
-// podem ser definidos mais argumentos  usando o bind (partial application)
-// no exemplo abaixo é criada uma nova função com a this keyword + o número do voo setados
+// // -------- Lecture: The Bind method --------
 
-const bookEW23 = book.bind(eurowings, 23);
-bookEW23('Peter Parker');
-bookEW23('Uma Pessoa');
+// // book.call(swiss, 78, 'Mark Grayson');
 
-// Com Event Listeners
+// const bookEW = book.bind(eurowings); // retorna uma nova função com a keyword this valendo 'eurowings'
+// const bookLH = book.bind(lufthansa);
+// const bookLX = book.bind(swiss);
 
-lufthansa.planes = 300;
-lufthansa.buyPlane = function () {
-  console.log(this);
+// bookEW(23, 'Steven Williams');
 
-  this.planes++;
-  console.log(this.planes);
+// // podem ser definidos mais argumentos  usando o bind (partial application)
+// // no exemplo abaixo é criada uma nova função com a this keyword + o número do voo setados
+
+// const bookEW23 = book.bind(eurowings, 23);
+// bookEW23('Peter Parker');
+// bookEW23('Uma Pessoa');
+
+// // Com Event Listeners
+
+// lufthansa.planes = 300;
+// lufthansa.buyPlane = function () {
+//   console.log(this);
+
+//   this.planes++;
+//   console.log(this.planes);
+// };
+// // da forma que está abaixo, a keyword this será o elemento do qual o event listener está anexado
+
+// // document.querySelector('.buy').addEventListener('click', lufthansa.buyPlane);
+
+// // para que a keyword this seja definida como o objeto proprietário do método (lufthansa, nesse caso) pode ser usado o método bind, como abaixo.
+
+// document
+//   .querySelector('.buy')
+//   .addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
+
+// // outro exemplo de partial application
+
+// const addTax = (rate, value) => value + value * rate;
+// console.log(addTax(0.1, 200));
+
+// const addVAT = addTax.bind(null, 0.23); // aqui definimos a keyword this como null, pq ela não importa. Poderia ser qualquer valor, mas o Null é um padrão utilizado nessa situação.
+
+// // Obs: a ordem dos parâmetros na função importam. Nesse caso foi definido como padrão a taxa pq ela é o primeiro parâmetro da função.
+
+// // Challenge: fazer a função addVAT mas utilizando a técnica de funções retornando funções.
+
+// const addTaxRate = function (rate) {
+//   return function (value) {
+//     return value + value * rate;
+//   };
+// };
+
+// const addVAT2 = addTaxRate(0.23);
+// console.log(addVAT2(500));
+// console.log(addVAT2(200));
+
+// -------- Lecture: Immediately Invoked Function Expressions (IIFE) --------
+
+const runOnce = function () {
+  console.log('This will never run again.');
 };
-// da forma que está abaixo, a keyword this será o elemento do qual o event listener está anexado
 
-// document.querySelector('.buy').addEventListener('click', lufthansa.buyPlane);
+runOnce();
 
-// para que a keyword this seja definida como o objeto proprietário do método (lufthansa, nesse caso) pode ser usado o método bind, como abaixo.
+// IIFE
+(function () {
+  console.log('This will never run again.');
+  const isPrivate = 56;
+})();
 
-document
-  .querySelector('.buy')
-  .addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
+// console.log(isPrivate); // náo pode ser acessada de um escopo externo
 
-// outro exemplo de partial application
+(() => console.log('This will ALSO never run again.'))();
 
-const addTax = (rate, value) => value + value * rate;
-console.log(addTax(0.1, 200));
+{
+  const isPrivate = 56; // forma de proteger uma variável sem uso de IIFE.
+  var notPrivate = 27; // var pode ser acessada de fora
+}
 
-const addVAT = addTax.bind(null, 0.23); // aqui definimos a keyword this como null, pq ela não importa. Poderia ser qualquer valor, mas o Null é um padrão utilizado nessa situação.
-
-// Obs: a ordem dos parâmetros na função importam. Nesse caso foi definido como padrão a taxa pq ela é o primeiro parâmetro da função.
-
-// Challenge: fazer a função addVAT mas utilizando a técnica de funções retornando funções.
-
-const addTaxRate = function (rate) {
-  return function (value) {
-    return value + value * rate;
-  };
-};
-
-const addVAT2 = addTaxRate(0.23);
-console.log(addVAT2(500));
-console.log(addVAT2(200));
+// console.log(isPrivate); // continua não podendo ser acessada.
+console.log(notPrivate);
