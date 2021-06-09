@@ -263,26 +263,91 @@
 
 // -------- Lecture: Immediately Invoked Function Expressions (IIFE) --------
 
-const runOnce = function () {
-  console.log('This will never run again.');
+// const runOnce = function () {
+//   console.log('This will never run again.');
+// };
+
+// runOnce();
+
+// // IIFE
+// (function () {
+//   console.log('This will never run again.');
+//   const isPrivate = 56;
+// })();
+
+// // console.log(isPrivate); // náo pode ser acessada de um escopo externo
+
+// (() => console.log('This will ALSO never run again.'))();
+
+// {
+//   const isPrivate = 56; // forma de proteger uma variável sem uso de IIFE.
+//   var notPrivate = 27; // var pode ser acessada de fora
+// }
+
+// // console.log(isPrivate); // continua não podendo ser acessada.
+// console.log(notPrivate);
+
+// -------- Lecture: Closures --------
+
+// Closure é o ambiente de variáveis encerrado do contexto de execução em que uma função foi criada, mesmo que esse CE já tenha sido encerrado
+
+// Closure dá à função acesso a todas as variáveis da função pai, mesmo depois dessa função pai já ter retornado.
+
+// CLosure garante que uma função não perca a conexão com as variáveis que existiram em seu "local de nascimento"
+
+// const secureBooking = function () {
+//   let passengerCount = 0;
+//   return function () {
+//     passengerCount++;
+//     console.log(`${passengerCount} passengers`);
+//   };
+// };
+
+// const booker = secureBooking(); // consegue acessar a variável passengerCount apenas por conta da closure.
+
+// booker();
+// booker();
+// booker();
+
+// -------- Lecture: More Closures examples --------
+
+// Example 1
+let f;
+
+const g = function () {
+  const a = 23;
+  f = function () {
+    console.log(a * 2);
+  };
 };
 
-runOnce();
+const h = function () {
+  const b = 777;
+  f = function () {
+    console.log(b * 2);
+  };
+};
 
-// IIFE
-(function () {
-  console.log('This will never run again.');
-  const isPrivate = 56;
-})();
+g();
+f();
+console.dir(f);
 
-// console.log(isPrivate); // náo pode ser acessada de um escopo externo
+// Re-assigning f function
+h();
+f();
+console.dir(f);
 
-(() => console.log('This will ALSO never run again.'))();
+// Example 2
+const boardPassengers = function (n, wait) {
+  const perGroup = n / 3;
 
-{
-  const isPrivate = 56; // forma de proteger uma variável sem uso de IIFE.
-  var notPrivate = 27; // var pode ser acessada de fora
-}
+  setTimeout(function () {
+    console.log(`We are now boarding all ${n} passengers.`);
+    console.log(`There are 3 groups, each with ${perGroup} passengers.`);
+  }, wait * 1000);
 
-// console.log(isPrivate); // continua não podendo ser acessada.
-console.log(notPrivate);
+  console.log(`Will start boarding in ${wait} seconds`);
+};
+
+const perGroup = 1000; // se não fosse a Closure, essa variável seria utilizada na callback function.
+boardPassengers(180, 5);
