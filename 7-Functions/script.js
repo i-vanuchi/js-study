@@ -165,7 +165,7 @@
 // };
 
 // lufthansa.book(239, 'Geralt de Rivia');
-// lufthansa.book(635, 'Maxine Caulfild');
+// lufthansa.book(635, 'Maxine Caulfield');
 
 // const eurowings = {
 //   airline: 'Eurowings',
@@ -198,9 +198,9 @@
 
 // // Método Apply
 // const flightData = [583, 'Helena Pera'];
-// book.apply(swiss, flightData);
+// book.apply(swiss, flightData); // faz o mesmo que o Call, porém os argumentos da função original devem estar no formato de array
 
-// // Better way of doing apply method
+// // Better way of doing apply method (call method + spread operator)
 // const flightData2 = [411, 'Barry Allen'];
 // book.call(swiss, ...flightData2);
 
@@ -289,11 +289,11 @@
 
 // -------- Lecture: Closures --------
 
-// Closure é o ambiente de variáveis encerrado do contexto de execução em que uma função foi criada, mesmo que esse CE já tenha sido encerrado
+// // Closure é o ambiente de variáveis encerrado do contexto de execução em que uma função foi criada, mesmo que esse CE já tenha sido encerrado
 
-// Closure dá à função acesso a todas as variáveis da função pai, mesmo depois dessa função pai já ter retornado.
+// // Closure dá à função acesso a todas as variáveis da função pai, mesmo depois dessa função pai já ter retornado.
 
-// CLosure garante que uma função não perca a conexão com as variáveis que existiram em seu "local de nascimento"
+// // CLosure garante que uma função não perca a conexão com as variáveis que existiram em seu "local de nascimento"
 
 // const secureBooking = function () {
 //   let passengerCount = 0;
@@ -311,43 +311,43 @@
 
 // -------- Lecture: More Closures examples --------
 
-// Example 1
-let f;
+// // Example 1
+// let f;
 
-const g = function () {
-  const a = 23;
-  f = function () {
-    console.log(a * 2);
-  };
-};
+// const g = function () {
+//   const a = 23;
+//   f = function () {
+//     console.log(a * 2);
+//   };
+// };
 
-const h = function () {
-  const b = 777;
-  f = function () {
-    console.log(b * 2);
-  };
-};
+// const h = function () {
+//   const b = 777;
+//   f = function () {
+//     console.log(b * 2);
+//   };
+// };
 
-g();
-f();
-console.dir(f);
+// g();
+// f();
+// console.dir(f);
 
-// Re-assigning f function
-h();
-f();
-console.dir(f);
+// // Re-assigning f function
+// h();
+// f();
+// console.dir(f);
 
-// Example 2
-const boardPassengers = function (n, wait) {
-  const perGroup = n / 3;
+// // Example 2
+// const boardPassengers = function (n, wait) {
+//   const perGroup = n / 3;
 
-  setTimeout(function () {
-    console.log(`We are now boarding all ${n} passengers.`);
-    console.log(`There are 3 groups, each with ${perGroup} passengers.`);
-  }, wait * 1000);
+//   setTimeout(function () {
+//     console.log(`We are now boarding all ${n} passengers.`);
+//     console.log(`There are 3 groups, each with ${perGroup} passengers.`);
+//   }, wait * 1000);
 
-  console.log(`Will start boarding in ${wait} seconds`);
-};
+//   console.log(`Will start boarding in ${wait} seconds`);
+// };
 
-const perGroup = 1000; // se não fosse a Closure, essa variável seria utilizada na callback function.
-boardPassengers(180, 5);
+// const perGroup = 1000; // se não fosse a Closure, essa variável seria utilizada na callback function.
+// boardPassengers(180, 5);
