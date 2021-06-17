@@ -71,67 +71,110 @@ const currencies = new Map([
   ['GBP', 'Pound sterling'],
 ]);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 
 // ---------- Lecture: Simple Array Methods ----------
 
-let arr = ['a', 'b', 'c', 'd', 'e'];
+// let arr = ['a', 'b', 'c', 'd', 'e'];
 
-// - SLICE METHOD - Almost like the string method
+// // - SLICE METHOD - Almost like the string method
 
-// NÂO ALTERA o array original;
+// // NÂO ALTERA o array original;
 
-console.log(arr.slice(2)); // retorna um novo array, "fatiado" a partir do index passado como argumento
+// console.log(arr.slice(2)); // retorna um novo array, "fatiado" a partir do index passado como argumento
 
-console.log(arr.slice(2, 4)); // passando index de início e de final (somente o do início é incluso no array retornado). Nesse caso, somente os indexes 2 e 3 serão inclusos;
-// o Length do array retornado é o parâmetro final - o parâmetro inícial.
+// console.log(arr.slice(2, 4)); // passando index de início e de final (somente o do início é incluso no array retornado). Nesse caso, somente os indexes 2 e 3 serão inclusos;
+// // o Length do array retornado é o parâmetro final - o parâmetro inícial.
 
-console.log(arr.slice(-2)); // valores negativos fatiam o array de trás para frente;
+// console.log(arr.slice(-2)); // valores negativos fatiam o array de trás para frente;
 
-console.log(arr.slice(-1)); // o valor -1 sempre trará o último elemento do array;
+// console.log(arr.slice(-1)); // o valor -1 sempre trará o último elemento do array;
 
-console.log(arr.slice(1, -2)); // extrai a partir do index 1, deixando de fora os 2 últimos elementos;
+// console.log(arr.slice(1, -2)); // extrai a partir do index 1, deixando de fora os 2 últimos elementos;
 
-console.log(arr.slice()); // não utilizar nenhum argumento resulta em uma "shallow copy";
+// console.log(arr.slice()); // não utilizar nenhum argumento resulta em uma "shallow copy";
 
-console.log([...arr]); // o mesmo resultado de não usar nenhum argumento. A escolha entre as duas maneiras é apenas questão de preferência;
+// console.log([...arr]); // o mesmo resultado de não usar nenhum argumento. A escolha entre as duas maneiras é apenas questão de preferência;
 
-// - SPLICE METHOD
+// // - SPLICE METHOD
 
-// parecido com o SLICE, porém ALTERA o array original;
+// // parecido com o SLICE, porém ALTERA o array original;
 
-// console.log(arr.splice(2)); // extrai os elementos a partir do index 2, assim como o SLICE;
+// // console.log(arr.splice(2)); // extrai os elementos a partir do index 2, assim como o SLICE;
 
-console.log(arr); // podemos ver aqui que o array original foi alterado, permanecendo apenas o que não foi extraído pelo splice acima;
+// console.log(arr); // podemos ver aqui que o array original foi alterado, permanecendo apenas o que não foi extraído pelo splice acima;
 
-// o splice é usado normalmente para remover elementos de um array, quase sempre o último; Exemplo abaixo:
+// // o splice é usado normalmente para remover elementos de um array, quase sempre o último; Exemplo abaixo:
 
-console.log(arr.splice(-1));
-console.log(arr);
+// console.log(arr.splice(-1));
+// console.log(arr);
 
-arr.splice(1, 2); // o segundo parâmetro serve para especificar quantos elementos serão deletados. Nesse caso, a partir do index 1, serão deletados 2 elementos (B e C);
-console.log(arr);
+// arr.splice(1, 2); // o segundo parâmetro serve para especificar quantos elementos serão deletados. Nesse caso, a partir do index 1, serão deletados 2 elementos (B e C);
+// console.log(arr);
 
-// - REVERSE METHOD - inverte a ordem dos elementos
+// // - REVERSE METHOD - inverte a ordem dos elementos
 
-// esse método ALTERA o array original
+// // esse método ALTERA o array original
 
-arr = ['a', 'b', 'c', 'd', 'e'];
+// arr = ['a', 'b', 'c', 'd', 'e'];
 
-const arr2 = ['j', 'i', 'h', 'g', 'f']; // apenas um array com ordem incorreta;
+// const arr2 = ['j', 'i', 'h', 'g', 'f']; // apenas um array com ordem incorreta;
 
-console.log(arr2.reverse()); // retorna o array na ordem reversa / contrária;
+// console.log(arr2.reverse()); // retorna o array na ordem reversa / contrária;
 
-// - CONCAT METHOD
+// // - CONCAT METHOD
 
-// NÂO ALTERA os arrays originais;
+// // NÂO ALTERA os arrays originais;
 
-const letters = arr.concat(arr2); // retorna os dois arrays concatenados;
-console.log(letters);
-console.log([...arr, ...arr2]); // mesmo resultado, também sem alterar os arrays originais. Novamente: a escolha entre as duas maneiras é apenas questão de preferência
+// const letters = arr.concat(arr2); // retorna os dois arrays concatenados;
+// console.log(letters);
+// console.log([...arr, ...arr2]); // mesmo resultado, também sem alterar os arrays originais. Novamente: a escolha entre as duas maneiras é apenas questão de preferência
 
-// JOIN METHOD
+// // JOIN METHOD
 
-console.log(letters.join(' - ')); // retorna uma string com os elementos do array separados pelo separador definido no argumento;
+// console.log(letters.join(' - ')); // retorna uma string com os elementos do array separados pelo separador definido no argumento;
+
+// ---------- Lecture: Looping Arrays - forEach ----------
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// array loop com for of
+for (const movement of movements) {
+  if (movement > 0) console.log(`Deposit value: $${movement},00.`);
+  else console.log(`Withdraw value: $${Math.abs(movement)},00.`);
+}
+
+// array loop com forEach
+// o método forEach recebe como argumento uma callback function e, como argumento dessa callback function, está sendo passado o elemento correspondente à execução atual do forEach.
+console.log('--------------- FOREACH ---------------');
+movements.forEach(function (movement, index, array) {
+  if (movement > 0)
+    console.log(`Movement ${index + 1}: You deposited $${movement},00.`);
+  else
+    console.log(
+      `Movement ${index + 1}: You withdrew $${Math.abs(movement)},00.`
+    );
+});
+
+// Exemplificação da execução:
+// Cada execução do forEach, chamará a função anônima callback com o valor do elemento atual do array;
+// 0: function(200)
+// 1: function(450)
+// 2: function(-400)
+
+// Acessando o index com for of:
+for (const [i, movement] of movements.entries()) {
+  if (movement > 0)
+    console.log(`Movement ${i + 1}: You deposited $${movement},00.`);
+  else
+    console.log(`Movement ${i + 1}: You withdrew $${Math.abs(movement)},00.`);
+}
+
+// Acessar o index com o forEach é mais fácil, pois no momento que a callback function é assionada, é passado não somente o elemento atual do array, mas o index e também o próprio array, respectivamente. No exemplo do forEach mais acima podemos ver os argumentos passados na função callback (movements, index, array). Pode ser passado somente o primeiro, os dois primeiros, ou todos os três, não importa. O que importa é a ordem, pois sempre deve ser respeitada essa ordem utilizada: 1 - elemento do array, 2 - index desse elemento e 3 - o próprio array (inteiro);
+
+// OBS: a ordem é o inverso do método entries. O entries retorna primeiro o index, depois o elemento. Já no forEach, primeiro é o elemento, depois o index, seguido do próprio array;
+
+// Quando usar forEach e quando usar For of?
+// o forEach não pode ser interrompido. "Break" e "continue" não funcionam. Então sempre que for necessário interromper um loop em determinado momento, deve-se usar o for of, do contrário, novamente é questão de preferência do desenvolvedor.
