@@ -61,15 +61,42 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+// ---------- Lecture: Creating DOM Elements ----------
+
+// Boa prática: Em vez de trabalhar com variáveis globais, procurar passar os dados que a função precisa diretamente na função;
+
+const displayMovements = function (movements) {
+  // limpando o container antes de inserir as movement_rows;
+  containerMovements.innerHTML = '';
+
+  movements.forEach(function (mov, i) {
+    // variável que define se é um deposito ou retirada;
+    const type = mov > 0 ? 'deposit' : 'withdrawal';
+
+    // template string com o html que será inserido no Movements Container;
+    const html = `
+    <div class="movements__row">
+      <div class="movements__type movements__type--${type}">${
+      i + 1
+    } ${type}</div>
+      <div class="movements__value">${mov}</div>
+    </div>
+  `;
+    // inserindo o html do template acima, no movements container;
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
+};
+displayMovements(account1.movements);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
-// LECTURES
+// NOTES
 
 // const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 
-// ---------- Lecture: Simple Array Methods ----------
+// ---------- Notes about the Lecture: Simple Array Methods ----------
 
 // let arr = ['a', 'b', 'c', 'd', 'e'];
 
@@ -130,7 +157,7 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 // console.log(letters.join(' - ')); // retorna uma string com os elementos do array separados pelo separador definido no argumento;
 
-// ---------- Lecture: Looping Arrays - forEach ----------
+// ---------- Notes about the Lecture: Looping Arrays - forEach ----------
 
 // const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
@@ -173,29 +200,29 @@ const inputClosePin = document.querySelector('.form__input--pin');
 // // Quando usar forEach e quando usar For of?
 // // o forEach não pode ser interrompido. "Break" e "continue" não funcionam. Então sempre que for necessário interromper um loop em determinado momento, deve-se usar o for of, do contrário, novamente é questão de preferência do desenvolvedor.
 
-// ---------- Lecture: forEach with Maps and Sets ----------
+// ---------- Notes about the Lecture: forEach with Maps and Sets ----------
 
-// Map
-// Assim como em arrays, o forEach pode ser usado em Maps e Sets.
-// Em um Map, a função callback também pode receber 3 argumentos, sendo eles o valor atual, a key e o map inteiro, respectivamente. Praticamente a mesma coisa que com arrays;
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
+// // Map
+// // Assim como em arrays, o forEach pode ser usado em Maps e Sets.
+// // Em um Map, a função callback também pode receber 3 argumentos, sendo eles o valor atual, a key e o map inteiro, respectivamente. Praticamente a mesma coisa que com arrays;
+// const currencies = new Map([
+//   ['USD', 'United States dollar'],
+//   ['EUR', 'Euro'],
+//   ['GBP', 'Pound sterling'],
+// ]);
 
-currencies.forEach(function (value, key, map) {
-  console.log(`${key}: ${value}`);
-});
+// currencies.forEach(function (value, key, map) {
+//   console.log(`${key}: ${value}`);
+// });
 
-// Set
+// // Set
 
-const currenciesUnique = new Set(['USD', 'GBP', 'USD', 'EUR', 'EUR']);
-console.log(currenciesUnique);
+// const currenciesUnique = new Set(['USD', 'GBP', 'USD', 'EUR', 'EUR']);
+// console.log(currenciesUnique);
 
-// No caso dos Sets, não faz sentido o segundo parâmetro por conta dos valores não possuírem uma key nem index. Para evitar confusão com dois forEachs diferentes, foi mantido o mesmo padrão. Então, a segunda variável é simplesmente ignorada, já que significa o mesmo que a primeira. O último parâmetro retorna o próprio set.
-// OBS: usar o "_" para variáveis completamente desnecessárias é um tipo de padrão adotado pelos desenvolvedores.
-currenciesUnique.forEach(function (value, _, map) {
-  console.log(`${value}: ${value}`);
-  console.log(map);
-});
+// // No caso dos Sets, não faz sentido o segundo parâmetro por conta dos valores não possuírem uma key nem index. Para evitar confusão com dois forEachs diferentes, foi mantido o mesmo padrão. Então, a segunda variável é simplesmente ignorada, já que significa o mesmo que a primeira. O último parâmetro retorna o próprio set.
+// // OBS: usar o "_" para variáveis completamente desnecessárias é um tipo de padrão adotado pelos desenvolvedores.
+// currenciesUnique.forEach(function (value, _, map) {
+//   console.log(`${value}: ${value}`);
+//   console.log(map);
+// });
