@@ -3,3 +3,33 @@
 
 
 */
+
+// Test data 1:
+
+const dataJulia1 = [3, 5, 2, 12, 7];
+const dataKate1 = [4, 1, 15, 8, 3];
+
+// Test data 2:
+
+const dataJulia2 = [9, 16, 6, 8, 3];
+const dataKate2 = [10, 5, 6, 1, 4];
+
+const checkDogs = function (dogsJulia, dogsKate) {
+  // 1
+  const dogsJuliaCopy = dogsJulia.slice(1, -2);
+  console.log(dogsJuliaCopy);
+
+  // 2
+  const totalDogs = dogsJuliaCopy.concat(dogsKate);
+  console.log(totalDogs);
+
+  // 3
+  totalDogs.forEach(function (age, i) {
+    if (age >= 3)
+      console.log(`Dog number ${i + 1} is an adult, and is ${age} years old.`);
+    else console.log(`Dog number ${i + 1} is still a puppy 🐶.`);
+  });
+};
+
+// 4
+checkDogs(dataJulia1, dataKate1);
