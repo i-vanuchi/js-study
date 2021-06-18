@@ -65,12 +65,6 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // LECTURES
 
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
-
 // const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
@@ -138,43 +132,70 @@ const currencies = new Map([
 
 // ---------- Lecture: Looping Arrays - forEach ----------
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
-// array loop com for of
-for (const movement of movements) {
-  if (movement > 0) console.log(`Deposit value: $${movement},00.`);
-  else console.log(`Withdraw value: $${Math.abs(movement)},00.`);
-}
+// // array loop com for of
+// for (const movement of movements) {
+//   if (movement > 0) console.log(`Deposit value: $${movement},00.`);
+//   else console.log(`Withdraw value: $${Math.abs(movement)},00.`);
+// }
 
-// array loop com forEach
-// o método forEach recebe como argumento uma callback function e, como argumento dessa callback function, está sendo passado o elemento correspondente à execução atual do forEach.
-console.log('--------------- FOREACH ---------------');
-movements.forEach(function (movement, index, array) {
-  if (movement > 0)
-    console.log(`Movement ${index + 1}: You deposited $${movement},00.`);
-  else
-    console.log(
-      `Movement ${index + 1}: You withdrew $${Math.abs(movement)},00.`
-    );
+// // array loop com forEach
+// // o método forEach recebe como argumento uma callback function e, como argumento dessa callback function, está sendo passado o elemento correspondente à execução atual do forEach.
+// console.log('--------------- FOREACH ---------------');
+// movements.forEach(function (movement, index, array) {
+//   if (movement > 0)
+//     console.log(`Movement ${index + 1}: You deposited $${movement},00.`);
+//   else
+//     console.log(
+//       `Movement ${index + 1}: You withdrew $${Math.abs(movement)},00.`
+//     );
+// });
+
+// // Exemplificação da execução:
+// // Cada execução do forEach, chamará a função anônima callback com o valor do elemento atual do array;
+// // 0: function(200)
+// // 1: function(450)
+// // 2: function(-400)
+
+// // Acessando o index com for of:
+// for (const [i, movement] of movements.entries()) {
+//   if (movement > 0)
+//     console.log(`Movement ${i + 1}: You deposited $${movement},00.`);
+//   else
+//     console.log(`Movement ${i + 1}: You withdrew $${Math.abs(movement)},00.`);
+// }
+
+// // Acessar o index com o forEach é mais fácil, pois no momento que a callback function é assionada, é passado não somente o elemento atual do array, mas o index e também o próprio array, respectivamente. No exemplo do forEach mais acima podemos ver os argumentos passados na função callback (movements, index, array). Pode ser passado somente o primeiro, os dois primeiros, ou todos os três, não importa. O que importa é a ordem, pois sempre deve ser respeitada essa ordem utilizada: 1 - elemento do array, 2 - index desse elemento e 3 - o próprio array (inteiro);
+
+// // OBS: a ordem é o inverso do método entries. O entries retorna primeiro o index, depois o elemento. Já no forEach, primeiro é o elemento, depois o index, seguido do próprio array;
+
+// // Quando usar forEach e quando usar For of?
+// // o forEach não pode ser interrompido. "Break" e "continue" não funcionam. Então sempre que for necessário interromper um loop em determinado momento, deve-se usar o for of, do contrário, novamente é questão de preferência do desenvolvedor.
+
+// ---------- Lecture: forEach with Maps and Sets ----------
+
+// Map
+// Assim como em arrays, o forEach pode ser usado em Maps e Sets.
+// Em um Map, a função callback também pode receber 3 argumentos, sendo eles o valor atual, a key e o map inteiro, respectivamente. Praticamente a mesma coisa que com arrays;
+const currencies = new Map([
+  ['USD', 'United States dollar'],
+  ['EUR', 'Euro'],
+  ['GBP', 'Pound sterling'],
+]);
+
+currencies.forEach(function (value, key, map) {
+  console.log(`${key}: ${value}`);
 });
 
-// Exemplificação da execução:
-// Cada execução do forEach, chamará a função anônima callback com o valor do elemento atual do array;
-// 0: function(200)
-// 1: function(450)
-// 2: function(-400)
+// Set
 
-// Acessando o index com for of:
-for (const [i, movement] of movements.entries()) {
-  if (movement > 0)
-    console.log(`Movement ${i + 1}: You deposited $${movement},00.`);
-  else
-    console.log(`Movement ${i + 1}: You withdrew $${Math.abs(movement)},00.`);
-}
+const currenciesUnique = new Set(['USD', 'GBP', 'USD', 'EUR', 'EUR']);
+console.log(currenciesUnique);
 
-// Acessar o index com o forEach é mais fácil, pois no momento que a callback function é assionada, é passado não somente o elemento atual do array, mas o index e também o próprio array, respectivamente. No exemplo do forEach mais acima podemos ver os argumentos passados na função callback (movements, index, array). Pode ser passado somente o primeiro, os dois primeiros, ou todos os três, não importa. O que importa é a ordem, pois sempre deve ser respeitada essa ordem utilizada: 1 - elemento do array, 2 - index desse elemento e 3 - o próprio array (inteiro);
-
-// OBS: a ordem é o inverso do método entries. O entries retorna primeiro o index, depois o elemento. Já no forEach, primeiro é o elemento, depois o index, seguido do próprio array;
-
-// Quando usar forEach e quando usar For of?
-// o forEach não pode ser interrompido. "Break" e "continue" não funcionam. Então sempre que for necessário interromper um loop em determinado momento, deve-se usar o for of, do contrário, novamente é questão de preferência do desenvolvedor.
+// No caso dos Sets, não faz sentido o segundo parâmetro por conta dos valores não possuírem uma key nem index. Para evitar confusão com dois forEachs diferentes, foi mantido o mesmo padrão. Então, a segunda variável é simplesmente ignorada, já que significa o mesmo que a primeira. O último parâmetro retorna o próprio set.
+// OBS: usar o "_" para variáveis completamente desnecessárias é um tipo de padrão adotado pelos desenvolvedores.
+currenciesUnique.forEach(function (value, _, map) {
+  console.log(`${value}: ${value}`);
+  console.log(map);
+});
