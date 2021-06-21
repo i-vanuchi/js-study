@@ -226,3 +226,18 @@ displayMovements(account1.movements);
 //   console.log(`${value}: ${value}`);
 //   console.log(map);
 // });
+
+// ---------- (Notes) Lecture - Data Transformations: map, filter, reduce ----------
+
+// --- Map ---
+// Executa um loop em um array assim como o forEach, porém criando um novo array. Além disso, é passada uma função callback que pode executar uma operação no elemento atual do array a cada iteração. Por exemplo, multiplicar cada elemento de um array de números, por 2, resultando em um novo array em que cada elemento seja o produto dessa operação.
+// [3, 1, 4, 3, 2] -> map(current * 2) -> [6, 2, 8, 6, 4]
+
+// --- Filter ---
+// O filter permite filtrar elementos de um array que satisfaçam uma determinada condição. Por exemplo, filtrar e incluir no novo array retornado pelo filter, apenas os elementos que sejam maior que 2 (current > 2) em um array de números.
+// [3, 1, 4, 3, 2] -> map(current > 2) -> [3, 4, 3]
+
+// --- Reduce ---
+// Reduce permite "reduzir" todos os elementos do array a um único valor. Por exemplo, somar todos os elementos utilizando uma variável para acumula-los (snowball effect). Esse exemplo da soma é apenas uma das operações que podem ser aplicadas.
+// Aqui, não há um novo array retornado, apenas o valor "reduzido".
+// [3, 1, 4, 3, 2] -> reduce(acc + current) -> 13

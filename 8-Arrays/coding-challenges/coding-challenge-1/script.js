@@ -16,7 +16,7 @@ const dataKate2 = [10, 5, 6, 1, 4];
 
 const checkDogs = function (dogsJulia, dogsKate) {
   // 1
-  const dogsJuliaCopy = dogsJulia.slice(1, -2);
+  const dogsJuliaCopy = dogsJulia.slice(1, -2); // poderia ter sido feito com o splice, como mostrado pelo Jonas
   console.log(dogsJuliaCopy);
 
   // 2
