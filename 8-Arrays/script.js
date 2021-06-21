@@ -88,6 +88,20 @@ const displayMovements = function (movements) {
 };
 displayMovements(account1.movements);
 
+// ---------- Lecture: Computing Usernames ----------
+const createUsernames = function (accs) {
+  accs.forEach(function (acc) {
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map(name => name[0])
+      .join('');
+  });
+};
+
+createUsernames(accounts);
+console.log(accounts);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // NOTES
@@ -244,40 +258,40 @@ displayMovements(account1.movements);
 
 // ---------- (Notes) Lecture - The Map method ----------
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
-const euroToUsd = 1.1;
+// const euroToUsd = 1.1;
 
-const movementsUSD = movements.map(function (mov) {
-  return mov * euroToUsd;
-  // poderia ser retornado qualquer coisa aqui para ocupar a posição atual do array, por exemplo:
-  // return 23;
-  // isso resultaria em um array de mesmo length, mas com 23 em todas as posições;
-});
+// const movementsUSD = movements.map(function (mov) {
+//   return mov * euroToUsd;
+//   // poderia ser retornado qualquer coisa aqui para ocupar a posição atual do array, por exemplo:
+//   // return 23;
+//   // isso resultaria em um array de mesmo length, mas com 23 em todas as posições;
+// });
 
-// assim como no forEach, também foi passado como argumento da callback function, o elemento atual do array. O Map, assim como o forEach, tem acesso às mesmas 3 variáveis: elemento atual do array, index e o próprio array;
-// na callback function deve ser retornado o valor que queremos no novo array, na posição atual;
+// // assim como no forEach, também foi passado como argumento da callback function, o elemento atual do array. O Map, assim como o forEach, tem acesso às mesmas 3 variáveis: elemento atual do array, index e o próprio array;
+// // na callback function deve ser retornado o valor que queremos no novo array, na posição atual;
 
-console.log(movements);
-console.log(movementsUSD);
+// console.log(movements);
+// console.log(movementsUSD);
 
-// obtendo o mesmo resultado com for of:
-const movementsUSDfor = [];
+// // obtendo o mesmo resultado com for of:
+// const movementsUSDfor = [];
 
-for (const mov of movements) movementsUSDfor.push(mov * euroToUsd);
-console.log(movementsUSDfor);
-// ambos resolvem o problema, mas são filosofias diferentes. Com o map, estamos mais alinhados com o paradigma Functional Programming, que é para onde o JS moderno tende a ir (segundo o Jonas);
+// for (const mov of movements) movementsUSDfor.push(mov * euroToUsd);
+// console.log(movementsUSDfor);
+// // ambos resolvem o problema, mas são filosofias diferentes. Com o map, estamos mais alinhados com o paradigma Functional Programming, que é para onde o JS moderno tende a ir (segundo o Jonas);
 
-// Simplificando o map com uma arrow function
-const movementsUSDarrow = movements.map(mov => mov * euroToUsd);
-console.log(movementsUSDarrow);
+// // Simplificando o map com uma arrow function
+// const movementsUSDarrow = movements.map(mov => mov * euroToUsd);
+// console.log(movementsUSDarrow);
 
-// Usando os 3 argumentos
-const movementDescriptions = movements.map(
-  (mov, i, arr) =>
-    `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} $${Math.abs(
-      mov
-    )},00.`
-);
+// // Usando os 3 argumentos
+// const movementDescriptions = movements.map(
+//   (mov, i, arr) =>
+//     `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} $${Math.abs(
+//       mov
+//     )},00.`
+// );
 
-console.log(movementDescriptions);
+// console.log(movementDescriptions);
