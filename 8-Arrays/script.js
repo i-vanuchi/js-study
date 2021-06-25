@@ -115,7 +115,6 @@ const calcDisplaySummary = function (movements) {
     .filter(deposit => deposit > 0)
     .map(deposit => (deposit * 1.2) / 100)
     .filter((int, i, arr) => {
-      console.log(arr);
       return int >= 1;
     })
     .reduce((acc, int) => acc + int, 0);
@@ -388,11 +387,33 @@ createUsernames(accounts);
 
 // ---------- (Notes) Lecture - The magic of chaining methods ----------
 
-const euroToUsd = 1.1;
+// const euroToUsd = 1.1;
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// const totalDepositsUSD = movements
+//   .filter(mov => mov > 0)
+//   .map(mov => mov * euroToUsd)
+//   .reduce((acc, mov) => acc + mov, 0);
+// console.log(totalDepositsUSD);
+
+// ---------- (Notes) Lecture - The find Method ----------
+
+// Mais um método que executa um loop no array
+// Diferente do Filter, não retorna um novo array, mas sim o primeiro elemento que satisfaz a condição imposta;
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
-const totalDepositsUSD = movements
-  .filter(mov => mov > 0)
-  .map(mov => mov * euroToUsd)
-  .reduce((acc, mov) => acc + mov, 0);
-console.log(totalDepositsUSD);
+const firstWithdrawal = movements.find(mov => mov < 0);
+console.log(firstWithdrawal);
+
+const account = accounts.find(account => account.owner === 'Jessica Davis');
+console.log(account);
+
+// encontrando a conta da Jessica Davis com o For-of
+let accountForOf;
+for (const account of accounts) {
+  if (account.owner === 'Jessica Davis') {
+    accountForOf = account;
+    break;
+  }
+}
+console.log(accountForOf);
