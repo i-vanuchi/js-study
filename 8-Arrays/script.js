@@ -86,7 +86,6 @@ const displayMovements = function (movements) {
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 };
-displayMovements(account1.movements);
 
 // Calc Balance - ("The Reduce method" lecture)
 
@@ -96,32 +95,28 @@ const calcDisplayBalance = function (movements) {
   labelBalance.textContent = `${balance}€`;
 };
 
-calcDisplayBalance(account1.movements);
-
 // Calc Display Summary - ("The magic of chaining methods" lecture)
 
-const calcDisplaySummary = function (movements) {
-  const incomes = movements
+const calcDisplaySummary = function (acc) {
+  const incomes = acc.movements
     .filter(deposit => deposit > 0)
     .reduce((acc, deposit) => acc + deposit, 0);
   labelSumIn.textContent = `${incomes}€`;
 
-  const out = movements
+  const out = acc.movements
     .filter(withdrawal => withdrawal < 0)
     .reduce((acc, withdrawal) => acc + withdrawal, 0);
   labelSumOut.textContent = `${Math.abs(out)}€`;
 
-  const interest = movements
+  const interest = acc.movements
     .filter(deposit => deposit > 0)
-    .map(deposit => (deposit * 1.2) / 100)
+    .map(deposit => (deposit * acc.interestRate) / 100)
     .filter((int, i, arr) => {
       return int >= 1;
     })
     .reduce((acc, int) => acc + int, 0);
   labelSumInterest.textContent = `${interest}€`;
 };
-
-calcDisplaySummary(account1.movements);
 
 // ---------- Lecture: Computing Usernames ----------
 const createUsernames = function (accs) {
@@ -135,6 +130,34 @@ const createUsernames = function (accs) {
 };
 
 createUsernames(accounts);
+
+// Event Handler ("Implementing Login" lecture)
+let currentAccount;
+
+btnLogin.addEventListener('click', function (e) {
+  e.preventDefault(); // Previne o form de submeter
+
+  currentAccount = accounts.find(
+    acc => acc.username === inputLoginUsername.value
+  );
+
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    // Display UI e mensagem de boas vindas
+    labelWelcome.textContent = `Welcome back, ${
+      currentAccount.owner.split(' ')[0]
+    }`;
+    containerApp.style.opacity = 100;
+    // Clear input fields
+    inputLoginUsername.value = inputLoginPin.value = '';
+    inputLoginPin.blur();
+    // Display movements
+    displayMovements(currentAccount.movements);
+    // Display balance
+    calcDisplayBalance(currentAccount.movements);
+    // Display summary
+    calcDisplaySummary(currentAccount);
+  }
+});
 
 // /////////////////////////////////////////////////
 // /////////////////////////////////////////////////
@@ -398,22 +421,22 @@ createUsernames(accounts);
 
 // ---------- (Notes) Lecture - The find Method ----------
 
-// Mais um método que executa um loop no array
-// Diferente do Filter, não retorna um novo array, mas sim o primeiro elemento que satisfaz a condição imposta;
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// // Mais um método que executa um loop no array
+// // Diferente do Filter, não retorna um novo array, mas sim o primeiro elemento que satisfaz a condição imposta;
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
-const firstWithdrawal = movements.find(mov => mov < 0);
-console.log(firstWithdrawal);
+// const firstWithdrawal = movements.find(mov => mov < 0);
+// console.log(firstWithdrawal);
 
-const account = accounts.find(account => account.owner === 'Jessica Davis');
-console.log(account);
+// const account = accounts.find(account => account.owner === 'Jessica Davis');
+// console.log(account);
 
-// encontrando a conta da Jessica Davis com o For-of
-let accountForOf;
-for (const account of accounts) {
-  if (account.owner === 'Jessica Davis') {
-    accountForOf = account;
-    break;
-  }
-}
-console.log(accountForOf);
+// // encontrando a conta da Jessica Davis com o For-of
+// let accountForOf;
+// for (const account of accounts) {
+//   if (account.owner === 'Jessica Davis') {
+//     accountForOf = account;
+//     break;
+//   }
+// }
+// console.log(accountForOf);
