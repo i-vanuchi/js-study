@@ -189,8 +189,22 @@ btnTransfer.addEventListener('click', function (e) {
     updateUI(currentAccount);
   }
 });
+// Event Handler ("Some and every" lecture)
 
-// Event Handler ("IThe findIndex method" lecture)
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+    // Adicionar movement
+    currentAccount.movements.push(amount);
+
+    // Atualizar UI
+    updateUI(currentAccount);
+  }
+  inputLoanAmount.value = '';
+});
+// Event Handler ("The findIndex method" lecture)
 
 btnClose.addEventListener('click', function (e) {
   e.preventDefault();
@@ -494,3 +508,29 @@ btnClose.addEventListener('click', function (e) {
 //   }
 // }
 // console.log(accountForOf);
+
+// ---------- (Notes) Lecture - Some and every ----------
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+console.log(movements);
+
+console.log(movements.includes(-130));
+// Some
+const anyDeposit = movements.some(mov => mov > 0);
+console.log(anyDeposit);
+
+// includes faz checa por igualdade;
+// some checa se algum valor corresponde à condição especificada;
+// ambos retornam um booleano
+
+// Every
+console.log(movements.every(mov => mov > 0));
+console.log(account4.movements.every(mov => mov > 0));
+
+// Every somente retorna true se TODOS os elementos do array corresponderem à condição
+
+// Callback separada
+const depositFn = mov => mov > 0;
+console.log(movements.some(depositFn));
+console.log(movements.every(depositFn));
+console.log(movements.filter(depositFn));
