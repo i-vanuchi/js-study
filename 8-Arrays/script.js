@@ -511,26 +511,54 @@ btnClose.addEventListener('click', function (e) {
 
 // ---------- (Notes) Lecture - Some and every ----------
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-console.log(movements);
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// console.log(movements);
 
-console.log(movements.includes(-130));
-// Some
-const anyDeposit = movements.some(mov => mov > 0);
-console.log(anyDeposit);
+// console.log(movements.includes(-130));
+// // Some
+// const anyDeposit = movements.some(mov => mov > 0);
+// console.log(anyDeposit);
 
-// includes faz checa por igualdade;
-// some checa se algum valor corresponde à condição especificada;
-// ambos retornam um booleano
+// // includes faz checa por igualdade;
+// // some checa se algum valor corresponde à condição especificada;
+// // ambos retornam um booleano
 
-// Every
-console.log(movements.every(mov => mov > 0));
-console.log(account4.movements.every(mov => mov > 0));
+// // Every
+// console.log(movements.every(mov => mov > 0));
+// console.log(account4.movements.every(mov => mov > 0));
 
-// Every somente retorna true se TODOS os elementos do array corresponderem à condição
+// // Every somente retorna true se TODOS os elementos do array corresponderem à condição
 
-// Callback separada
-const depositFn = mov => mov > 0;
-console.log(movements.some(depositFn));
-console.log(movements.every(depositFn));
-console.log(movements.filter(depositFn));
+// // Callback separada
+// const depositFn = mov => mov > 0;
+// console.log(movements.some(depositFn));
+// console.log(movements.every(depositFn));
+// console.log(movements.filter(depositFn));
+
+// ---------- (Notes) Lecture - Flat and FlatMap ----------
+
+// Achata os arrays aninhados em um único array com todos os valores;
+const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+console.log(arr.flat());
+
+// no exemplo abaixo, vemos que o método flat só adentra 1 nível nos arrays aninhados;
+// caso haja arrays aninhados dentro de arrays aninhados, eles não serão achatados;
+// Para isso, podemos usar o argumento "depth", que permite especificar a profundidade em que o array será achatado. O padrão é 1;
+const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+console.log(arrDeep.flat(2));
+
+// calcular o balance de todas as contas usando encadeamento de métodos;
+const overallBalance = accounts
+  .map(acc => acc.movements)
+  .flat()
+  .reduce((accum, mov) => accum + mov, 0);
+
+console.log(overallBalance);
+
+// executar o map seguido de flat em um array é algo bastante comum. Por isso foi implementado o método flatMap, que faz exatamente a mesma coisa, mas num único método, sendo esse mais performático;
+// OBS: CASO SEJA NECESSÁRIO USAR O FLAT COM PROFUNDIDADE MAIOR QUE 1, É PRECISO USA-LO SEPARADAMENTE, POIS O FLAT MAP NÃO RECEBE COMO ARGUMENTO O DEPTH;
+const overallBalance2 = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((accum, mov) => accum + mov, 0);
+
+console.log(overallBalance2);
