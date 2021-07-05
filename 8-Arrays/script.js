@@ -65,11 +65,12 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 // Boa prática: Em vez de trabalhar com variáveis globais, procurar passar os dados que a função precisa diretamente na função;
 
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
   // limpando o container antes de inserir as movement_rows;
   containerMovements.innerHTML = '';
 
-  movements.forEach(function (mov, i) {
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements; // Event Handler ("Sorting arrays" lecture)
+  movs.forEach(function (mov, i) {
     // variável que define se é um deposito ou retirada;
     const type = mov > 0 ? 'deposit' : 'withdrawal';
 
@@ -227,6 +228,13 @@ btnClose.addEventListener('click', function (e) {
   inputCloseUsername.value = inputClosePin.value = '';
 });
 
+// Event Handler ("Sorting arrays" lecture)
+let sorted = false;
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
+});
 // /////////////////////////////////////////////////
 // /////////////////////////////////////////////////
 // // NOTES
@@ -537,28 +545,58 @@ btnClose.addEventListener('click', function (e) {
 
 // ---------- (Notes) Lecture - Flat and FlatMap ----------
 
-// Achata os arrays aninhados em um único array com todos os valores;
-const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
-console.log(arr.flat());
+// // Achata os arrays aninhados em um único array com todos os valores;
+// const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+// console.log(arr.flat());
 
-// no exemplo abaixo, vemos que o método flat só adentra 1 nível nos arrays aninhados;
-// caso haja arrays aninhados dentro de arrays aninhados, eles não serão achatados;
-// Para isso, podemos usar o argumento "depth", que permite especificar a profundidade em que o array será achatado. O padrão é 1;
-const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
-console.log(arrDeep.flat(2));
+// // no exemplo abaixo, vemos que o método flat só adentra 1 nível nos arrays aninhados;
+// // caso haja arrays aninhados dentro de arrays aninhados, eles não serão achatados;
+// // Para isso, podemos usar o argumento "depth", que permite especificar a profundidade em que o array será achatado. O padrão é 1;
+// const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+// console.log(arrDeep.flat(2));
 
-// calcular o balance de todas as contas usando encadeamento de métodos;
-const overallBalance = accounts
-  .map(acc => acc.movements)
-  .flat()
-  .reduce((accum, mov) => accum + mov, 0);
+// // calcular o balance de todas as contas usando encadeamento de métodos;
+// const overallBalance = accounts
+//   .map(acc => acc.movements)
+//   .flat()
+//   .reduce((accum, mov) => accum + mov, 0);
 
-console.log(overallBalance);
+// console.log(overallBalance);
 
-// executar o map seguido de flat em um array é algo bastante comum. Por isso foi implementado o método flatMap, que faz exatamente a mesma coisa, mas num único método, sendo esse mais performático;
-// OBS: CASO SEJA NECESSÁRIO USAR O FLAT COM PROFUNDIDADE MAIOR QUE 1, É PRECISO USA-LO SEPARADAMENTE, POIS O FLAT MAP NÃO RECEBE COMO ARGUMENTO O DEPTH;
-const overallBalance2 = accounts
-  .flatMap(acc => acc.movements)
-  .reduce((accum, mov) => accum + mov, 0);
+// // executar o map seguido de flat em um array é algo bastante comum. Por isso foi implementado o método flatMap, que faz exatamente a mesma coisa, mas num único método, sendo esse mais performático;
+// // OBS: CASO SEJA NECESSÁRIO USAR O FLAT COM PROFUNDIDADE MAIOR QUE 1, É PRECISO USA-LO SEPARADAMENTE, POIS O FLAT MAP NÃO RECEBE COMO ARGUMENTO O DEPTH;
+// const overallBalance2 = accounts
+//   .flatMap(acc => acc.movements)
+//   .reduce((accum, mov) => accum + mov, 0);
 
-console.log(overallBalance2);
+// console.log(overallBalance2);
+
+// ---------- (Notes) Lecture - Sorting arrays ----------
+
+// Strings
+const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
+console.log(owners.sort());
+// ALTERA O ARRAY ORIGINAL
+
+// Numbers
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// console.log(movements.sort()); // Não funciona como esperado porque o sort ordena o array baseado em strings;
+
+// return < 0 ---- A, B
+// return > 0 ---- B, A (inverte a ordem)
+
+// Crescente
+// movements.sort((a, b) => {
+//   if (a > b) return 1;
+//   if (a < b) return -1;
+// });
+movements.sort((a, b) => a - b);
+console.log(movements);
+
+// Decrescente
+// movements.sort((a, b) => {
+//   if (a > b) return -1;
+//   if (a < b) return 1;
+// });
+movements.sort((a, b) => b - a);
+console.log(movements);
