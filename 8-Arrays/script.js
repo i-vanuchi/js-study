@@ -247,7 +247,7 @@ btnSort.addEventListener('click', function (e) {
 
 // // let arr = ['a', 'b', 'c', 'd', 'e'];
 
-// // // - SLICE METHOD - Almost like the string method
+// // // - SLICE METHOD - Quase igual ao método de mesmo nome usado em strings
 
 // // // NÂO ALTERA o array original;
 
@@ -340,7 +340,7 @@ btnSort.addEventListener('click', function (e) {
 // //     console.log(`Movement ${i + 1}: You withdrew $${Math.abs(movement)},00.`);
 // // }
 
-// // // Acessar o index com o forEach é mais fácil, pois no momento que a callback function é assionada, é passado não somente o elemento atual do array, mas o index e também o próprio array, respectivamente. No exemplo do forEach mais acima podemos ver os argumentos passados na função callback (movements, index, array). Pode ser passado somente o primeiro, os dois primeiros, ou todos os três, não importa. O que importa é a ordem, pois sempre deve ser respeitada essa ordem utilizada: 1 - elemento do array, 2 - index desse elemento e 3 - o próprio array (inteiro);
+// // // Acessar o index com o forEach é mais fácil, pois no momento que a callback function é acionada, é passado não somente o elemento atual do array, mas o index e também o próprio array, respectivamente. No exemplo do forEach mais acima podemos ver os argumentos passados na função callback (movements, index, array). Pode ser passado somente o primeiro, os dois primeiros, ou todos os três, não importa. O que importa é a ordem, pois sempre deve ser respeitada essa ordem utilizada: 1 - elemento do array, 2 - index desse elemento e 3 - o próprio array (inteiro);
 
 // // // OBS: a ordem é o inverso do método entries. O entries retorna primeiro o index, depois o elemento. Já no forEach, primeiro é o elemento, depois o index, seguido do próprio array;
 
@@ -573,30 +573,80 @@ btnSort.addEventListener('click', function (e) {
 
 // ---------- (Notes) Lecture - Sorting arrays ----------
 
-// Strings
-const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
-console.log(owners.sort());
-// ALTERA O ARRAY ORIGINAL
+// // Strings
+// const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
+// console.log(owners.sort());
+// // ALTERA O ARRAY ORIGINAL
 
-// Numbers
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-// console.log(movements.sort()); // Não funciona como esperado porque o sort ordena o array baseado em strings;
+// // Numbers
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// // console.log(movements.sort()); // Não funciona como esperado porque o sort ordena o array baseado em strings;
 
-// return < 0 ---- A, B
-// return > 0 ---- B, A (inverte a ordem)
+// // return < 0 ---- A, B
+// // return > 0 ---- B, A (inverte a ordem)
 
-// Crescente
-// movements.sort((a, b) => {
-//   if (a > b) return 1;
-//   if (a < b) return -1;
-// });
-movements.sort((a, b) => a - b);
-console.log(movements);
+// // Crescente
+// // movements.sort((a, b) => {
+// //   if (a > b) return 1;
+// //   if (a < b) return -1;
+// // });
+// movements.sort((a, b) => a - b);
+// console.log(movements);
 
-// Decrescente
-// movements.sort((a, b) => {
-//   if (a > b) return -1;
-//   if (a < b) return 1;
-// });
-movements.sort((a, b) => b - a);
-console.log(movements);
+// // Decrescente
+// // movements.sort((a, b) => {
+// //   if (a > b) return -1;
+// //   if (a < b) return 1;
+// // });
+// movements.sort((a, b) => b - a);
+// console.log(movements);
+
+// ---------- (Notes) Lecture - More Ways of Creating and Filling arrays ----------
+
+const arr = [1, 2, 3, 4, 5, 6, 7];
+console.log(new Array(1, 2, 3, 4, 5, 6, 7));
+
+// "new Array" constructor com apenas 1 argumento cria um array vazio com o length indicado;
+const x = new Array(7);
+console.log(x);
+
+// Array vazio + método fill
+// o único método que pode ser usado em um array vazio como esse é o fill, que vai preencher o array todo caso não sejam determinados os index de ínicio e de final;
+// altera o array original;
+// também pode ser aplicado a arrays não vazios;
+x.fill(1, 3);
+console.log(x);
+
+arr.fill(23, 2, 6);
+console.log(arr);
+
+// Array.from
+// O método from está sendo chamado na função-objeto Array (Array constructor);
+// Nele, passamos como primeiro argumento um objeto contendo o length do array + um map como segundo argumento;
+
+const y = Array.from({ length: 7 }, () => 1);
+console.log(y);
+
+const z = Array.from({ length: 7 }, (_, i) => i + 1); // _ sendo usado para nomear parâmetro não utilizado / desnecessário à expressão;
+console.log(z);
+
+// Assignment: criar um array formado por 100 jogadas de dado aleatórias;
+const diceRolls = Array.from(
+  { length: 100 },
+  () => Math.trunc(Math.random() * 6) + 1
+);
+console.log(diceRolls);
+
+// Array.from foi inicialmente introduzido no JS para criar arrays a partir de estruturas parecidas com arrays (iteráveis), como Maps, Sets ou Strings. Porém além destes exemplos de iteráveis, também temos o querySelectorAll que gera um NodeList, que por sua vez parece um Array, mas não é. Portanto, caso precisemos utilizar métodos como reduce ou map em um NodeList, primeiro precisamos transformá-lo em um array
+
+labelBalance.addEventListener('click', function () {
+  const movementsUI = Array.from(
+    document.querySelectorAll('.movements__value'),
+    el => Number(el.textContent.replace('€', ''))
+  );
+  console.log(movementsUI);
+
+  // também é possível criar um array a partir do NodeList usando o operador Spread. Porém assim é preciso realizar o Map separadamente;
+  const movementsUI2 = [...document.querySelectorAll('.movements__value')];
+  console.log(movementsUI2);
+});
