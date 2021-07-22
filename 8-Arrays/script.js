@@ -603,50 +603,104 @@ btnSort.addEventListener('click', function (e) {
 
 // ---------- (Notes) Lecture - More Ways of Creating and Filling arrays ----------
 
-const arr = [1, 2, 3, 4, 5, 6, 7];
-console.log(new Array(1, 2, 3, 4, 5, 6, 7));
+// const arr = [1, 2, 3, 4, 5, 6, 7];
+// console.log(new Array(1, 2, 3, 4, 5, 6, 7));
 
-// "new Array" constructor com apenas 1 argumento cria um array vazio com o length indicado;
-const x = new Array(7);
-console.log(x);
+// // "new Array" constructor com apenas 1 argumento cria um array vazio com o length indicado;
+// const x = new Array(7);
+// console.log(x);
 
-// Array vazio + método fill
-// o único método que pode ser usado em um array vazio como esse é o fill, que vai preencher o array todo caso não sejam determinados os index de ínicio e de final;
-// altera o array original;
-// também pode ser aplicado a arrays não vazios;
-x.fill(1, 3);
-console.log(x);
+// // Array vazio + método fill
+// // o único método que pode ser usado em um array vazio como esse é o fill, que vai preencher o array todo caso não sejam determinados os index de ínicio e de final;
+// // altera o array original;
+// // também pode ser aplicado a arrays não vazios;
+// x.fill(1, 3);
+// console.log(x);
 
-arr.fill(23, 2, 6);
-console.log(arr);
+// arr.fill(23, 2, 6);
+// console.log(arr);
 
-// Array.from
-// O método from está sendo chamado na função-objeto Array (Array constructor);
-// Nele, passamos como primeiro argumento um objeto contendo o length do array + um map como segundo argumento;
+// // Array.from
+// // O método from está sendo chamado na função-objeto Array (Array constructor);
+// // Nele, passamos como primeiro argumento um objeto contendo o length do array + um map como segundo argumento;
 
-const y = Array.from({ length: 7 }, () => 1);
-console.log(y);
+// const y = Array.from({ length: 7 }, () => 1);
+// console.log(y);
 
-const z = Array.from({ length: 7 }, (_, i) => i + 1); // _ sendo usado para nomear parâmetro não utilizado / desnecessário à expressão;
-console.log(z);
+// const z = Array.from({ length: 7 }, (_, i) => i + 1); // _ sendo usado para nomear parâmetro não utilizado / desnecessário à expressão;
+// console.log(z);
 
-// Assignment: criar um array formado por 100 jogadas de dado aleatórias;
-const diceRolls = Array.from(
-  { length: 100 },
-  () => Math.trunc(Math.random() * 6) + 1
-);
-console.log(diceRolls);
+// // Assignment: criar um array formado por 100 jogadas de dado aleatórias;
+// const diceRolls = Array.from(
+//   { length: 100 },
+//   () => Math.trunc(Math.random() * 6) + 1
+// );
+// console.log(diceRolls);
 
-// Array.from foi inicialmente introduzido no JS para criar arrays a partir de estruturas parecidas com arrays (iteráveis), como Maps, Sets ou Strings. Porém além destes exemplos de iteráveis, também temos o querySelectorAll que gera um NodeList, que por sua vez parece um Array, mas não é. Portanto, caso precisemos utilizar métodos como reduce ou map em um NodeList, primeiro precisamos transformá-lo em um array
+// // Array.from foi inicialmente introduzido no JS para criar arrays a partir de estruturas parecidas com arrays (iteráveis), como Maps, Sets ou Strings. Porém além destes exemplos de iteráveis, também temos o querySelectorAll que gera um NodeList, que por sua vez parece um Array, mas não é. Portanto, caso precisemos utilizar métodos como reduce ou map em um NodeList, primeiro precisamos transformá-lo em um array
 
-labelBalance.addEventListener('click', function () {
-  const movementsUI = Array.from(
-    document.querySelectorAll('.movements__value'),
-    el => Number(el.textContent.replace('€', ''))
+// labelBalance.addEventListener('click', function () {
+//   const movementsUI = Array.from(
+//     document.querySelectorAll('.movements__value'),
+//     el => Number(el.textContent.replace('€', ''))
+//   );
+//   console.log(movementsUI);
+
+//   // também é possível criar um array a partir do NodeList usando o operador Spread. Porém assim é preciso realizar o Map separadamente;
+//   const movementsUI2 = [...document.querySelectorAll('.movements__value')];
+//   console.log(movementsUI2);
+// });
+
+// ---------- (Notes) Lecture - Array methods practice ----------
+
+// 1 - Calcular a soma de todos os depósitos
+const allDepositsSum = accounts
+  .flatMap(acc => acc.movements)
+  .filter(mov => mov > 0)
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(allDepositsSum);
+
+// 2 - Calcular quantos depósitos acima de 1000 foram feitos
+const depositsAbove1000 = accounts
+  // Solução simples
+  // .flatMap(acc => acc.movements)
+  // .filter(mov => mov >= 1000).length;
+
+  // Solução com reduce
+  .flatMap(acc => acc.movements)
+  .reduce((count, cur) => (cur >= 1000 ? ++count : count), 0);
+
+console.log(depositsAbove1000);
+
+// 3 - Somar todos os depósitos e todos as retiradas usando o reduce (exemplo mais avançado de uso do método);
+
+const { deposits, withdrawals } = accounts
+  .flatMap(acc => acc.movements)
+  .reduce(
+    (sums, cur) => {
+      // cur > 0 ? (sums.deposits += cur) : (sums.withdrawals += cur);
+      sums[cur > 0 ? 'deposits' : 'withdrawals'] += cur; // cleaner
+      return sums;
+    },
+    { deposits: 0, withdrawals: 0 }
   );
-  console.log(movementsUI);
+console.log(deposits, withdrawals);
 
-  // também é possível criar um array a partir do NodeList usando o operador Spread. Porém assim é preciso realizar o Map separadamente;
-  const movementsUI2 = [...document.querySelectorAll('.movements__value')];
-  console.log(movementsUI2);
-});
+// 4 - Converter strings para TitleCase
+
+const convertTitleCase = function (title) {
+  const capitilize = str => str[0].toUpperCase() + str.slice(1);
+
+  const exceptions = ['a', 'an', 'and', 'the', 'but', 'or', 'on', 'in', 'with'];
+
+  const titleCase = title
+    .toLowerCase()
+    .split(' ')
+    .map(word => (exceptions.includes(word) ? word : capitilize(word)))
+    .join(' ');
+  return capitilize(titleCase);
+};
+
+console.log(convertTitleCase('this is a nice title'));
+console.log(convertTitleCase('this is a LONG title but not to long'));
+console.log(convertTitleCase('and this is another title with an EXAMPLE'));
