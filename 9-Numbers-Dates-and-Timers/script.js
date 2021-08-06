@@ -417,35 +417,82 @@ btnSort.addEventListener('click', function (e) {
 
 // ----------- Lecture: Working with BigInt -----------
 
-// maior número que o javascript pode representar com precisão. Mais que isso já sai meio torto
-console.log(2 ** 53 - 1);
-console.log(Number.MAX_SAFE_INTEGER);
+// // maior número que o javascript pode representar com precisão. Mais que isso já sai meio torto
+// console.log(2 ** 53 - 1);
+// console.log(Number.MAX_SAFE_INTEGER);
 
-// BigInt
-console.log(4567894512341564875645612341564454787656585n);
-console.log(BigInt(485235));
+// // BigInt
+// console.log(4567894512341564875645612341564454787656585n);
+// console.log(BigInt(485235));
 
-// Operações com BigInt
-console.log(100000n + 100000n);
-console.log(3624524512121545645612315786217621425362974811n * 100000n);
+// // Operações com BigInt
+// console.log(100000n + 100000n);
+// console.log(3624524512121545645612315786217621425362974811n * 100000n);
 
-// métodos aritméticos não funcionam em bigInt
-// console.log(Math.sqrt(16n));
+// // métodos aritméticos não funcionam em bigInt
+// // console.log(Math.sqrt(16n));
 
-// não pode misturar BigInt com outros tipos em operações, mesmo Number
-const huge = 12458965214895234957945216785942n;
-const notHuge = 7;
-// console.log(huge * notHuge);
+// // não pode misturar BigInt com outros tipos em operações, mesmo Number
+// const huge = 12458965214895234957945216785942n;
+// const notHuge = 7;
+// // console.log(huge * notHuge);
 
-// porem... com operadores lógicos é possível sim
-console.log(20n > 15);
-console.log(20n === 20); // FALSE (Igualdade restrita não faz type coercion)
-console.log(typeof 20n); // bigint
-console.log(20n == 20); // TRUE (Igualdade não-restrita faz type coercion)
-console.log(20n == '20'); // TRUE (Igualdade não-restrita faz type coercion)
+// // porem... com operadores lógicos é possível sim
+// console.log(20n > 15);
+// console.log(20n === 20); // FALSE (Igualdade restrita não faz type coercion)
+// console.log(typeof 20n); // bigint
+// console.log(20n == 20); // TRUE (Igualdade não-restrita faz type coercion)
+// console.log(20n == '20'); // TRUE (Igualdade não-restrita faz type coercion)
 
-console.log(huge + ' is really BIG!!!!');
+// console.log(huge + ' is really BIG!!!!');
 
-// Divisões
-console.log(10n / 3n); // corta a parte decimal, tipo o Math.trunc
-console.log(10 / 3);
+// // Divisões
+// console.log(10n / 3n); // corta a parte decimal, tipo o Math.trunc
+// console.log(10 / 3);
+
+// ----------- Lecture: Creating Dates -----------
+
+// Criar data (4 maneiras, através do new Date())
+// 1 - sem nenhum argumento no constructor, assim ele atribui o tempo atual
+const now = new Date();
+console.log(now);
+
+// 2 - Passando uma string, de maneira que o constructor forme a data a partir dela
+const now2 = new Date('Jul 01 2021 15:10:12');
+console.log(now2);
+const christmas = new Date('December 25, 2013'); // not good idea (unreliable)
+console.log(christmas);
+
+console.log(new Date(account1.movementsDates[0]));
+
+// 3 - passando ano, mes, dia, hora, minuto e segundo no constructor
+console.log(new Date(2037, 10, 22, 15, 40, 7)); // o mes é 0-based (????)
+console.log(new Date(2037, 10, 31, 15, 40, 7)); // dia 31 de nov não existe, então é automaticamente corrigido para o dia seguinte
+
+// 4 - passando milisegundos após "Unix Date" (?), que é Jan 01 1970.
+console.log(new Date(0));
+console.log(new Date(3 * 24 * 60 * 60 * 1000 + 4 * 60 * 60 * 1000));
+console.log(3 * 24 * 60 * 60 * 1000); // timestamp
+
+// Trabalhando com datas
+console.log('-------------- Working with Dates --------------');
+const future = new Date(2037, 10, 15, 15, 40);
+console.log(future);
+
+console.log(future.getFullYear()); // dont use getYear();
+console.log(future.getMonth()); // 0-based
+console.log(future.getDate()); // retorna o dia do mês
+console.log(future.getDay()); // retorna o dia da semana (0 é domingo)
+console.log(future.getHours());
+console.log(future.getMinutes());
+console.log(future.getSeconds());
+console.log(future.toISOString()); // retorna uma string formatada em padrão internacional
+console.log(future.getTime()); // retorna o timestamp (milisegundos que passaram desde jan 1 1970)
+
+console.log(new Date(2141923200000)); // revertendo o timestamp gerado acima de volta para uma data
+
+console.log(Date.now()); // retorna o timestamp de agora;
+
+// também temos o "set" equivalente para esses métodos. Ex:
+future.setFullYear(2045);
+console.log(future);
