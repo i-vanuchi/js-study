@@ -388,3 +388,29 @@ btnSort.addEventListener('click', function (e) {
 // console.log((2.345).toFixed(2));
 // console.log(+(2.345).toFixed(2));
 // // o método toFixed é invocado em um tipo primitivo, e como sabemos, primitivos não possuem métodos. Então, por trás das cenas, JS fará o 'boxing', que transforma o número em um número objeto e depois novamente em um primitivo (após a operação ser concluída)
+
+// ----------- Lecture: The Remainder Operator -----------
+
+console.log(5 % 2);
+console.log(5 / 2);
+
+console.log(8 % 3);
+console.log(8 / 3);
+
+console.log(6 % 2);
+console.log(6 / 2);
+
+console.log(7 % 2);
+console.log(7 / 2);
+
+const isEven = n => n % 2 === 0;
+console.log(isEven(8));
+console.log(isEven(23));
+console.log(isEven(214));
+
+labelBalance.addEventListener('click', function () {
+  [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
+    if (i % 2 === 0) row.style.backgroundColor = 'aquamarine';
+    if (i % 3 === 0) row.style.backgroundColor = 'orange';
+  });
+});
