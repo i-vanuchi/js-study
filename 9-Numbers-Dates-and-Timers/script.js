@@ -94,7 +94,7 @@ const displayMovements = function (movements, sort = false) {
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-        <div class="movements__value">${mov}€</div>
+        <div class="movements__value">${mov.toFixed(2)}€</div>
       </div>
     `;
 
@@ -104,19 +104,19 @@ const displayMovements = function (movements, sort = false) {
 
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${acc.balance}€`;
+  labelBalance.textContent = `${acc.balance.toFixed(2)}€`;
 };
 
 const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `${incomes}€`;
+  labelSumIn.textContent = `${incomes.toFixed(2)}€`;
 
   const out = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `${Math.abs(out)}€`;
+  labelSumOut.textContent = `${Math.abs(out).toFixed(2)}€`;
 
   const interest = acc.movements
     .filter(mov => mov > 0)
@@ -126,7 +126,7 @@ const calcDisplaySummary = function (acc) {
       return int >= 1;
     })
     .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.textContent = `${interest}€`;
+  labelSumInterest.textContent = `${interest.toFixed(2)}€`;
 };
 
 const createUsernames = function (accs) {
@@ -206,7 +206,7 @@ btnTransfer.addEventListener('click', function (e) {
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
 
-  const amount = +inputLoanAmount.value;
+  const amount = Math.floor(inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
@@ -254,36 +254,137 @@ btnSort.addEventListener('click', function (e) {
 
 // ----------- Lecture: Converting and Checking Numbers -----------
 
-//Numbers são sempre representados internamente como flutuantes no JS, não importa se escrevemos como inteiros ou decimais. Ex:
-console.log(7 === 7.0);
+// //Numbers são sempre representados internamente como flutuantes no JS, não importa se escrevemos como inteiros ou decimais. Ex:
+// console.log(7 === 7.0);
 
-//Além disso, o JS armazena os números no formato de Base 2 (0 e 1), o que gera dificuldade na linguagem para representar determinadas frações. Ex:
-console.log(0.1 + 0.2);
-console.log(0.1 + 0.2 === 0.3); // deveria ser true, mas...
+// //Além disso, o JS armazena os números no formato de Base 2 (0 e 1), o que gera dificuldade na linguagem para representar determinadas frações. Ex:
+// console.log(0.1 + 0.2);
+// console.log(0.1 + 0.2 === 0.3); // deveria ser true, mas...
 
-//Isso faz com o que o JS não seja recomendado para operações financeiras ou científicas extremamente precisas.
+// //Isso faz com o que o JS não seja recomendado para operações financeiras ou científicas extremamente precisas.
 
-// Conversão
-console.log(Number('7'));
-console.log(+'7'); // conversão através de Type Coertion
+// // Conversão
+// console.log(Number('7'));
+// console.log(+'7'); // conversão através de Type Coercion
 
-// Parsing
-console.log(Number.parseInt('27px', 10));
-console.log(Number.parseInt('e27', 10));
+// // Parsing
+// console.log(Number.parseInt('27px', 10));
+// console.log(Number.parseInt('e27', 10));
 
-console.log(Number.parseInt('2.5rem'));
-console.log(Number.parseFloat('2.5rem'));
+// console.log(Number.parseInt('2.5rem'));
+// console.log(Number.parseFloat('2.5rem'));
 
-// Checking if a value is a literally NaN
-console.log(Number.isNaN(27));
-console.log(Number.isNaN('27'));
-console.log(Number.isNaN(+'27X'));
-console.log(Number.isNaN(27 / 0));
+// // Checking if a value is a literally NaN
+// console.log(Number.isNaN(27));
+// console.log(Number.isNaN('27'));
+// console.log(Number.isNaN(+'27X'));
+// console.log(Number.isNaN(27 / 0));
 
-// Checking if a value is a number
-console.log(Number.isFinite(20));
-console.log(Number.isFinite('20'));
-console.log(Number.isFinite(+'20X'));
-console.log(Number.isFinite(20 / 0));
+// // Checking if a value is a number
+// console.log(Number.isFinite(20));
+// console.log(Number.isFinite('20'));
+// console.log(Number.isFinite(+'20X'));
+// console.log(Number.isFinite(20 / 0));
 
-// Na prática, quando necessário checar se um número é ou não um número, usar isInteger se houver certeza de que se trata de um inteiro, do contrário, usar IsFinite;
+// // Na prática, quando necessário checar se um número é ou não um número, usar isInteger se houver certeza de que se trata de um inteiro, do contrário, usar IsFinite;
+
+// ----------- Lecture: Math and Rounding -----------
+
+// // Raiz quadrada
+// console.log(Math.sqrt(25));
+// console.log(25 ** (1 / 2));
+// // Raiz cúbica
+// console.log(8 ** (1 / 3));
+// // Checar o valor máximo
+// console.log(Math.max(5, 18, 23, 11, 2));
+// console.log(Math.max(5, 18, '23', 11, 2)); // faz type coercion
+// console.log(Math.max(5, 18, '23px', 11, 2)); // não faz parsing
+// // Checar o valor mínimo
+// console.log(Math.min(5, 18, 23, 11, 2));
+// // Calcular o raio de um círculo com 10x, usando a constante PI
+// console.log(Math.PI * Number.parseFloat('10px') ** 2);
+// // Gerar um valor de dado (como já feito em aulas passadas)
+// console.log(Math.trunc(Math.random() * 6) + 1);
+// // Gerar um valor aleatório entre dois valores (min e max) predeterminados
+// const randomInt = (min, max) =>
+//   Math.floor(Math.random() * (max - min) + 1) + min;
+// console.log(randomInt(5, 10));
+// console.log(randomInt(5, 10));
+// console.log(randomInt(5, 10));
+// console.log(randomInt(5, 10));
+// console.log(randomInt(5, 10));
+
+/*
+--- Explicação do funcionamento da função acima ---
+// Yeah, I was in the same boat. Like I get it - the code works, but how?? or rather - Why?
+
+// After some reflection, here's what I got for you:
+
+// As you can see, we are getting a random value from 0 – x. Where the max value in this range (x) is equal to the max minus the minimum value. If there’s no minimum, then the range can extend from 0 – max. But if there is a minimum value, then the maximum value will be reduced in proportion to the minimum value. This does reduce the maximum value, but the value being subtracted here (the min value) will be added to the final result. Thus, the maximum value will still reach the initial maximum value set in the final result. Inversely, when the minimum value is added back in at the end, this will extend the max value (as mentioned already) back to the initial value, however this will also have the effect of changing the starting position (minimum value) of the range such that we are now left with a range that still extends to the initial maximum set and only begins at the custom minimum value set.
+
+// Here is a step-by-step of an example:
+
+// min = 3;
+// max = 7;
+
+// // Math.floor(Math.random() * (max - min + 1)) + min
+
+// // Each step
+
+//   Math.floor(Math.random() * (7 - 3 + 1)) + min;
+//   Math.floor(Math.random() * (4 + 1)) + 3;
+//   Math.floor(Math.random() * (5)) + 3;
+//   Math.floor(0.0 - 4.99) + 3;
+//   (0 - 4) + 3;
+//    3 - 7
+
+// // example 2
+
+// min = 0;
+// max = 7;
+
+//   Math.floor(Math.random() * (7 - 0 + 1)) + min;
+//   Math.floor(Math.random() * (7 + 1)) + 0;
+//   Math.floor(Math.random() * (8)) + 0;
+//   Math.floor(0.0 - 7.99) + 0;
+//   (0 - 7) + 0;
+//    0 - 7
+
+// // example 3
+
+// min = 1;
+// max = 7;
+
+//   Math.floor(Math.random() * (7 - 1 + 1)) + 1;
+//   Math.floor(Math.random() * (6 + 1)) + 1;
+//   Math.floor(Math.random() * (7)) + 1;
+//   Math.floor(0.0 - 6.99) + 1;
+//   (0 - 6) + 1;
+//    1 - 7
+*/
+
+// // Rounding Integers
+// console.log('----- ROUNDING -----');
+// console.log(Math.trunc(23.3));
+// console.log(Math.trunc(23.9));
+
+// console.log(Math.round(23.3));
+// console.log(Math.round(23.9));
+
+// console.log(Math.ceil(23.3));
+// console.log(Math.ceil(23.9));
+
+// console.log(Math.floor(23.3));
+// console.log(Math.floor(23.9));
+// // Todos esses métodos fazem type coercion
+
+// // trunc e floor são parecidos quando lidamos com números positivos, mas não com números negativos.
+// console.log(Math.trunc(-23.3));
+// console.log(Math.floor(-23.3));
+
+// // Rounding Decimals
+// console.log((2.7).toFixed(0));
+// console.log((2.7).toFixed(3));
+// console.log((2.345).toFixed(2));
+// console.log(+(2.345).toFixed(2));
+// // o método toFixed é invocado em um tipo primitivo, e como sabemos, primitivos não possuem métodos. Então, por trás das cenas, JS fará o 'boxing', que transforma o número em um número objeto e depois novamente em um primitivo (após a operação ser concluída)
