@@ -391,26 +391,61 @@ btnSort.addEventListener('click', function (e) {
 
 // ----------- Lecture: The Remainder Operator -----------
 
-console.log(5 % 2);
-console.log(5 / 2);
+// console.log(5 % 2);
+// console.log(5 / 2);
 
-console.log(8 % 3);
-console.log(8 / 3);
+// console.log(8 % 3);
+// console.log(8 / 3);
 
-console.log(6 % 2);
-console.log(6 / 2);
+// console.log(6 % 2);
+// console.log(6 / 2);
 
-console.log(7 % 2);
-console.log(7 / 2);
+// console.log(7 % 2);
+// console.log(7 / 2);
 
-const isEven = n => n % 2 === 0;
-console.log(isEven(8));
-console.log(isEven(23));
-console.log(isEven(214));
+// const isEven = n => n % 2 === 0;
+// console.log(isEven(8));
+// console.log(isEven(23));
+// console.log(isEven(214));
 
-labelBalance.addEventListener('click', function () {
-  [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
-    if (i % 2 === 0) row.style.backgroundColor = 'aquamarine';
-    if (i % 3 === 0) row.style.backgroundColor = 'orange';
-  });
-});
+// labelBalance.addEventListener('click', function () {
+//   [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
+//     if (i % 2 === 0) row.style.backgroundColor = 'aquamarine';
+//     if (i % 3 === 0) row.style.backgroundColor = 'orange';
+//   });
+// });
+
+// ----------- Lecture: Working with BigInt -----------
+
+// maior número que o javascript pode representar com precisão. Mais que isso já sai meio torto
+console.log(2 ** 53 - 1);
+console.log(Number.MAX_SAFE_INTEGER);
+
+// BigInt
+console.log(4567894512341564875645612341564454787656585n);
+console.log(BigInt(485235));
+
+// Operações com BigInt
+console.log(100000n + 100000n);
+console.log(3624524512121545645612315786217621425362974811n * 100000n);
+
+// métodos aritméticos não funcionam em bigInt
+// console.log(Math.sqrt(16n));
+
+// não pode misturar BigInt com outros tipos em operações, mesmo Number
+const huge = 12458965214895234957945216785942n;
+const notHuge = 7;
+// console.log(huge * notHuge);
+
+// porem... com operadores lógicos é possível sim
+console.log(20n > 15);
+console.log(20n === 20); // FALSE (Igualdade restrita não faz type coercion)
+console.log(typeof 20n); // bigint
+console.log(20n == 20); // TRUE (Igualdade não-restrita faz type coercion)
+console.log(20n == '20'); // TRUE (Igualdade não-restrita faz type coercion)
+
+console.log(huge + ' is really BIG!!!!');
+
+// Divisões
+console.log(10n / 3n); // corta a parte decimal, tipo o Math.trunc
+console.log(10 / 3);
