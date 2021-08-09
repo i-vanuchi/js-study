@@ -81,19 +81,29 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // Functions
 
-const displayMovements = function (movements, sort = false) {
+const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
 
-  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+  const movs = sort
+    ? acc.movements.slice().sort((a, b) => a - b)
+    : acc.movements;
 
   movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
+    // use index of the looped array to loop over another one;
+    const date = new Date(acc.movementsDates[i]);
+
+    const day = `${date.getDate()}`.padStart(2, 0);
+    const month = `${date.getMonth() + 1}`.padStart(2, 0);
+    const year = date.getFullYear();
+    const displayDate = `${day}/${month}/${year}`;
 
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
+        <div class="movements__date">${displayDate}</div>
         <div class="movements__value">${mov.toFixed(2)}€</div>
       </div>
     `;
@@ -142,7 +152,7 @@ createUsernames(accounts);
 
 const updateUI = function (acc) {
   // Display movements
-  displayMovements(acc.movements);
+  displayMovements(acc);
 
   // Display balance
   calcDisplayBalance(acc);
@@ -155,6 +165,8 @@ const updateUI = function (acc) {
 // Event handlers
 let currentAccount;
 
+// ----------- Lecture: Adding Dates to Bankist App -----------
+
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
   e.preventDefault();
@@ -162,7 +174,7 @@ btnLogin.addEventListener('click', function (e) {
   currentAccount = accounts.find(
     acc => acc.username === inputLoginUsername.value
   );
-  console.log(currentAccount);
+  // console.log(currentAccount);
 
   if (currentAccount?.pin === +inputLoginPin.value) {
     // Display UI and message
@@ -170,6 +182,14 @@ btnLogin.addEventListener('click', function (e) {
       currentAccount.owner.split(' ')[0]
     }`;
     containerApp.style.opacity = 100;
+
+    const now = new Date();
+    const day = `${now.getDate()}`.padStart(2, 0);
+    const month = `${now.getMonth() + 1}`.padStart(2, 0);
+    const year = now.getFullYear();
+    const hour = now.getHours();
+    const min = `${now.getMinutes()}`.padStart(2, 0);
+    labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
 
     // Clear input fields
     inputLoginUsername.value = inputLoginPin.value = '';
@@ -198,6 +218,10 @@ btnTransfer.addEventListener('click', function (e) {
     currentAccount.movements.push(-amount);
     receiverAcc.movements.push(amount);
 
+    // Add transfer date
+    currentAccount.movementsDates.push(new Date().toISOString());
+    receiverAcc.movementsDates.push(new Date().toISOString());
+
     // Update UI
     updateUI(currentAccount);
   }
@@ -211,6 +235,9 @@ btnLoan.addEventListener('click', function (e) {
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
     currentAccount.movements.push(amount);
+
+    // Add transfer date
+    currentAccount.movementsDates.push(new Date().toISOString());
 
     // Update UI
     updateUI(currentAccount);
@@ -244,7 +271,7 @@ btnClose.addEventListener('click', function (e) {
 let sorted = false;
 btnSort.addEventListener('click', function (e) {
   e.preventDefault();
-  displayMovements(currentAccount.movements, !sorted);
+  displayMovements(currentAccount, !sorted);
   sorted = !sorted;
 });
 
@@ -452,47 +479,47 @@ btnSort.addEventListener('click', function (e) {
 
 // ----------- Lecture: Creating Dates -----------
 
-// Criar data (4 maneiras, através do new Date())
-// 1 - sem nenhum argumento no constructor, assim ele atribui o tempo atual
-const now = new Date();
-console.log(now);
+// // Criar data (4 maneiras, através do new Date())
+// // 1 - sem nenhum argumento no constructor, assim ele atribui o tempo atual
+// const now = new Date();
+// console.log(now);
 
-// 2 - Passando uma string, de maneira que o constructor forme a data a partir dela
-const now2 = new Date('Jul 01 2021 15:10:12');
-console.log(now2);
-const christmas = new Date('December 25, 2013'); // not good idea (unreliable)
-console.log(christmas);
+// // 2 - Passando uma string, de maneira que o constructor forme a data a partir dela
+// const now2 = new Date('Jul 01 2021 15:10:12');
+// console.log(now2);
+// const christmas = new Date('December 25, 2013'); // not good idea (unreliable)
+// console.log(christmas);
 
-console.log(new Date(account1.movementsDates[0]));
+// console.log(new Date(account1.movementsDates[0]));
 
-// 3 - passando ano, mes, dia, hora, minuto e segundo no constructor
-console.log(new Date(2037, 10, 22, 15, 40, 7)); // o mes é 0-based (????)
-console.log(new Date(2037, 10, 31, 15, 40, 7)); // dia 31 de nov não existe, então é automaticamente corrigido para o dia seguinte
+// // 3 - passando ano, mes, dia, hora, minuto e segundo no constructor
+// console.log(new Date(2037, 10, 22, 15, 40, 7)); // o mes é 0-based (????)
+// console.log(new Date(2037, 10, 31, 15, 40, 7)); // dia 31 de nov não existe, então é automaticamente corrigido para o dia seguinte
 
-// 4 - passando milisegundos após "Unix Date" (?), que é Jan 01 1970.
-console.log(new Date(0));
-console.log(new Date(3 * 24 * 60 * 60 * 1000 + 4 * 60 * 60 * 1000));
-console.log(3 * 24 * 60 * 60 * 1000); // timestamp
+// // 4 - passando milisegundos após "Unix Date" (?), que é Jan 01 1970.
+// console.log(new Date(0));
+// console.log(new Date(3 * 24 * 60 * 60 * 1000 + 4 * 60 * 60 * 1000));
+// console.log(3 * 24 * 60 * 60 * 1000); // timestamp
 
-// Trabalhando com datas
-console.log('-------------- Working with Dates --------------');
-const future = new Date(2037, 10, 15, 15, 40);
-console.log(future);
+// // Trabalhando com datas
+// console.log('-------------- Working with Dates --------------');
+// const future = new Date(2037, 10, 15, 15, 40);
+// console.log(future);
 
-console.log(future.getFullYear()); // dont use getYear();
-console.log(future.getMonth()); // 0-based
-console.log(future.getDate()); // retorna o dia do mês
-console.log(future.getDay()); // retorna o dia da semana (0 é domingo)
-console.log(future.getHours());
-console.log(future.getMinutes());
-console.log(future.getSeconds());
-console.log(future.toISOString()); // retorna uma string formatada em padrão internacional
-console.log(future.getTime()); // retorna o timestamp (milisegundos que passaram desde jan 1 1970)
+// console.log(future.getFullYear()); // dont use getYear();
+// console.log(future.getMonth()); // 0-based
+// console.log(future.getDate()); // retorna o dia do mês
+// console.log(future.getDay()); // retorna o dia da semana (0 é domingo)
+// console.log(future.getHours());
+// console.log(future.getMinutes());
+// console.log(future.getSeconds());
+// console.log(future.toISOString()); // retorna uma string formatada em padrão internacional
+// console.log(future.getTime()); // retorna o timestamp (milisegundos que passaram desde jan 1 1970)
 
-console.log(new Date(2141923200000)); // revertendo o timestamp gerado acima de volta para uma data
+// console.log(new Date(2141923200000)); // revertendo o timestamp gerado acima de volta para uma data
 
-console.log(Date.now()); // retorna o timestamp de agora;
+// console.log(Date.now()); // retorna o timestamp de agora;
 
-// também temos o "set" equivalente para esses métodos. Ex:
-future.setFullYear(2045);
-console.log(future);
+// // também temos o "set" equivalente para esses métodos. Ex:
+// future.setFullYear(2045);
+// console.log(future);
