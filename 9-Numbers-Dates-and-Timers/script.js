@@ -206,9 +206,37 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
 };
 
+const startLogOutTimer = function () {
+  const tick = function () {
+    const min = String(Math.trunc(time / 60)).padStart(2, 0);
+    const sec = String(time % 60).padStart(2, 0);
+
+    // In each call, print the remaining time to UI
+    labelTimer.textContent = `${min}:${sec}`;
+
+    // When 0 seconds, stop timer and log out user
+    if (time === 0) {
+      clearInterval(timer);
+      labelWelcome.textContent = 'Log in to get started';
+      containerApp.style.opacity = 0;
+    }
+
+    // Decrease timer
+    time--;
+  };
+
+  // Set time to 5 minutes
+  let time = 120;
+  // Call the timer every second
+  tick();
+  const timer = setInterval(tick, 1000);
+
+  return timer;
+};
+
 ///////////////////////////////////////
 // Event handlers
-let currentAccount;
+let currentAccount, timer;
 
 // ----------- Lecture: Adding Dates to Bankist App -----------
 
@@ -259,6 +287,9 @@ btnLogin.addEventListener('click', function (e) {
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
 
+    if (timer) clearInterval(timer);
+    timer = startLogOutTimer();
+
     // Update UI
     updateUI(currentAccount);
   }
@@ -288,6 +319,10 @@ btnTransfer.addEventListener('click', function (e) {
 
     // Update UI
     updateUI(currentAccount);
+
+    // Reset timer
+    clearInterval(timer);
+    timer = startLogOutTimer();
   }
 });
 
@@ -306,6 +341,10 @@ btnLoan.addEventListener('click', function (e) {
 
       // Update UI
       updateUI(currentAccount);
+
+      // Reset timer
+      clearInterval(timer);
+      timer = startLogOutTimer();
     }, 4200);
   }
   inputLoanAmount.value = '';
@@ -605,50 +644,50 @@ btnSort.addEventListener('click', function (e) {
 
 // ----------- Lecture: Internationalizing Numbers (intl) -----------
 
-const num = 3884764.23;
+// const num = 3884764.23;
 
-const options = {
-  // style: 'unit',
-  // style: 'percent',
-  style: 'currency',
-  // unit: 'celsius',
-  currency: 'EUR',
-  // useGrouping: false,
-};
+// const options = {
+//   // style: 'unit',
+//   // style: 'percent',
+//   style: 'currency',
+//   // unit: 'celsius',
+//   currency: 'EUR',
+//   // useGrouping: false,
+// };
 
-console.log('US: ' + new Intl.NumberFormat('en-US', options).format(num));
-console.log('Germany: ' + new Intl.NumberFormat('de-DE', options).format(num));
-console.log('Syria: ' + new Intl.NumberFormat('ar-SY', options).format(num));
-console.log(
-  'Nav Locale: ',
-  new Intl.NumberFormat(navigator.locale, options).format(num)
-);
+// console.log('US: ' + new Intl.NumberFormat('en-US', options).format(num));
+// console.log('Germany: ' + new Intl.NumberFormat('de-DE', options).format(num));
+// console.log('Syria: ' + new Intl.NumberFormat('ar-SY', options).format(num));
+// console.log(
+//   'Nav Locale: ',
+//   new Intl.NumberFormat(navigator.locale, options).format(num)
+// );
 
-// ----------- Lecture: Internationalizing Numbers (intl) -----------
+// // ----------- Lecture: Timers - setTimeout and setInterval -----------
 
-// setTimeout
-setTimeout(
-  (ing1, ing2) => console.log(`Here is your pizza with ${ing1} and ${ing2} 🍕`),
-  3000,
-  'cheese',
-  'garlic'
-);
+// // setTimeout
+// setTimeout(
+//   (ing1, ing2) => console.log(`Here is your pizza with ${ing1} and ${ing2} 🍕`),
+//   3000,
+//   'cheese',
+//   'garlic'
+// );
 
-const ingredients = ['bacon', 'tomato'];
-const pizzaTimer = setTimeout(
-  (ing1, ing2) =>
-    console.log(`Here is your second pizza with ${ing1} and ${ing2} 🍕`),
-  4500,
-  ...ingredients
-);
+// const ingredients = ['bacon', 'tomato'];
+// const pizzaTimer = setTimeout(
+//   (ing1, ing2) =>
+//     console.log(`Here is your second pizza with ${ing1} and ${ing2} 🍕`),
+//   4500,
+//   ...ingredients
+// );
 
-if (ingredients.includes('tuna')) clearTimeout(pizzaTimer);
+// if (ingredients.includes('tuna')) clearTimeout(pizzaTimer);
 
-// setInterval
-setInterval(function () {
-  const now = new Date();
-  const hour = now.getHours();
-  const minute = now.getMinutes();
-  const second = now.getSeconds();
-  console.log(`${hour}:${minute}:${second}`);
-}, 1000);
+// // setInterval
+// setInterval(function () {
+//   const now = new Date();
+//   const hour = now.getHours();
+//   const minute = now.getMinutes();
+//   const second = now.getSeconds();
+//   console.log(`${hour}:${minute}:${second}`);
+// }, 1000);
