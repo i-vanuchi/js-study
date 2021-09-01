@@ -30,6 +30,41 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+// ---------- 185. Implementing Smooth Scrolling ----------
+
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+btnScrollTo.addEventListener('click', function (e) {
+  const s1coords = section1.getBoundingClientRect();
+  console.log(s1coords);
+
+  // console.log(e.target.getBoundingClientRect()); // retorna as coordenadas do elemento em relação ao viewport
+
+  // console.log('Current scroll (X/Y): ', window.pageXOffset, window.pageYOffset); // retorna o scroll atual em relação ao topo e à extremidade esquerda da página
+
+  // console.log(
+  //   'height/width viewport: ',
+  //   document.documentElement.clientHeight,
+  //   document.documentElement.clientWidth
+  // ); // retornam a altura e a largura da viewport, respectivamente;
+
+  // Scrolling
+  // window.scrollTo(
+  //   s1coords.left + window.pageYOffset,
+  //   s1coords.top + window.pageYOffset
+  // );
+
+  // window.scrollTo({
+  //   left: s1coords.left + window.pageYOffset,
+  //   top: s1coords.top + window.pageYOffset,
+  //   behavior: 'smooth',
+  // });
+
+  // Scrolling modern
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
+
 // ---------- 182. How the DOM Really Works ----------
 
 /* Checar o DOC no word com as anotações */
@@ -115,7 +150,7 @@ message.style.height =
   Number.parseFloat(getComputedStyle(message).height) + 30 + 'px';
 
 // setar propriedade (custom property, a.k.a css variable) no documento (document = :root) via JS;
-document.documentElement.style.setProperty('--color-primary', 'orangered');
+// document.documentElement.style.setProperty('--color-primary', 'orangered');
 
 // Attributes
 const logo = document.querySelector('.nav__logo');
@@ -143,5 +178,41 @@ logo.classList.add('f', 's');
 logo.classList.remove('f', 's');
 logo.classList.toggle('f');
 logo.classList.contains('f'); // not includes
-//não usar
+//não usar pois sobrescreve todas as outras classes existentes
 // logo.className = 'a-class';
+
+// ---------- 186. Types of Events and Event Handlers ----------
+
+const h1 = document.querySelector('h1');
+// forma que usamos até aqui para lidar com eventos;
+//vantagens: possível adicionar outro evento só mudando a função; remover o evento;
+// h1.addEventListener('mouseenter', function (e) {
+//   alert('addEventListener: Great! You are reading the heading :D');
+// });
+
+// outra forma de lidar com eventos;
+// h1.onmouseenter = function (e) {
+//   alert('addEventListener: Great! You are reading the heading :D');
+// };
+
+// removendo o evento
+//escutar o evento só uma vez
+// const alertH1 = function (e) {
+//   alert('addEventListener: Great! You are reading the heading :D');
+
+//   h1.removeEventListener('mouseenter', alertH1);
+// };
+
+// h1.addEventListener('mouseenter', alertH1);
+
+//remover depois de um tempo
+const alertH1 = function (e) {
+  alert('addEventListener: Great! You are reading the heading :D');
+};
+
+h1.addEventListener('mouseenter', alertH1);
+setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
+
+// ---------- 186. Event Propagation: Bubbling and Capturing ----------
+
+/* Checar o DOC no word com as anotações */
