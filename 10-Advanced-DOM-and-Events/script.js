@@ -1,12 +1,15 @@
 'use strict';
 
-///////////////////////////////////////
-// Modal window
-
+// Elements Selection
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+
+///////////////////////////////////////
+// Modal window
 
 const openModal = function (e) {
   e.preventDefault();
@@ -30,10 +33,9 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-// ---------- 185. Implementing Smooth Scrolling ----------
-
-const btnScrollTo = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('#section--1');
+///////////////////////////////////////
+// ---****--- 185. Implementing Smooth Scrolling ---****---
+// button scrolling
 
 btnScrollTo.addEventListener('click', function (e) {
   const s1coords = section1.getBoundingClientRect();
@@ -64,6 +66,36 @@ btnScrollTo.addEventListener('click', function (e) {
   // Scrolling modern
   section1.scrollIntoView({ behavior: 'smooth' });
 });
+///////////////////////////////////////
+
+// ---------- 189. Event Delegation: Implementing page navigation ----------
+
+// Page navigation
+
+// withot event delegation (not performatic)
+// document.querySelectorAll('.nav__link').forEach(function (el) {
+//   el.addEventListener('click', function (e) {
+//     e.preventDefault();
+//     const id = el.getAttribute('href');
+
+//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+//   });
+// });
+
+// 1. Add event listener to common parent element
+// 2. Determine what element originated the element
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  e.preventDefault();
+
+  // Matching strategy
+  if (e.target.classList.contains('nav__link')) {
+    const id = e.target.getAttribute('href');
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  }
+});
+
+//////////////////////////////////////////////////
 
 // ---------- 182. How the DOM Really Works ----------
 
@@ -213,38 +245,40 @@ btnScrollTo.addEventListener('click', function (e) {
 // h1.addEventListener('mouseenter', alertH1);
 // setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
 
-// ---------- 186. Event Propagation: Bubbling and Capturing ----------
+// ---------- 187. Event Propagation: Bubbling and Capturing ----------
 
 /* Checar o DOC no word com as anotações */
 
-const randomInt = (min, max) =>
-  Math.floor(Math.random() * (max - min) + 1) + min;
-const randomColor = () => `rgb(${randomInt(0, 255)},
-                          ${randomInt(0, 255)}, 
-                          ${randomInt(0, 255)})`;
+// ---------- 188. Event Propagation in Practice ----------
 
-document.querySelector('.nav__link').addEventListener('click', function (e) {
-  this.style.backgroundColor = randomColor();
-  console.log('link', e.target, e.currentTarget);
-  console.log(e.currentTarget === this);
-  // target: elemento onde o evento de fato ocorreu
-  // currentTarget: elemento do qual o handler está atrelado
-  // currentTarget === this
+// const randomInt = (min, max) =>
+//   Math.floor(Math.random() * (max - min) + 1) + min;
+// const randomColor = () => `rgb(${randomInt(0, 255)},
+//                           ${randomInt(0, 255)},
+//                           ${randomInt(0, 255)})`;
 
-  // Stop Propagation
-  // e.stopPropagation();
-});
+// document.querySelector('.nav__link').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log('link', e.target, e.currentTarget);
+//   console.log(e.currentTarget === this);
+//   // target: elemento onde o evento de fato ocorreu
+//   // currentTarget: elemento do qual o handler está atrelado
+//   // currentTarget === this
 
-document.querySelector('.nav__links').addEventListener('click', function (e) {
-  this.style.backgroundColor = randomColor();
-  console.log('container', e.target, e.currentTarget);
-});
+//   // Stop Propagation
+//   // e.stopPropagation();
+// });
 
-document.querySelector('.nav').addEventListener(
-  'click',
-  function (e) {
-    this.style.backgroundColor = randomColor();
-    console.log('nav', e.target, e.currentTarget);
-  },
-  false // 3° parâmetro true ativa o handler na Capturing Phase (false é o default)
-);
+// document.querySelector('.nav__links').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log('container', e.target, e.currentTarget);
+// });
+
+// document.querySelector('.nav').addEventListener(
+//   'click',
+//   function (e) {
+//     this.style.backgroundColor = randomColor();
+//     console.log('nav', e.target, e.currentTarget);
+//   },
+//   false // 3° parâmetro true ativa o handler na Capturing Phase (false é o default)
+// );
