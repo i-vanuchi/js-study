@@ -118,101 +118,133 @@ btnScrollTo.addEventListener('click', function (e) {
 
 // ---------- 184. Styles, Attributes and Classes ----------
 
-// Copiada a criação dos elementos para a aula atual;
-const header = document.querySelector('.header');
-const message = document.createElement('div');
-message.classList.add('cookie-message');
-message.innerHTML =
-  'We use cookies for improved functionality and analytics. <button class="btn btn--close-cookie">Got it!</button>';
+// // Copiada a criação dos elementos para a aula atual;
+// const header = document.querySelector('.header');
+// const message = document.createElement('div');
+// message.classList.add('cookie-message');
+// message.innerHTML =
+//   'We use cookies for improved functionality and analytics. <button class="btn btn--close-cookie">Got it!</button>';
 
-header.append(message);
+// header.append(message);
 
-document
-  .querySelector('.btn--close-cookie')
-  .addEventListener('click', function () {
-    message.remove();
-  });
+// document
+//   .querySelector('.btn--close-cookie')
+//   .addEventListener('click', function () {
+//     message.remove();
+//   });
 
-// Styles
-message.style.backgroundColor = '#37383d';
-message.style.width = '120%';
+// // Styles
+// message.style.backgroundColor = '#37383d';
+// message.style.width = '120%';
 
-console.log(message.style.height); // não retorna nada, pq esse método retorna apenas CSS inline;
-console.log(message.style.backgroundColor); // retorna normalmente pq o backgroundColor foi setado através do método "style", que por sua vez insere o CSS como inline
+// console.log(message.style.height); // não retorna nada, pq esse método retorna apenas CSS inline;
+// console.log(message.style.backgroundColor); // retorna normalmente pq o backgroundColor foi setado através do método "style", que por sua vez insere o CSS como inline
 
-// mas, se quiser o valor mesmo assim, é possível da seguinte maneira:
-console.log(getComputedStyle(message));
-console.log(getComputedStyle(message).height);
-console.log(getComputedStyle(message).color);
+// // mas, se quiser o valor mesmo assim, é possível da seguinte maneira:
+// console.log(getComputedStyle(message));
+// console.log(getComputedStyle(message).height);
+// console.log(getComputedStyle(message).color);
 
-// adicionar 40px ao valor computado do height:
-message.style.height =
-  Number.parseFloat(getComputedStyle(message).height) + 30 + 'px';
+// // adicionar 40px ao valor computado do height:
+// message.style.height =
+//   Number.parseFloat(getComputedStyle(message).height) + 30 + 'px';
 
-// setar propriedade (custom property, a.k.a css variable) no documento (document = :root) via JS;
-// document.documentElement.style.setProperty('--color-primary', 'orangered');
+// // setar propriedade (custom property, a.k.a css variable) no documento (document = :root) via JS;
+// // document.documentElement.style.setProperty('--color-primary', 'orangered');
 
-// Attributes
-const logo = document.querySelector('.nav__logo');
-console.log(logo.alt);
+// // Attributes
+// const logo = document.querySelector('.nav__logo');
+// console.log(logo.alt);
 
-logo.alt = 'Minimalist logo';
-// Não-padrão
-console.log(logo.student); // undefined
-console.log(logo.getAttribute('student'));
-logo.setAttribute('company', 'Bankist');
+// logo.alt = 'Minimalist logo';
+// // Não-padrão
+// console.log(logo.student); // undefined
+// console.log(logo.getAttribute('student'));
+// logo.setAttribute('company', 'Bankist');
 
-// links
-console.log(logo.src); // retorna a src absoluta
-console.log(logo.getAttribute('src')); // retorna a src relativa
-// o mesmo vale para href
-const link = document.querySelector('.nav__link--btn');
-console.log(link.href);
-console.log(link.getAttribute('href'));
+// // links
+// console.log(logo.src); // retorna a src absoluta
+// console.log(logo.getAttribute('src')); // retorna a src relativa
+// // o mesmo vale para href
+// const link = document.querySelector('.nav__link--btn');
+// console.log(link.href);
+// console.log(link.getAttribute('href'));
 
-// Data Attributes
-console.log(logo.dataset.versionNumber);
+// // Data Attributes
+// console.log(logo.dataset.versionNumber);
 
-// Classes
-logo.classList.add('f', 's');
-logo.classList.remove('f', 's');
-logo.classList.toggle('f');
-logo.classList.contains('f'); // not includes
-//não usar pois sobrescreve todas as outras classes existentes
-// logo.className = 'a-class';
+// // Classes
+// logo.classList.add('f', 's');
+// logo.classList.remove('f', 's');
+// logo.classList.toggle('f');
+// logo.classList.contains('f'); // not includes
+// //não usar pois sobrescreve todas as outras classes existentes
+// // logo.className = 'a-class';
 
 // ---------- 186. Types of Events and Event Handlers ----------
 
-const h1 = document.querySelector('h1');
-// forma que usamos até aqui para lidar com eventos;
-//vantagens: possível adicionar outro evento só mudando a função; remover o evento;
-// h1.addEventListener('mouseenter', function (e) {
-//   alert('addEventListener: Great! You are reading the heading :D');
-// });
+// const h1 = document.querySelector('h1');
+// // forma que usamos até aqui para lidar com eventos;
+// //vantagens: possível adicionar outro evento só mudando a função; remover o evento;
+// // h1.addEventListener('mouseenter', function (e) {
+// //   alert('addEventListener: Great! You are reading the heading :D');
+// // });
 
-// outra forma de lidar com eventos;
-// h1.onmouseenter = function (e) {
-//   alert('addEventListener: Great! You are reading the heading :D');
-// };
+// // outra forma de lidar com eventos;
+// // h1.onmouseenter = function (e) {
+// //   alert('addEventListener: Great! You are reading the heading :D');
+// // };
 
-// removendo o evento
-//escutar o evento só uma vez
+// // removendo o evento
+// //escutar o evento só uma vez
+// // const alertH1 = function (e) {
+// //   alert('addEventListener: Great! You are reading the heading :D');
+
+// //   h1.removeEventListener('mouseenter', alertH1);
+// // };
+
+// // h1.addEventListener('mouseenter', alertH1);
+
+// //remover depois de um tempo
 // const alertH1 = function (e) {
 //   alert('addEventListener: Great! You are reading the heading :D');
-
-//   h1.removeEventListener('mouseenter', alertH1);
 // };
 
 // h1.addEventListener('mouseenter', alertH1);
-
-//remover depois de um tempo
-const alertH1 = function (e) {
-  alert('addEventListener: Great! You are reading the heading :D');
-};
-
-h1.addEventListener('mouseenter', alertH1);
-setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
+// setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
 
 // ---------- 186. Event Propagation: Bubbling and Capturing ----------
 
 /* Checar o DOC no word com as anotações */
+
+const randomInt = (min, max) =>
+  Math.floor(Math.random() * (max - min) + 1) + min;
+const randomColor = () => `rgb(${randomInt(0, 255)},
+                          ${randomInt(0, 255)}, 
+                          ${randomInt(0, 255)})`;
+
+document.querySelector('.nav__link').addEventListener('click', function (e) {
+  this.style.backgroundColor = randomColor();
+  console.log('link', e.target, e.currentTarget);
+  console.log(e.currentTarget === this);
+  // target: elemento onde o evento de fato ocorreu
+  // currentTarget: elemento do qual o handler está atrelado
+  // currentTarget === this
+
+  // Stop Propagation
+  // e.stopPropagation();
+});
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  this.style.backgroundColor = randomColor();
+  console.log('container', e.target, e.currentTarget);
+});
+
+document.querySelector('.nav').addEventListener(
+  'click',
+  function (e) {
+    this.style.backgroundColor = randomColor();
+    console.log('nav', e.target, e.currentTarget);
+  },
+  false // 3° parâmetro true ativa o handler na Capturing Phase (false é o default)
+);
