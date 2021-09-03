@@ -95,7 +95,32 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
   }
 });
 
-//////////////////////////////////////////////////
+// ---------- 191. Building a Tabbed Component ----------
+
+// tabbed component
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+tabsContainer.addEventListener('click', function (e) {
+  const clicked = e.target.closest('.operations__tab');
+  console.log(clicked);
+
+  // Guard clause
+  if (!clicked) return;
+
+  // Remove active classes
+  tabs.forEach(tab => tab.classList.remove('operations__tab--active'));
+  tabsContent.forEach(tc => tc.classList.remove('operations__content--active'));
+
+  // Add active classes
+  clicked.classList.add('operations__tab--active');
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
+});
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // ---------- 182. How the DOM Really Works ----------
 
@@ -285,49 +310,49 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 
 // ---------- 190. DOM Traversing ----------
 
-const h1 = document.querySelector('h1');
+// const h1 = document.querySelector('h1');
 
-// Descendo: child
+// // Descendo: child
 
-console.log(h1.querySelectorAll('.highlight'));
-// 1. vai o quão fundo for necessário na árvore DOM e seleciona os elementos sendo filhos diretos ou não;
-// 2. Se houverem outros elementos no DOM com essa classe, não serão selecionados a menos que sejam filhos do h1;
+// console.log(h1.querySelectorAll('.highlight'));
+// // 1. vai o quão fundo for necessário na árvore DOM e seleciona os elementos sendo filhos diretos ou não;
+// // 2. Se houverem outros elementos no DOM com essa classe, não serão selecionados a menos que sejam filhos do h1;
 
-console.log(h1.childNodes);
-// seleciona todos os nodes dentro do h1, sejam eles elementos, textos ou até comentários;
+// console.log(h1.childNodes);
+// // seleciona todos os nodes dentro do h1, sejam eles elementos, textos ou até comentários;
 
-console.log(h1.children);
-// seleciona apenas os elementos filhos diretos do h1;
+// console.log(h1.children);
+// // seleciona apenas os elementos filhos diretos do h1;
 
-h1.firstElementChild.style.color = 'aquamarine';
-h1.lastElementChild.style.color = 'crimson';
-// selecionam o primeiro e último elemento filho, respectivamente;
+// h1.firstElementChild.style.color = 'aquamarine';
+// h1.lastElementChild.style.color = 'crimson';
+// // selecionam o primeiro e último elemento filho, respectivamente;
 
-// Subindo: parents
+// // Subindo: parents
 
-console.log(h1.parentNode);
-// seleciona o pai direto do elemento;
-console.log(h1.parentElement);
-// seleciona o pai direto do elemento(?);
+// console.log(h1.parentNode);
+// // seleciona o pai direto do elemento;
+// console.log(h1.parentElement);
+// // seleciona o pai direto do elemento(?);
 
-h1.closest('.header').style.background = 'var(--gradient-secondary)';
-h1.closest('h1').style.background = 'var(--gradient-primary)';
-// seleciona o pai do elemento, que seja correspondente ao seletor e que esteja mais próximo no DOM;
-// é usado com frequência, especialmente em Delegação de Eventos;
-// se a query corresponder ao próprio elemento que chama o método, ele mesmo será selecionado;
-// pode-se dizer que o closest é o inverso do querySelector, pois o querySelector seleciona filhos do elemento não importa o quão distantes no DOM. Já o closest seleciona pais do elemento, tbm não importando o quão distante estejam;
+// h1.closest('.header').style.background = 'var(--gradient-secondary)';
+// h1.closest('h1').style.background = 'var(--gradient-primary)';
+// // seleciona o pai do elemento, que seja correspondente ao seletor e que esteja mais próximo no DOM;
+// // é usado com frequência, especialmente em Delegação de Eventos;
+// // se a query corresponder ao próprio elemento que chama o método, ele mesmo será selecionado;
+// // pode-se dizer que o closest é o inverso do querySelector, pois o querySelector seleciona filhos do elemento não importa o quão distantes no DOM. Já o closest seleciona pais do elemento, tbm não importando o quão distante estejam;
 
-// Indo para os lados: siblings
-console.log(h1.previousElementSibling);
-console.log(h1.nextElementSibling);
-// seleciona o elemento irmão mais próximo anterior e seguinte, respectivamente;
+// // Indo para os lados: siblings
+// console.log(h1.previousElementSibling);
+// console.log(h1.nextElementSibling);
+// // seleciona o elemento irmão mais próximo anterior e seguinte, respectivamente;
 
-console.log(h1.previousSibling);
-console.log(h1.nextSibling);
-// seleciona o node irmão mais próximo anterior e seguinte, respectivamente;
+// console.log(h1.previousSibling);
+// console.log(h1.nextSibling);
+// // seleciona o node irmão mais próximo anterior e seguinte, respectivamente;
 
-console.log(h1.parentNode.children);
-[...h1.parentNode.children].forEach(function (el) {
-  if (el !== h1) el.style.transform = 'scale(.3)';
-});
-// selecionando e lidando com irmãos que não são diretos ao elemento;
+// console.log(h1.parentNode.children);
+// [...h1.parentNode.children].forEach(function (el) {
+//   if (el !== h1) el.style.transform = 'scale(.3)';
+// });
+// // selecionando e lidando com irmãos que não são diretos ao elemento;
