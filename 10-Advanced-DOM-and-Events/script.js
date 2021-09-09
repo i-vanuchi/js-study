@@ -270,7 +270,6 @@ const slider = function () {
   }
 
   const goToSlide = function (slide) {
-    console.log(currentSlide);
     slides.forEach(
       (s, i) => (s.style.transform = `translateX(${100 * (i - slide)}%)`)
     );
@@ -562,3 +561,24 @@ slider();
 //   if (el !== h1) el.style.transform = 'scale(.3)';
 // });
 // // selecionando e lidando com irmãos que não são diretos ao elemento;
+
+// ---------- 199. Lifecycle DOM Events ----------
+
+document.addEventListener('DOMContentLoaded', function (e) {
+  console.log('HTML parsed and DOM tree built!', e);
+});
+
+window.addEventListener('load', function (e) {
+  console.log('Page fully loaded', e);
+});
+
+// window.addEventListener('beforeunload', function (e) {
+//   const confirmationMessage = 'RAPAIZ';
+//   e.returnValue = confirmationMessage;
+
+//   return confirmationMessage;
+// });
+
+// ---------- 200. Efficient Script Loading: defer and async ----------
+
+// Consultar anotações no DOCs
